@@ -1,0 +1,111 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/themes/standard/template2.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+
+		<a4j:form>
+			<rich:toolBar id="buttonPanel">				
+				<a4j:commandButton value="Info" reRender="uczenInfo"
+					action="#{uczenInfoBrowser.wczytajInfo()}"
+					oncomplete="Richfaces.showModalPanel('uczenInfo')"
+					disabled="#{czekajaceOsobyBrowser.selected == null}">
+					<f:setPropertyActionListener value="#{czekajaceOsobyBrowser.selectedId}" target="#{uczenInfoBrowser.idUcznia}" />
+				</a4j:commandButton>
+			</rich:toolBar>
+			<rich:extendedDataTable value="#{uczniowieDataModel}"
+				var="_osoba" selection="#{czekajaceOsobyBrowser.selected}"
+				noDataLabel="Brak Danych" id="tabela" rows="25" sortMode="single">
+				<a4j:support event="onselectionchange" reRender="buttonPanel"
+					ajaxSingle="true" action="#{czekajaceOsobyBrowser.select}">
+				</a4j:support>
+
+				<rich:column title="Id" label="Id" sortBy="#{_osoba.id}">
+					<f:facet name="header">
+						<h:outputText value="Id" />
+					</f:facet>
+					<h:outputText value="#{_osoba.id}" />
+
+				</rich:column>
+
+				<rich:column title="Nazwisko" label="Nazwisko"
+					sortBy="#{_osoba.nazwisko}">
+					<f:facet name="header">
+						<h:outputText value="Nazwisko" />
+					</f:facet>
+					<h:outputText value="#{_osoba.nazwisko}" />
+
+				</rich:column>
+				<rich:column title="Imię" label="Imię" sortBy="#{_osoba.imie}">
+					<f:facet name="header">
+						<h:outputText value="Imię" />
+					</f:facet>
+					<h:outputText value="#{_osoba.imie}" />
+
+				</rich:column>
+				<rich:column title="email" label="email" sortBy="#{_osoba.email}">
+					<f:facet name="header">
+						<h:outputText value="email" />
+					</f:facet>
+					<h:outputText value="#{_osoba.email}" />
+
+				</rich:column>
+				<rich:column title="Województwo" label="Województwo"
+					sortBy="#{_osoba.wojewodztwo}">
+					<f:facet name="header">
+						<h:outputText value="Województwo" />
+					</f:facet>
+					<h:outputText value="#{_osoba.wojewodztwo}" />
+
+				</rich:column>
+
+				<rich:column title="Adres" label="Adres" sortBy="#{_osoba.adres}"
+					filterBy="#{_osoba.adres}" filterEvent="onblur">
+					<f:facet name="header">
+						<h:outputText value="Adres" />
+					</f:facet>
+					<h:outputText value="#{_osoba.adres}" />
+
+				</rich:column>
+
+				<rich:column title="Data urodzenia" label="Data urodzenia"
+					sortBy="#{_osoba.dataUr}">
+					<f:facet name="header">
+						<h:outputText value="Data urodzenia" />
+					</f:facet>
+					<h:outputText value="#{_osoba.dataUr}">
+						<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+					</h:outputText>
+
+				</rich:column>
+
+				<rich:column title="Data rejestracji" label="Data rejestracji"
+					sortBy="#{_osoba.dataRej}">
+					<f:facet name="header">
+						<h:outputText value="Data rejestracji" />
+					</f:facet>
+					<h:outputText value="#{_osoba.dataRej}">
+						<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+					</h:outputText>
+
+				</rich:column>
+
+
+			</rich:extendedDataTable>
+
+
+		</a4j:form>
+
+
+
+
+	<ui:include src="/pages/popup/uczenInfo.xhtml" />
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<rich:modalPanel id="uczenInfo" minWidth="500" minHeight="400">
+	<f:facet name="header">
+		<h:outputText value="Informacje o uczniu" />
+	</f:facet>
+	<f:facet name="controls">
+			<a4j:form>
+				<h:commandLink id="submit" value="[x]"
+					oncomplete="#{rich:component('uczenInfo')}.hide();">
+				</h:commandLink>
+			</a4j:form>
+		</f:facet>
+		<ui:include src="/pages/components/uczenInfo.xhtml" />
+	</rich:modalPanel>
+
+</ui:composition>

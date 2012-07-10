@@ -1,0 +1,86 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/themes/standard/template2.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="osobaForm">
+
+			<rich:panel>
+				<h:outputText
+					value="Dostępnych kursów:  #{listaLekcjiBrowser.liczbaKursow}" />
+			</rich:panel>
+			<rich:dataGrid columns="1" value="#{listaLekcjiBrowser.kursy}"
+				var="_kurs">
+				<rich:simpleTogglePanel switchType="client" label="#{_kurs.tytul}">
+					<rich:dataTable value="#{_kurs.lekcje}" var="_lekcja">
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Nr lekcji" />
+							</f:facet>
+							<h:outputText value="#{_lekcja.nrLekcji}" 
+							style="#{_lekcja.stanyZaawansowania.toArray()[0].czyOdczytano ? '' : 'font-weight:bold;'   }"/>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Wprowadzenie do lekcji" />
+							</f:facet>
+							<h:outputText value="#{_lekcja.wprowadzenie}" 
+							style="#{_lekcja.stanyZaawansowania.toArray()[0].czyOdczytano ?  '' : 'font-weight:bold;'   }"/>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Data udostępnienia" />
+							</f:facet>
+							<h:outputText value="#{_lekcja.stanyZaawansowania.toArray()[0].dataUdostepnienia}" 
+							style="#{_lekcja.stanyZaawansowania.toArray()[0].czyOdczytano ?  '' : 'font-weight:bold;'   }"/>
+						</rich:column>
+						
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Data udostępnienia" />
+							</f:facet>
+							<h:outputText value="#{_lekcja.stanyZaawansowania.toArray()[0].dataUdostepnienia}" 
+							style="#{_lekcja.stanyZaawansowania.toArray()[0].czyOdczytano ?  '' : 'font-weight:bold;'   }"/>
+						</rich:column>
+						
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Data wysłania rozwiązania" />
+							</f:facet>
+							<h:outputText value="#{_lekcja.stanyZaawansowania.toArray()[0].dataWyslania}" 
+							style="#{_lekcja.stanyZaawansowania.toArray()[0].czyOdczytano ?  '' : 'font-weight:bold;'   }"/>
+						</rich:column>
+						
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Data sprawdzenia rozwiązania" />
+							</f:facet>
+							<h:outputText value="#{_lekcja.stanyZaawansowania.toArray()[0].dataSprawdzenia}"
+							style="#{_lekcja.stanyZaawansowania.toArray()[0].czyOdczytano ?  '' : 'font-weight:bold;'   }" />
+						</rich:column>
+						
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Operacje" />
+							</f:facet>
+							<a4j:commandButton value="Przejdź do lekcji" action="#{listaLekcjiBrowser.wyswietlLekcje(_lekcja.id)}" />
+						</rich:column>
+						
+					</rich:dataTable>
+
+				</rich:simpleTogglePanel>
+
+			</rich:dataGrid>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
