@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	
+	<rich:panel>
+	<f:facet name="header">
+		<h:outputText value="#{uczenInfoBrowser.osoba.imie} #{uczenInfoBrowser.osoba.nazwisko == null ? '' : uczenInfoBrowser.osoba.nazwisko }" />
+	</f:facet>
+	
+	<h:panelGrid columns="2" rowClasses="prop"
+						columnClasses="name,value">
+
+					<h:outputLabel for="mailField" value="Email" />
+					<h:inputText id="mailField"
+						value="#{uczenInfoBrowser.osoba.email}" readonly="true">
+						<s:validate />
+					</h:inputText>
+
+					<h:outputLabel for="dataUrField" value="Data urodzenia" />
+					<rich:calendar id="dataUrField" label="Data Urodzenia"
+						datePattern="dd.MM.yyyy"
+						value="#{uczenInfoBrowser.osoba.dataUr}" readonly="true">
+						<s:validate />
+					</rich:calendar>
+
+					<h:outputLabel for="wojewodztwoField" value="Województwo" />
+					
+					<h:selectOneMenu id="wojewodztwoField" 
+					value="#{uczenInfoBrowser.osoba.wojewodztwo}" readonly="true">
+						<s:selectItems value="#{wojewodztwaList.listaWoj}" var="_woj" label="#{_woj}"
+						itemValue="#{_woj}"  noSelectionLabel="--wybierz--"/>
+						<s:validate/>
+					</h:selectOneMenu>
+					
+
+
+					<h:outputLabel for="adresField" value="Adres" />
+					<h:inputText id="adresField" readonly="true"
+						value="#{uczenInfoBrowser.osoba.adres}">
+						<s:validate />
+					</h:inputText>
+
+					<h:outputLabel for="wyznanieField" value="Wyznanie" />
+					<h:inputText id="wyznanieField" readonly="true"
+						value="#{uczenInfoBrowser.osoba.wyznanie}">
+						<s:validate />
+					</h:inputText>
+										
+					<h:outputLabel for="wspolnotaField" value="Wspólnota" />
+					<h:inputText id="wspolnotaField" readonly="true"
+						value="#{uczenInfoBrowser.osoba.wspolnota}">
+						<s:validate />
+					</h:inputText>
+					
+				</h:panelGrid>
+	</rich:panel>
+<rich:simpleTogglePanel >
+	
+</rich:simpleTogglePanel>
+
+
+
+</ui:composition>

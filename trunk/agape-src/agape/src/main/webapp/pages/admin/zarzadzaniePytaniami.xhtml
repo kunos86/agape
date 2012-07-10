@@ -1,0 +1,128 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/themes/standard/template2.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+
+		<a4j:form ajaxSingle="true">
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="Edytuj lekcję nr: #{zarzadzaniePytaniami.lekcja.nrLekcji}" />
+				</f:facet>
+
+				<rich:toolBar id="buttonPanel">
+					<a4j:commandButton value="Dodaj pytanie" ajaxSingle="true"
+						action="#{zarzadzaniePytaniami.nowe}" reRender="popup"
+						oncomplete="Richfaces.showModalPanel('popup')">
+
+					</a4j:commandButton>
+				</rich:toolBar>
+					<rich:dataGrid value="#{zarzadzaniePytaniami.pytania}"
+						var="pytanie" columns="1" id="grid"
+						elements="#{zarzadzaniePytaniami.pytania.size()}">
+						<rich:panel bodyClass="pbody">
+							<f:facet name="header">
+								<h:outputText value="Pytanie nr. #{pytanie.nrPytanie}"></h:outputText>
+							</f:facet>
+							<h:panelGrid columns="2">
+								<h:outputLabel value="Treść" />
+								<h:outputText value="#{pytanie.tresc}" />
+								<h:outputLabel value="Widoczność" />
+								<h:selectBooleanCheckbox value="#{pytanie.widocznosc}"
+									disabled="true" />
+								<h:outputLabel value="Data dodania" />
+								<h:outputText value="#{pytanie.dataDodania}" />
+								<h:outputLabel value="Data modyfikacji" />
+								<h:outputText value="#{pytanie.dataArch}" />
+							</h:panelGrid>
+							<a4j:commandButton value="Edytuj"
+								action="#{zarzadzaniePytaniami.edytuj(pytanie.id)}"
+								reRender="popup" oncomplete="Richfaces.showModalPanel('popup')" />
+						</rich:panel>
+					</rich:dataGrid>
+
+
+				
+
+
+
+
+			</rich:panel>
+
+
+		</a4j:form>
+
+		<rich:modalPanel id="popup" width="350" height="400" autosized="true">
+			<f:facet name="header">
+				<h:outputText value="Edycja pytani" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGrid columns="2">
+					<h:form>
+						<a4j:commandButton value="Zamknij"
+							onclick="Richfaces.hideModalPanel('popup')" />
+					</h:form>
+
+				</h:panelGrid>
+
+			</f:facet>
+			<a4j:outputPanel id="popupOutputPanel" ajaxRendered="true">
+				<h:form enctype="multipart/form-data">
+					<h:panelGrid columns="3">
+						<h:outputLabel for="nr_pytania_popup" value="Nr pytania" />
+						<h:inputText id="nr_pytania_popup"
+							value="#{zarzadzaniePytaniami.edytowanePytanie.nrPytanie}"
+							required="true">
+							<s:validate />
+						</h:inputText>
+						<h:message for="nr_pytania_popup" />
+
+
+						<h:outputLabel for="widocznosc_popup" value="Wyświetl na stronie" />
+						<h:selectBooleanCheckbox id="widocznosc_popup"
+							value="#{zarzadzaniePytaniami.edytowanePytanie.widocznosc}">
+							<s:validate />
+						</h:selectBooleanCheckbox>
+						<h:message for="widocznosc_popup" />
+
+					</h:panelGrid>
+
+
+
+
+
+					<h:panelGrid columns="1">
+
+						<h:outputLabel value="Treść" for="opisPopup" />
+						<h:inputTextarea id="opisPopup"
+							value="#{zarzadzaniePytaniami.edytowanePytanie.tresc}" cols="80"
+							rows="4">
+							<s:validate />
+						</h:inputTextarea>
+						<h:message for="opisPopup" />
+
+
+						<h:commandButton id="submit"
+							action="#{zarzadzaniePytaniami.save()}" value="Zapisz"
+							reRender="popupOutputPanel,grid"
+							oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('popup')}.hide();">
+						</h:commandButton>
+					</h:panelGrid>
+
+
+				</h:form>
+			</a4j:outputPanel>
+
+		</rich:modalPanel>
+
+	</ui:define>
+</ui:composition>

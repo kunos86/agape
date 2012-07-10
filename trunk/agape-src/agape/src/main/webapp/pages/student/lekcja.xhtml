@@ -1,0 +1,31 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/themes/standard/template2.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="osobaForm">
+
+			<rich:panel>
+				<h:outputText
+					value="Witaj w lekcji nr #{lekcjaBrowser.lekcja.nrLekcji}" />
+			</rich:panel>
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Wprowadzenie" />
+				<h:outputText value="#{lekcjaBrowser.lekcja.wprowadzenie}" />
+			</h:panelGrid>
+			
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

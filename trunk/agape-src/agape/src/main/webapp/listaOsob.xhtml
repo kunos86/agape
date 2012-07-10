@@ -1,0 +1,48 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="themes/standard/template2.xhtml">
+
+	<ui:define name="body">
+
+		<h:form>
+		
+		
+<!--		selectedClass="selected_row" selection="#{osobaDM.osobaTableSelection}"-->
+		
+			<rich:extendedDataTable  id="tabela" value="#{listaOsobDM}" var="_osoba"
+				sortMode="single" rows="10" selectionMode="single"
+				
+				reRender="scroller" noDataLabel="Brak danych" lang="pl" frame="box">
+
+				<rich:column id="col1" label="text1"  sortable="true"
+					sortBy="#{_osoba.nazwisko}" filterBy="#{_osoba.nazwisko}"  filterEvent="onchange">
+					<f:facet name="header">
+						<h:outputText value="Nazwisko" />
+					</f:facet>
+					<h:outputText value="#{_osoba.nazwisko}" />
+				</rich:column>
+
+				<rich:column id="col2" label="text2"  sortable="true"
+					sortBy="#{_osoba.imie}" filterBy="#{_osoba.imie}" 
+					filterEvent="onchange">
+					<f:facet name="header">
+						<h:outputText value="Imie" />
+					</f:facet>
+					<h:outputText value="#{_osoba.imie}" />
+				</rich:column>
+
+				
+
+			</rich:extendedDataTable >
+			<rich:datascroller for="tabela" id="scroller" />
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
