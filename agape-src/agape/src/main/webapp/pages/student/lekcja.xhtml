@@ -17,12 +17,36 @@
 				<h:outputText
 					value="Witaj w lekcji nr #{lekcjaBrowser.lekcja.nrLekcji}" />
 			</rich:panel>
-			
+
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Wprowadzenie" />
 				<h:outputText value="#{lekcjaBrowser.lekcja.wprowadzenie}" />
 			</h:panelGrid>
-			
+
+			<br />
+
+			<rich:dataGrid value="#{lekcjaBrowser.pytaniaOdp}" var="_po"
+				columns="1" id="grid" elements="#{lekcjaBrowser.pytaniaOdp.size()}">
+
+
+				<h:panelGrid columns="1">
+					<h:outputText
+						value="#{_po.pytanie.nrPytanie}.  #{_po.pytanie.tresc}" />
+
+					<h:inputTextarea cols="80" rows="6" value="#{_po.odpowiedz.tresc}" />
+
+
+				</h:panelGrid>
+
+
+
+			</rich:dataGrid>
+
+			<h:panelGrid columns="2">
+				<a4j:commandButton value="Zapisz" action="#{lekcjaBrowser.zapisz()}"></a4j:commandButton>
+			</h:panelGrid>
+
+
 
 		</h:form>
 
