@@ -31,4 +31,8 @@ public abstract class HibernateBaseDAO<T> implements Serializable {
 		return (T) hibernateSession.get(clazz, id);
 	}
 
+	public void saveOrUpdate(T t) {
+		hibernateSession.saveOrUpdate(t);
+	}
+
 }
