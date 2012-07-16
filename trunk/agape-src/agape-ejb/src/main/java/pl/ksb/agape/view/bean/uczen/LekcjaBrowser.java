@@ -14,9 +14,11 @@ import org.jboss.seam.annotations.Transactional;
 import pl.ksb.agape.domain.dao.LekcjaDAOLocal;
 import pl.ksb.agape.domain.dao.OdpowiedzDAOLocal;
 import pl.ksb.agape.domain.dao.PytanieDAOLocal;
+import pl.ksb.agape.domain.dao.StanZaawansowaniaDAOLocal;
 import pl.ksb.agape.domain.model.Lekcja;
 import pl.ksb.agape.domain.model.Odpowiedz;
 import pl.ksb.agape.domain.model.Pytanie;
+import pl.ksb.agape.domain.model.StanZaawansowania;
 import pl.ksb.agape.domain.model.type.PytanieOdpowiedz;
 import pl.ksb.agape.session.DaneSesji;
 
@@ -37,6 +39,9 @@ public class LekcjaBrowser implements Serializable {
 	// w metodzie init przekierowaæ na inn¹ stronê
 	@In(required = false)
 	private Long idLekcjaEdit;
+
+	@In
+	private StanZaawansowaniaDAOLocal stanZaawansowaniaDAOLocal;
 
 	@In
 	private PytanieDAOLocal pytanieDAOLocal;
@@ -60,6 +65,12 @@ public class LekcjaBrowser implements Serializable {
 		}
 		lekcja = lekcjaDAOLocal.getById(idLekcjaEdit);
 		pytaniaOdp = new ArrayList<PytanieOdpowiedz>();
+		StanZaawansowania stan = stanZaawansowaniaDAOLocal
+				.getByIdLekcjaIdOsoba(lekcja.getId(), daneSesji.getZalogowany()
+						.getId());
+		stan.setCzyOdczytano(true);
+
+		stanZaawansowaniaDAOLocal.saveOrUpdate(stan);
 
 		List<Pytanie> pytania = pytanieDAOLocal.wszystkiePytaniaByLekcja(lekcja
 				.getId());
