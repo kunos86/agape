@@ -28,23 +28,23 @@ public class UczenNauczyciel implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_nauczyciela", referencedColumnName = "id")
-	Osoba nauczyciel;
+	private Osoba nauczyciel;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_ucznia", referencedColumnName = "id")
-	Osoba uczen;
+	private Osoba uczen;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_dodania")
-	Date dataDodania;
+	private Date dataDodania;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_usuniecia")
-	Date dataUsuniecia;
+	private Date dataUsuniecia;
 
 	@Column(name = "aktualny")
 	@Type(type = "org.hibernate.type.YesNoType")
-	Boolean aktualny;
+	private Boolean aktualny;
 
 	public Long getId() {
 		return id;

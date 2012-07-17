@@ -2,14 +2,17 @@ package pl.ksb.agape.view.bean.uczen;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.Transactional;
 
 import pl.ksb.agape.domain.dao.LekcjaDAOLocal;
 import pl.ksb.agape.domain.dao.OdpowiedzDAOLocal;
@@ -58,6 +61,8 @@ public class LekcjaBrowser implements Serializable {
 	@In
 	private DaneSesji daneSesji;
 
+	private StanZaawansowania stan;
+
 	@Create
 	public String init() {
 		if (idLekcjaEdit == null) {
@@ -65,9 +70,8 @@ public class LekcjaBrowser implements Serializable {
 		}
 		lekcja = lekcjaDAOLocal.getById(idLekcjaEdit);
 		pytaniaOdp = new ArrayList<PytanieOdpowiedz>();
-		StanZaawansowania stan = stanZaawansowaniaDAOLocal
-				.getByIdLekcjaIdOsoba(lekcja.getId(), daneSesji.getZalogowany()
-						.getId());
+		stan = stanZaawansowaniaDAOLocal.getByIdLekcjaIdOsoba(lekcja.getId(),
+				daneSesji.getZalogowany().getId());
 		stan.setCzyOdczytano(true);
 
 		stanZaawansowaniaDAOLocal.saveOrUpdate(stan);
@@ -111,11 +115,39 @@ public class LekcjaBrowser implements Serializable {
 		this.pytaniaOdp = pytaniaOdp;
 	}
 
-	@Transactional
 	public void zapisz() {
+
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage("Lekcja zosta³a zapisana."));
 		for (PytanieOdpowiedz po : pytaniaOdp) {
 			odpowiedzDAOLocal.save(po.getOdpowiedz());
 		}
 	}
 
+	public void wyslij() {
+
+		for (PytanieOdpowiedz po : pytaniaOdp) {
+			if (po.getOdpowiedz().getTresc() == null
+					|| po.getOdpowiedz().getTresc().isEmpty()) {
+				FacesContext
+						.getCurrentInstance()
+						.addMessage(
+								null,
+								new FacesMessage(
+										"Na wszytskie pytania musisz udzieliæ odpowiedzi."));
+				return;
+			}
+		}
+
+		zapisz();
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage("Lekcja zosta³a wys³ana."));
+		stan.setDataWyslania(Calendar.getInstance().getTime());
+		stanZaawansowaniaDAOLocal.saveOrUpdate(stan);
+
+	}
+
+	public boolean isCzyWyslano() {
+		return (stan.getDataWyslania() != null);
+	}
 }
