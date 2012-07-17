@@ -12,7 +12,7 @@
 	<ui:define name="body">
 
 		<h:form id="osobaForm">
-
+			<h:messages />
 			<rich:panel>
 				<h:outputText
 					value="Witaj w lekcji nr #{lekcjaBrowser.lekcja.nrLekcji}" />
@@ -33,7 +33,7 @@
 					<h:outputText
 						value="#{_po.pytanie.nrPytanie}.  #{_po.pytanie.tresc}" />
 
-					<h:inputTextarea cols="80" rows="6" value="#{_po.odpowiedz.tresc}" />
+					<h:inputTextarea cols="80" rows="6" value="#{_po.odpowiedz.tresc}" readonly="#{lekcjaBrowser.czyWyslano}"/>
 
 
 				</h:panelGrid>
@@ -43,8 +43,19 @@
 			</rich:dataGrid>
 
 			<h:panelGrid columns="2">
-				<a4j:commandButton value="Zapisz" action="#{lekcjaBrowser.zapisz()}"></a4j:commandButton>
+				<a4j:commandButton value="Zapisz" action="#{lekcjaBrowser.zapisz()}"
+					disabled="#{lekcjaBrowser.czyWyslano}"
+					reRender="osobaForm">
+					<rich:toolTip value="Zapisz bez wysłania rozwiązania"></rich:toolTip>
+				</a4j:commandButton>
+				<a4j:commandButton value="Wyślij rozwiązanie" action="#{lekcjaBrowser.wyslij()}"
+					disabled="#{lekcjaBrowser.czyWyslano}"
+					reRender="osobaForm">
+					<rich:toolTip value="Zapisz i wyślij rozwiązanie do sprawdzenia"></rich:toolTip>
+				</a4j:commandButton>
 			</h:panelGrid>
+
+
 
 
 
