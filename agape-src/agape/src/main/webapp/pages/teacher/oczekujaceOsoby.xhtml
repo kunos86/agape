@@ -28,7 +28,7 @@
 			</rich:toolBar>
 			<rich:extendedDataTable value="#{czekajaceOsobyDataModel}"
 				var="_osoba" selection="#{czekajaceOsobyBrowser.selected}"
-				noDataLabel="Brak Danych" id="tabela" rows="25" sortMode="single">
+				noDataLabel="Brak Danych" id="tabela" rows="20" sortMode="single">
 				<a4j:support event="onselectionchange" reRender="buttonPanel"
 					ajaxSingle="true" action="#{czekajaceOsobyBrowser.select}">
 				</a4j:support>
@@ -95,23 +95,25 @@
 						<h:outputText value="Data urodzenia" />
 					</f:facet>
 					<h:outputText value="#{_osoba.dataUr}">
-						<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+						<f:convertDateTime type="date" pattern="yyyy-MM-dd" />
 					</h:outputText>
 
 				</rich:column>
 
 				<rich:column title="Data rejestracji" label="Data rejestracji"
-					sortBy="#{_osoba.dataRej}">
+					sortBy="#{_osoba.dataRej}" filterBy="#{_osoba.dataRej}">
 					<f:facet name="header">
 						<h:outputText value="Data rejestracji" />
 					</f:facet>
 					<h:outputText value="#{_osoba.dataRej}">
-						<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+						<f:convertDateTime type="date" pattern="yyyy-MM-dd" />
 					</h:outputText>
 
 				</rich:column>
 
-
+				<f:facet name="footer">
+					<rich:datascroller for="tabela" id="scroller" />
+				</f:facet>
 			</rich:extendedDataTable>
 
 

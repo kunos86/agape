@@ -41,4 +41,8 @@ public class OsobyDataModel extends PaginatingDataModel<Osoba, Long> {
 		return null;
 	}
 
+	@Override
+	protected String getSortField() {
+		return "nazwisko";
+	}
 }

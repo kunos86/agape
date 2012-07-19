@@ -1,6 +1,8 @@
 package pl.ksb.agape.view.datamodel;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +25,9 @@ import org.richfaces.model.Modifiable;
 import org.richfaces.model.Ordering;
 import org.richfaces.model.SortField2;
 
+import pl.ksb.agape.tools.reflect.EntityField;
+import pl.ksb.agape.tools.reflect.ReflectTools;
+
 public abstract class PaginatingDataModel<T, U> extends SerializableDataModel
 		implements Modifiable {
 
@@ -32,7 +37,7 @@ public abstract class PaginatingDataModel<T, U> extends SerializableDataModel
 
 	protected int rowIndex;
 
-	protected boolean descending = true;
+	protected boolean descending = false;
 
 	protected String sortField;
 
@@ -44,6 +49,8 @@ public abstract class PaginatingDataModel<T, U> extends SerializableDataModel
 
 	protected Integer rowCount;
 
+	private Map<String, EntityField> reflectFields = null;
+
 	protected Map<U, T> wrappedData = new HashMap<U, T>();
 
 	protected Criteria convertFilters(HashMap<String, Object> filterMap,
@@ -51,13 +58,17 @@ public abstract class PaginatingDataModel<T, U> extends SerializableDataModel
 
 		for (String key : filterMap.keySet()) {
 
-			criteria.add(Restrictions.like(key, filterMap.get(key))
-					.ignoreCase());
+			// criteria.add(Restrictions.like(key, filterMap.get(key))
+			// .ignoreCase());
 
-			// criteria.add(Restrictions.sqlRestriction("upper(cast( this_." +
-			// key
-			// + " as text)) like '"
-			// + filterMap.get(key).toString().toUpperCase() + "%'"));
+			String tmpKey = key;
+			if (getReflectFields().get(key) != null) {
+				tmpKey = getReflectFields().get(key).getDbName();
+			}
+
+			criteria.add(Restrictions.sqlRestriction("upper(cast( " + tmpKey
+					+ " as text)) like '"
+					+ filterMap.get(key).toString().toUpperCase() + "%'"));
 		}
 
 		return criteria;
@@ -308,6 +319,25 @@ public abstract class PaginatingDataModel<T, U> extends SerializableDataModel
 		this.detached = false;
 	}
 
+	protected String getSortField() {
+		return sortField;
+	}
+
+	public Map<String, EntityField> getReflectFields() {
+		if (reflectFields == null) {
+			reflectFields = ReflectTools
+					.getEntityFileds(getTypeParameterClass());
+		}
+		return reflectFields;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Class<T> getTypeParameterClass() {
+		Type type = getClass().getGenericSuperclass();
+		ParameterizedType paramType = (ParameterizedType) type;
+		return (Class<T>) paramType.getActualTypeArguments()[0];
+	}
+
 	/**
 	 * 
 	 * @see org.ajax4jsf.model.ExtendedDataModel#walk(javax.faces.context.FacesContext,
@@ -327,7 +357,7 @@ public abstract class PaginatingDataModel<T, U> extends SerializableDataModel
 		} else { // if not serialized, than we request data from data provider
 			this.wrappedKeys = new ArrayList<U>();
 			for (final T object : this.findObjects(firstRow, numberOfRows,
-					this.sortField, this.filterMap, this.descending)) {
+					getSortField(), this.filterMap, this.descending)) {
 				this.wrappedKeys.add(this.getId(object));
 				this.wrappedData.put(this.getId(object), object);
 				visitor.process(context, this.getId(object), argument);

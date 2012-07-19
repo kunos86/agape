@@ -28,12 +28,13 @@
 			</rich:toolBar>
 			<rich:extendedDataTable value="#{osobaDataModel}" var="_osoba"
 				selection="#{zarzadzanieOsobami.selected}" noDataLabel="Brak Danych"
-				id="tabela" rows="25" sortMode="single" >
+				id="tabela" rows="20" sortMode="single">
 				<a4j:support event="onselectionchange" reRender="buttonPanel"
 					ajaxSingle="true">
 				</a4j:support>
 
-				<rich:column title="Id" label="Id" sortBy="#{_osoba.id}">
+				<rich:column title="Id" label="Id" sortBy="#{_osoba.id}"
+					filterBy="#{_osoba.id}">
 					<f:facet name="header">
 						<h:outputText value="Id" />
 					</f:facet>
@@ -42,21 +43,23 @@
 				</rich:column>
 
 				<rich:column title="Nazwisko" label="Nazwisko"
-					sortBy="#{_osoba.nazwisko}">
+					sortBy="#{_osoba.nazwisko}" filterBy="#{_osoba.nazwisko}">
 					<f:facet name="header">
 						<h:outputText value="Nazwisko" />
 					</f:facet>
 					<h:outputText value="#{_osoba.nazwisko}" />
 
 				</rich:column>
-				<rich:column title="Imię" label="Imię" sortBy="#{_osoba.imie}">
+				<rich:column title="Imię" label="Imię" sortBy="#{_osoba.imie}"
+					filterBy="#{_osoba.imie}">
 					<f:facet name="header">
 						<h:outputText value="Imię" />
 					</f:facet>
 					<h:outputText value="#{_osoba.imie}" />
 
 				</rich:column>
-				<rich:column title="email" label="email" sortBy="#{_osoba.email}">
+				<rich:column title="email" label="email" sortBy="#{_osoba.email}"
+					filterBy="#{_osoba.email}">
 					<f:facet name="header">
 						<h:outputText value="email" />
 					</f:facet>
@@ -64,7 +67,7 @@
 
 				</rich:column>
 				<rich:column title="Województwo" label="Województwo"
-					sortBy="#{_osoba.wojewodztwo}">
+					sortBy="#{_osoba.wojewodztwo}" filterBy="#{_osoba.wojewodztwo}">
 					<f:facet name="header">
 						<h:outputText value="Województwo" />
 					</f:facet>
@@ -72,7 +75,8 @@
 
 				</rich:column>
 
-				<rich:column title="Adres" label="Adres" sortBy="#{_osoba.adres}" filterBy="#{_osoba.adres}" filterEvent="onblur"   >
+				<rich:column title="Adres" label="Adres" sortBy="#{_osoba.adres}"
+					filterBy="#{_osoba.adres}">
 					<f:facet name="header">
 						<h:outputText value="Adres" />
 					</f:facet>
@@ -81,34 +85,37 @@
 				</rich:column>
 
 				<rich:column title="Data urodzenia" label="Data urodzenia"
-					sortBy="#{_osoba.dataUr}">
+					sortBy="#{_osoba.dataUr}" filterBy="#{_osoba.dataUr}">
 					<f:facet name="header">
 						<h:outputText value="Data urodzenia" />
 					</f:facet>
 					<h:outputText value="#{_osoba.dataUr}">
-						<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+						<f:convertDateTime type="date" pattern="yyyy-MM-dd" />
 					</h:outputText>
 
 				</rich:column>
 
 				<rich:column title="Data rejestracji" label="Data rejestracji"
-					sortBy="#{_osoba.dataRej}">
+					sortBy="#{_osoba.dataRej}" filterBy="#{_osoba.dataRej}">
 					<f:facet name="header">
 						<h:outputText value="Data rejestracji" />
 					</f:facet>
 					<h:outputText value="#{_osoba.dataRej}">
-						<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+						<f:convertDateTime type="date" pattern="yyyy-MM-dd" />
 					</h:outputText>
 
 				</rich:column>
 
+				<f:facet name="footer">
+					<rich:datascroller for="tabela" id="scroller" />
+				</f:facet>
 
 			</rich:extendedDataTable>
 
 
 		</a4j:form>
 
-		<rich:modalPanel id="popup" autosized="true" minWidth="300" >
+		<rich:modalPanel id="popup" autosized="true" minWidth="300">
 			<f:facet name="header">
 				<h:outputText value="Edycja osoby" />
 			</f:facet>
@@ -124,21 +131,21 @@
 			</f:facet>
 			<a4j:outputPanel id="popupOutputPanel" ajaxRendered="true">
 				<h:form enctype="multipart/form-data">
-				
-				<h:panelGrid columns="2">
-				<h:outputText value="Imię :" />
-				<h:outputText value="#{zarzadzanieOsobami.edytowany.imie}" />
-				
-				<h:outputText value="Nazwisko :" />
-				<h:outputText value="#{zarzadzanieOsobami.edytowany.nazwisko}" />
 
-				<h:outputText value="email :" />
-				<h:outputText value="#{zarzadzanieOsobami.edytowany.email}" />
-								
-				</h:panelGrid>
+					<h:panelGrid columns="2">
+						<h:outputText value="Imię :" />
+						<h:outputText value="#{zarzadzanieOsobami.edytowany.imie}" />
+
+						<h:outputText value="Nazwisko :" />
+						<h:outputText value="#{zarzadzanieOsobami.edytowany.nazwisko}" />
+
+						<h:outputText value="email :" />
+						<h:outputText value="#{zarzadzanieOsobami.edytowany.email}" />
+
+					</h:panelGrid>
 					<h:panelGrid columns="3">
-					
-					
+
+
 						<h:outputLabel for="rodzajKonta_popup" value="Rodzaj konta" />
 						<h:selectOneMenu
 							value="#{zarzadzanieOsobami.edytowany.rodzajKonta}"
