@@ -34,4 +34,10 @@ public class CzekajaceOsobyDataModel extends PaginatingDataModel<Osoba, Long> {
 		return null;
 	}
 
+	@Override
+	protected String getSortField() {
+		// descending = true;
+		return "dataRej";
+	}
+
 }

@@ -27,20 +27,25 @@ public class Osoba implements Serializable {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "id", precision = 10, scale = 0)
 	private Long id;
 
+	@Column(name = "imie", length = 30)
 	@NotNull
 	@Length(min = 2, max = 30)
 	private String imie;
 
+	@Column(name = "nazwisko", length = 50)
 	@Length(max = 50)
 	private String nazwisko;
 
+	@Column(name = "email", length = 30)
 	@Email
 	@NotNull
 	@Length(max = 30)
 	private String email;
 
+	@Column(name = "haslo", length = 20)
 	@Length(max = 20)
 	private String haslo;
 
@@ -48,8 +53,10 @@ public class Osoba implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private RodzajKonta rodzajKonta;
 
+	@Column(name = "wojewodztwo")
 	private String wojewodztwo;
 
+	@Column(name = "adres", length = 50)
 	@Length(max = 50)
 	private String adres;
 
@@ -60,11 +67,16 @@ public class Osoba implements Serializable {
 	@Column(name = "DATA_REJ")
 	private Date dataRej;
 
+	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private Status status;
+
+	@Column(name = "wspolnota", length = 50)
 	@Length(max = 50)
 	private String wspolnota;
-	@Length(max = 30)
+
+	@Column(name = "wyznanie", length = 50)
+	@Length(max = 50)
 	private String wyznanie;
 
 	public Long getId() {
