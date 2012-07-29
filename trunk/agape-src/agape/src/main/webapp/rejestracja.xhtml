@@ -6,6 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
 	template="themes/standard/template2.xhtml">
 
 	<ui:define name="body">
@@ -14,87 +15,114 @@
 
 			<rich:panel>
 				<f:facet name="header"> Rejestracja nowego użytkownika </f:facet>
-		<p>
-		
-			Poniżej znajduje się formularz rejestracji nowego użytkownika. Wymagane pola zostały oznaczone gwiazdką.
-			 Pozostałe pola możesz wypełnić teraz lub po założeniu konta w zakładce edycja danych konta.
-		</p>
+				<p>Poniżej znajduje się formularz rejestracji nowego
+					użytkownika. Wymagane pola zostały oznaczone gwiazdką. Pozostałe
+					pola możesz wypełnić teraz lub po założeniu konta w zakładce edycja
+					danych konta.</p>
 
 
 
-				<h:panelGrid columns="3" rowClasses="prop"
-						columnClasses="name,value">
-
-					<h:outputLabel for="mailField" value="Email*" />
-					<h:inputText id="mailField" required="true"
-						value="#{rejestracja.osoba.email}">
-						<s:validate />
-					</h:inputText>
-					<h:message for="mailField" />
+				<h:panelGrid columns="1" rowClasses="prop"
+					columnClasses="name,value">
 
 
-					<h:outputLabel for="hasloField" value="Hasło*" />
-					<h:inputSecret id="hasloField" required="true"
-						value="#{rejestracja.osoba.haslo}">
-						<s:validate />
-					</h:inputSecret>
-					<h:message for="hasloField" />
+					<s:decorate id="mailField" template="layout/edit.xhtml">
+						<ui:define name="label">Email</ui:define>
+						<h:inputText id="mail" required="true"
+							value="#{rejestracja.osoba.email}" >
+							<f:validator validatorId="uniqueEmailValidator"/>
+							<!--						<a4j:support event="onblur" reRender="mailField" bypassUpdates="true" ajaxSingle="true"/>-->
+						</h:inputText>
+					</s:decorate>
 
-					<h:outputLabel for="imieField" value="Imię*" />
-					<h:inputText id="imieField" required="true"
-						value="#{rejestracja.osoba.imie}">
-						<s:validate />
-					</h:inputText>
-					<h:message for="imieField" />
-
-
-					<h:outputLabel for="nazwiskoField" value="Nazwisko" />
-					<h:inputText id="nazwiskoField"
-						value="#{rejestracja.osoba.nazwisko}">
-						<s:validate />
-					</h:inputText>
-					<h:message for="nazwiskoField" />
-
-					<h:outputLabel for="dataUrField" value="Data urodzenia" />
-					<rich:calendar id="dataUrField" label="Data Urodzenia"
-						required="true" datePattern="dd.MM.yyyy"
-						value="#{rejestracja.osoba.dataUr}">
-						<s:validate />
-					</rich:calendar>
-					<h:message for="dataUrField" />
-
-					<h:outputLabel for="wojewodztwoField" value="Województwo" />
-					<h:selectOneMenu id="wojewodztwoField" required="true"
-					value="#{rejestracja.osoba.wojewodztwo}">
-						<s:selectItems value="#{wojewodztwaList.listaWoj}" var="_woj" label="#{_woj}"
-						itemValue="#{_woj}"  noSelectionLabel="--wybierz--"/>
-						<s:validate/>
-					</h:selectOneMenu>
-					<h:message for="wojewodztwoField" />
+					<s:decorate id="hasloField" template="layout/edit.xhtml">
+						<ui:define name="label">Hasło</ui:define>
+						<h:inputSecret id="haslo" required="true"
+							value="#{rejestracja.osoba.haslo}">
+						</h:inputSecret>
+					</s:decorate>
 					
+					<s:decorate id="haslo2Field" template="layout/edit.xhtml">
+						<ui:define name="label">Powtórz hasło</ui:define>
+						<h:inputSecret id="haslo2" required="true"
+							value="#{rejestracja.osoba.haslo}"
+							validator="#{passwordValidator.validate}">
+							<f:attribute name="passId" value="osobaForm:hasloField:haslo"/>
+							
+							<!--						<a4j:support event="onblur" reRender="haslo2Field" bypassUpdates="true" ajaxSingle="true"/>-->
+						</h:inputSecret>
+					</s:decorate>
 
 
-					<h:outputLabel for="adresField" value="Adres" />
-					<h:inputText id="adresField"
-						value="#{rejestracja.osoba.adres}">
-						<s:validate />
-					</h:inputText>
-					<h:message for="adresField" />
+					<s:decorate id="imieField" template="layout/edit.xhtml">
+						<ui:define name="label">Imię</ui:define>
+						<h:inputText id="imie" required="true"
+							value="#{rejestracja.osoba.imie}">
+							<!--						<a4j:support event="onblur" reRender="imieField" bypassUpdates="true" ajaxSingle="true"/>-->
+						</h:inputText>
+					</s:decorate>
 
-					<h:outputLabel for="wyznanieField" value="Wyznanie" />
-					<h:inputText id="wyznanieField"
-						value="#{rejestracja.osoba.wyznanie}">
-						<s:validate />
-					</h:inputText>
-					<h:message for="wyznanieField" />
-					
-					<h:outputLabel for="wspolnotaField" value="Wspólnota" />
-					<h:inputText id="wspolnotaField"
-						value="#{rejestracja.osoba.wspolnota}">
-						<s:validate />
-					</h:inputText>
-					<h:message for="wspolnotaField" />
-					
+					<s:decorate id="nazwiskoField" template="layout/edit.xhtml">
+						<ui:define name="label">Nazwisko</ui:define>
+						<h:inputText id="nazwisko" value="#{rejestracja.osoba.nazwisko}">
+							<!--						<a4j:support event="onblur" reRender="nazwiskoField" bypassUpdates="true" ajaxSingle="true"/>-->
+						</h:inputText>
+					</s:decorate>
+
+
+
+					<s:decorate id="dataUrField" template="layout/edit.xhtml">
+						<ui:define name="label">Data urodzenia</ui:define>
+						<rich:calendar id="dataUr" required="true"
+							enableManualInput="true" value="#{rejestracja.osoba.dataUr}"
+							datePattern="yyyy-MM-dd">
+						</rich:calendar>
+					</s:decorate>
+
+
+
+					<s:decorate id="wojewodztwoField" template="layout/edit.xhtml">
+						<ui:define name="label">Województwo</ui:define>
+						<h:selectOneMenu id="wojewodztwoField" required="true"
+							value="#{rejestracja.osoba.wojewodztwo}">
+							<s:selectItems value="#{wojewodztwaList.listaWoj}" var="_woj"
+								label="#{_woj}" itemValue="#{_woj}"
+								noSelectionLabel="--wybierz--" />
+
+						</h:selectOneMenu>
+					</s:decorate>
+
+
+
+					<s:decorate id="adresField" template="layout/edit.xhtml">
+						<ui:define name="label">Adres</ui:define>
+						<h:inputText id="adres" value="#{rejestracja.osoba.adres}">
+							<!--						<a4j:support event="onblur" reRender="adresField" bypassUpdates="true" ajaxSingle="true"/>-->
+						</h:inputText>
+					</s:decorate>
+
+
+
+
+					<s:decorate id="wyznanieField" template="layout/edit.xhtml">
+						<ui:define name="label">Wyznanie</ui:define>
+						<h:inputText id="wyznanie" value="#{rejestracja.osoba.nazwisko}">
+							<!--						<a4j:support event="onblur" reRender="wyznanieField" bypassUpdates="true" ajaxSingle="true"/>-->
+						</h:inputText>
+					</s:decorate>
+
+
+
+
+
+					<s:decorate id="wspolnotaField" template="layout/edit.xhtml">
+						<ui:define name="label">Wspólnota</ui:define>
+						<h:inputText id="wspolnota" value="#{rejestracja.osoba.wspolnota}">
+							<!--						<a4j:support event="onblur" reRender="wspolnotaField" bypassUpdates="true" ajaxSingle="true"/>-->
+						</h:inputText>
+					</s:decorate>
+
+
 				</h:panelGrid>
 
 

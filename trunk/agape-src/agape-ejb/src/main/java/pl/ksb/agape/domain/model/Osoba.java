@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.Email;
 import org.hibernate.validator.Length;
@@ -21,7 +22,7 @@ import pl.ksb.agape.domain.model.dict.RodzajKonta;
 import pl.ksb.agape.domain.model.dict.Status;
 
 @Entity
-@Table(name = "OSOBA", schema = "AGAPE")
+@Table(name = "OSOBA", schema = "AGAPE", uniqueConstraints = @UniqueConstraint(columnNames = "email", name = "uniqueEmail"))
 public class Osoba implements Serializable {
 	private static final long serialVersionUID = 8312693018289001116L;
 
@@ -39,7 +40,7 @@ public class Osoba implements Serializable {
 	@Length(max = 50)
 	private String nazwisko;
 
-	@Column(name = "email", length = 30)
+	@Column(name = "email", length = 30, unique = true)
 	@Email
 	@NotNull
 	@Length(max = 30)

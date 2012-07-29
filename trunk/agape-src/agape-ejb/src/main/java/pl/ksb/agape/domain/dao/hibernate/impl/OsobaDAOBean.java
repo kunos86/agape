@@ -2,6 +2,7 @@ package pl.ksb.agape.domain.dao.hibernate.impl;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 
@@ -81,6 +82,19 @@ public class OsobaDAOBean implements OsobaDAOLocal, Serializable {
 				.sqlRestriction("exists (select 1 from uczniowie_naucz n where n.id_ucznia = this_.id and n.aktualny='Y' and n.id_nauczyciela = "
 						+ osoba.getId() + ")"));
 		return ret;
+	}
+
+	public boolean isRegistered(String mail) {
+		boolean ret = false;
+		@SuppressWarnings("unchecked")
+		List<Osoba> osoby = hibernateSession.createCriteria(Osoba.class)
+				.add(Restrictions.eq("email", mail)).list();
+		if (osoby != null && !osoby.isEmpty()) {
+			ret = true;
+		}
+
+		return ret;
+
 	}
 
 }
