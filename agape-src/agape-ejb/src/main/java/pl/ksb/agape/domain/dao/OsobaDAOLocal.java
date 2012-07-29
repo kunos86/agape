@@ -21,4 +21,6 @@ public interface OsobaDAOLocal {
 	Criteria getCzekajacyUczniowie();
 
 	Criteria getUczniowieByNauczyciel(Osoba osoba);
+
+	boolean isRegistered(String mail);
 }

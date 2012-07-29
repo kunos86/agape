@@ -36,11 +36,13 @@
 							<ui:param name="projectName" value="Agape" />
 						</ui:include>
 					</td>
-					<td class="bodyArea" width="80%"><h:messages id="messages"
+					<td class="bodyArea" width="80%">
+					
+					<h:messages id="messages"
 							globalOnly="true" styleClass="message" errorClass="errormsg"
 							infoClass="infomsg" warnClass="warnmsg"
-							rendered="#{showGlobalMessages != 'false'}" /> <ui:insert
-							name="body" /></td>
+							rendered="#{showGlobalMessages != 'false'}" /> 
+							<ui:insert name="body" /></td>
 				</tr>
 			</table>
 

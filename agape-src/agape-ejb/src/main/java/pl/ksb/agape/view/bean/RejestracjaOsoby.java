@@ -24,6 +24,7 @@ public class RejestracjaOsoby implements Serializable {
 	@In
 	private OsobaDAOLocal osobaDAOLocal;
 	private Osoba osoba = new Osoba();
+	private String haslo2;
 
 	public Osoba getOsoba() {
 		return osoba;
@@ -35,7 +36,12 @@ public class RejestracjaOsoby implements Serializable {
 
 	public String zapisz() {
 		osobaDAOLocal.save(osoba);
+		// FacesContext
+		// .getCurrentInstance()
+		// .addMessage(
+		// null,
+		// new FacesMessage(
+		// "Twoje konto zosta³o utworzone. Mo¿esz siê teraz zalogowaæ."));
 		return "/zarejestrowano.seam";
 	}
-
 }
