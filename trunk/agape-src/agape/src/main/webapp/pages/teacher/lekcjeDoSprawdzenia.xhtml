@@ -14,8 +14,13 @@
 		<a4j:form>
 			<rich:toolBar id="buttonPanel">
 
+				<a4j:commandButton value="Sprawdź"
+					action="#{lekcjeDoSprBrowser.sprawdz()}"
+					disabled="#{lekcjeDoSprBrowser.selection == null}">
+				</a4j:commandButton>
 			</rich:toolBar>
 			<rich:extendedDataTable value="#{lekcjeDoSprDataModel}"
+				selection="#{lekcjeDoSprBrowser.selection}"
 				var="_lekcjeDoSpr" noDataLabel="Brak Danych" id="tabela" rows="25"
 				sortMode="single">
 

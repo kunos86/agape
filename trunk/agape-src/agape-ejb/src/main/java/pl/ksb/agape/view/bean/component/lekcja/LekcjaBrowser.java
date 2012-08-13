@@ -1,4 +1,4 @@
-package pl.ksb.agape.view.bean.uczen;
+package pl.ksb.agape.view.bean.component.lekcja;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,6 +43,13 @@ public class LekcjaBrowser implements Serializable {
 	@In(required = false)
 	private Long idLekcjaEdit;
 
+	/**
+	 * id ucznia, który rozwi¹za³ lekcjê, jeœli wartoœæ nie zostanie podana, w
+	 * metodzie init pobierane jest id zalogowanej osoby
+	 */
+	@In(required = false)
+	private Long idOsoba;
+
 	@In
 	private StanZaawansowaniaDAOLocal stanZaawansowaniaDAOLocal;
 
@@ -70,11 +77,22 @@ public class LekcjaBrowser implements Serializable {
 		}
 		lekcja = lekcjaDAOLocal.getById(idLekcjaEdit);
 		pytaniaOdp = new ArrayList<PytanieOdpowiedz>();
+		Long osoba = idOsoba;
+		if (osoba == null) {
+			osoba = daneSesji.getZalogowany().getId();
+		}
 		stan = stanZaawansowaniaDAOLocal.getByIdLekcjaIdOsoba(lekcja.getId(),
-				daneSesji.getZalogowany().getId());
-		stan.setCzyOdczytano(true);
+				osoba);
 
-		stanZaawansowaniaDAOLocal.saveOrUpdate(stan);
+		/*
+		 * oznaczenie lekcji jako odczytanej, wykonuje siê jeœli uczeñ wchodzi
+		 * pierwszy raz w lekcjê.
+		 */
+		if (!stan.isCzyOdczytano()) {
+			stan.setCzyOdczytano(true);
+			stan.setDataOdczytania(Calendar.getInstance().getTime());
+			stanZaawansowaniaDAOLocal.saveOrUpdate(stan);
+		}
 
 		List<Pytanie> pytania = pytanieDAOLocal.wszystkiePytaniaByLekcja(lekcja
 				.getId());
@@ -82,11 +100,11 @@ public class LekcjaBrowser implements Serializable {
 		for (Pytanie p : pytania) {
 
 			Odpowiedz odp = odpowiedzDAOLocal.getByIdPytanieIdOsoba(p.getId(),
-					daneSesji.getZalogowany().getId());
+					osoba);
 
 			if (odp == null) {
 				odp = new Odpowiedz();
-				odp.setIdOsoba(daneSesji.getZalogowany().getId());
+				odp.setIdOsoba(osoba);
 				odp.setIdPytanie(p.getId());
 			}
 			PytanieOdpowiedz po = new PytanieOdpowiedz(p, odp);
@@ -147,7 +165,22 @@ public class LekcjaBrowser implements Serializable {
 
 	}
 
+	public String sprawdz() {
+		stan.setDataSprawdzenia(Calendar.getInstance().getTime());
+		stanZaawansowaniaDAOLocal.saveOrUpdate(stan);
+
+		return "";
+	}
+
+	public StanZaawansowania getStan() {
+		return stan;
+	}
+
 	public boolean isCzyWyslano() {
 		return (stan.getDataWyslania() != null);
+	}
+
+	public boolean isCzySprawdzono() {
+		return (stan.getDataSprawdzenia() != null);
 	}
 }
