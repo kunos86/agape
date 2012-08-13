@@ -53,6 +53,6 @@ public class ListaLekcjiBrowser implements Serializable {
 
 	public String wyswietlLekcje(Long idLekcji) {
 		idLekcjaEdit = idLekcji;
-		return "/pages/student/lekcja.xhtml";
+		return "/pages/components/lekcja/lekcja.xhtml";
 	}
 }

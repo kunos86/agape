@@ -41,18 +41,39 @@
 
 
 			</rich:dataGrid>
+			<br />
+			
+			<h:panelGrid columns="1" rendered="#{s:hasRole('COORDINATOR') || s:hasRole('TEACHER') || lekcjaBrowser.czySprawdzono}">
+					<h:outputText
+						value="Komentarz:"/>
 
+					<h:inputTextarea cols="80" rows="6" value="#{lekcjaBrowser.stan.komentarz}" readonly="#{lekcjaBrowser.czySprawdzono}"/>
+
+
+				</h:panelGrid>
+			
+			
 			<h:panelGrid columns="2">
 				<a4j:commandButton value="Zapisz" action="#{lekcjaBrowser.zapisz()}"
 					disabled="#{lekcjaBrowser.czyWyslano}"
-					reRender="osobaForm">
+					reRender="osobaForm"
+					rendered="#{s:hasRole('STUDENT')}">
 					<rich:toolTip value="Zapisz bez wysłania rozwiązania"></rich:toolTip>
 				</a4j:commandButton>
 				<a4j:commandButton value="Wyślij rozwiązanie" action="#{lekcjaBrowser.wyslij()}"
 					disabled="#{lekcjaBrowser.czyWyslano}"
-					reRender="osobaForm">
+					reRender="osobaForm"
+					rendered="#{s:hasRole('STUDENT')}">
 					<rich:toolTip value="Zapisz i wyślij rozwiązanie do sprawdzenia"></rich:toolTip>
 				</a4j:commandButton>
+				
+		 		<a4j:commandButton value="Zapisz lekcję jako sprawdzoną" action="#{lekcjaBrowser.sprawdz()}"
+					disabled="#{lekcjaBrowser.czySprawdzono}"
+					reRender="osobaForm"
+					rendered="#{s:hasRole('COORDINATOR') || s:hasRole('TEACHER')}">
+					<rich:toolTip value="Zapisz i wyślij rozwiązanie do sprawdzenia"></rich:toolTip>
+				</a4j:commandButton>
+				
 			</h:panelGrid>
 
 
