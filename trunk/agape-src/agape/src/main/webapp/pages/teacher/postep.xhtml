@@ -1,0 +1,68 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/themes/standard/template2.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+	<a4j:form>
+
+		<rich:panel id="panelInfo">
+		<f:facet name="header">
+		<h:outputText value="Stan postępów ucznia" />
+		</f:facet>
+		<rich:panel>
+		<h:outputFormat value="Informacje o uczniu:" />
+		<h:panelGrid columns="2">
+		<h:outputText value="Imię:" />
+		<h:outputText value="#{udostepnianieBrowser.osoba.imie}" />
+		
+		<h:outputText value="Nazwisko:" />
+		<h:outputText value="#{udostepnianieBrowser.osoba.nazwisko}" />
+		
+		</h:panelGrid>
+		</rich:panel>
+		
+		<rich:dataGrid value="#{udostepnianieBrowser.kursy}" var="_kurs" columns="1" elements="#{udostepnianieBrowser.kursy.size()}">
+		<h:outputText value="Kurs #{_kurs.nrKursu} : #{_kurs.tytul}" style="font-weight:bold;"/>
+		<rich:dataTable value="#{_kurs.lekcje}" var="_lekcja" rows="#{_kurs.lekcje.size()}" >
+		<rich:column width="80">
+			<h:outputText value="#{_lekcja.nrLekcji}" />
+		</rich:column>
+		<rich:column width="300">
+			<h:outputText value="#{_lekcja.opis}" />
+		</rich:column>
+		<rich:column width="200">
+			<h:outputText value="#{udostepnianieBrowser.getStan(_lekcja.id)}" />
+		</rich:column>
+		<rich:column width="100">
+			<a4j:commandButton
+			value="udostępnij"
+			disabled="#{ udostepnianieBrowser.getStan(_lekcja.id) ne 'Nieudostępniona'}"
+			action="#{udostepnianieBrowser.udostepnij(_lekcja.id)}"
+			ajaxSingle="true"
+			reRender="panelInfo" 
+			></a4j:commandButton>
+
+		</rich:column>
+		</rich:dataTable>
+		
+		
+		
+		
+		</rich:dataGrid>
+		
+		   
+		
+		
+		</rich:panel>
+	</a4j:form>
+	</ui:define>
+
+
+</ui:composition>

@@ -12,6 +12,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
 import pl.ksb.agape.domain.dao.LekcjaDAOLocal;
@@ -48,6 +49,7 @@ public class LekcjaBrowser implements Serializable {
 	 * metodzie init pobierane jest id zalogowanej osoby
 	 */
 	@In(required = false)
+	@Out(required = false, scope = ScopeType.CONVERSATION)
 	private Long idOsoba;
 
 	@In
@@ -68,6 +70,7 @@ public class LekcjaBrowser implements Serializable {
 	@In
 	private DaneSesji daneSesji;
 
+	@Out(required = false, scope = ScopeType.CONVERSATION, value = "stanZaawansowania")
 	private StanZaawansowania stan;
 
 	@Create
@@ -168,8 +171,8 @@ public class LekcjaBrowser implements Serializable {
 	public String sprawdz() {
 		stan.setDataSprawdzenia(Calendar.getInstance().getTime());
 		stanZaawansowaniaDAOLocal.saveOrUpdate(stan);
-
-		return "";
+		idOsoba = stan.getOsoba().getId();
+		return "/pages/teacher/postep.xhtml";
 	}
 
 	public StanZaawansowania getStan() {
