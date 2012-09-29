@@ -7,6 +7,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.log.Log;
@@ -32,6 +33,10 @@ public class CzekajaceOsobyBrowser implements Serializable {
 
 	@In
 	private UczenNauczycielDAOLocal uczenNauczycielDAOLocal;
+
+	@SuppressWarnings("unused")
+	@Out(required = false, scope = ScopeType.CONVERSATION)
+	private Long idOsoba;
 
 	@In
 	private DaneSesji daneSesji;
@@ -78,6 +83,11 @@ public class CzekajaceOsobyBrowser implements Serializable {
 
 	public SimpleSelection getSelected() {
 		return selected;
+	}
+
+	public String sprawdzStan() {
+		idOsoba = selectedId;
+		return "/pages/teacher/postep.xhtml";
 	}
 
 	public void setSelected(SimpleSelection selected) {

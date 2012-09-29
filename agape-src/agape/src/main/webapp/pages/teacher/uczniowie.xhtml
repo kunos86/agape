@@ -19,6 +19,11 @@
 					disabled="#{czekajaceOsobyBrowser.selected == null}">
 					<f:setPropertyActionListener value="#{czekajaceOsobyBrowser.selectedId}" target="#{uczenInfoBrowser.idUcznia}" />
 				</a4j:commandButton>
+				
+				<a4j:commandButton value="Stan postępów ucznia" 
+					action="#{czekajaceOsobyBrowser.sprawdzStan()}"
+					disabled="#{czekajaceOsobyBrowser.selected == null}">
+				</a4j:commandButton>
 			</rich:toolBar>
 			<rich:extendedDataTable value="#{uczniowieDataModel}"
 				var="_osoba" selection="#{czekajaceOsobyBrowser.selected}"

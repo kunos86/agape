@@ -56,6 +56,16 @@ public class KursDAOBean implements KursDAOLocal {
 		return l;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Kurs> getListaKursowNauczyciela(Long idOsoby) {
+		// TODO: dodac wczytywanie uprawnien
+		List<Kurs> l = hibernateSession.createCriteria(Kurs.class)
+				.add(Restrictions.eq("status", Status.AKTUALNY))
+				.addOrder(Order.asc("nrKursu")).list();
+
+		return l;
+	}
+
 	public void save(Kurs kurs) {
 		kurs.setDataArch(Calendar.getInstance().getTime());
 		kurs.setDataDodania(Calendar.getInstance().getTime());
@@ -86,7 +96,9 @@ public class KursDAOBean implements KursDAOLocal {
 				.createAlias("l.stanyZaawansowania", "st")
 				.add(Restrictions.eq("st.osoba.id", osoba.getId()))
 				.add(Restrictions.eq("widocznosc", true))
-				.add(Restrictions.eq("l.widocznosc", true)).list();
+				.add(Restrictions.eq("l.widocznosc", true))
+				.addOrder(Order.asc("nrKursu"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
 }
