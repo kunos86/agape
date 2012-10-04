@@ -16,6 +16,7 @@
 		<class>pl.ksb.agape.domain.model.StanZaawansowania</class>
 		<class>pl.ksb.agape.domain.model.Odpowiedz</class>
 		<class>pl.ksb.agape.domain.model.view.LekcjaDoSpr</class>
+		<class>pl.ksb.agape.domain.model.UprawnieniaKurs</class>
 		
 		<!-- The <jar-file> element is necessary if you put the persistence.xml 
 			in the WAR and the classes in the JAR -->

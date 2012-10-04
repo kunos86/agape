@@ -58,17 +58,27 @@ public abstract class PaginatingDataModel<T, U> extends SerializableDataModel
 
 		for (String key : filterMap.keySet()) {
 
-			// criteria.add(Restrictions.like(key, filterMap.get(key))
-			// .ignoreCase());
-
 			String tmpKey = key;
+			String type = "";
 			if (getReflectFields().get(key) != null) {
 				tmpKey = getReflectFields().get(key).getDbName();
+				type = getReflectFields().get(key).getType().getName();
+				System.out.println(type);
+				System.out.println(getReflectFields().get(key).getType()
+						.toString());
+				System.out.println(getReflectFields().get(key).getClass()
+						.toString());
 			}
+			if (type.indexOf("String") >= 0) {
 
-			criteria.add(Restrictions.sqlRestriction("upper(cast( " + tmpKey
-					+ " as text)) like '"
-					+ filterMap.get(key).toString().toUpperCase() + "%'"));
+				criteria.add(Restrictions.like(key, filterMap.get(key))
+						.ignoreCase());
+			} else {
+
+				criteria.add(Restrictions.sqlRestriction("upper(cast( "
+						+ tmpKey + " as text)) like '"
+						+ filterMap.get(key).toString().toUpperCase() + "%'"));
+			}
 		}
 
 		return criteria;

@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
@@ -95,6 +96,17 @@ public class OsobaDAOBean implements OsobaDAOLocal, Serializable {
 
 		return ret;
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Osoba> getNauczyciele() {
+		return hibernateSession
+				.createCriteria(Osoba.class)
+				.add(Restrictions.eq("status", Status.AKTUALNY))
+				.add(Restrictions.or(
+						Restrictions.eq("rodzajKonta", RodzajKonta.TEACHER),
+						Restrictions.eq("rodzajKonta", RodzajKonta.COORDINATOR)))
+				.addOrder(Order.asc("nazwisko")).list();
 	}
 
 }
