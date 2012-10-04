@@ -1,5 +1,7 @@
 package pl.ksb.agape.domain.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import org.hibernate.Criteria;
@@ -23,4 +25,6 @@ public interface OsobaDAOLocal {
 	Criteria getUczniowieByNauczyciel(Osoba osoba);
 
 	boolean isRegistered(String mail);
+
+	List<Osoba> getNauczyciele();
 }

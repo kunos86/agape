@@ -37,8 +37,11 @@
 	<transaction:entity-transaction
 		entity-manager="#{entityManagerFactory}" />
 
+
 	<factory name="hibernateSession" scope="STATELESS" auto-create="true"
 		value="#{entityManagerFactory.delegate}" />
+	
+	<ui:jpa-entity-loader entity-manager="#{entityManagerFactory}" /> 
 		
 	<drools:rule-base name="securityRules">
 		<drools:rule-files>
