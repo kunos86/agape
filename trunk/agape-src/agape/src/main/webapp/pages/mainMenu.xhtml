@@ -31,6 +31,7 @@
 			</rich:panelMenuGroup>
 
 			<rich:panelMenuGroup label="Panel nauczyciela" expanded="true" rendered="#{s:hasRole('COORDINATOR') || s:hasRole('TEACHER')}">
+				<rich:panelMenuItem label="Mój profil" submitMode="ajax" action="/pages/teacher/home.xhtml"/>
 				<rich:panelMenuItem label="Moi uczniowie" submitMode="ajax" action="/pages/teacher/uczniowie.xhtml"/>
 				<rich:panelMenuItem label="Oczekujące osoby" submitMode="ajax" action="/pages/teacher/oczekujaceOsoby.xhtml"/>
 				<rich:panelMenuItem label="Niesprawdzone lekcje" submitMode="ajax" action="/pages/teacher/lekcjeDoSprawdzenia.xhtml"/>			

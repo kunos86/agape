@@ -11,4 +11,7 @@ public interface LekcjaDoSprDAOLocal {
 	LekcjaDoSpr getById(Long id);
 
 	Criteria wszystkieLekcjeDoSprByIdNauczycielCriteria(Long idNauczciela);
+
+	Long liczbaLekcjiDoSprawdzenia(Long idNauczciela);
+
 }
