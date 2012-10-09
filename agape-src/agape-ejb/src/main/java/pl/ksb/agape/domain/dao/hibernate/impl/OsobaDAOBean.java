@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
@@ -83,6 +84,11 @@ public class OsobaDAOBean implements OsobaDAOLocal, Serializable {
 				.sqlRestriction("exists (select 1 from uczniowie_naucz n where n.id_ucznia = this_.id and n.aktualny='Y' and n.id_nauczyciela = "
 						+ osoba.getId() + ")"));
 		return ret;
+	}
+
+	public Long liczbaUczniowByNauczyciel(Osoba osoba) {
+		return (Long) getUczniowieByNauczyciel(osoba).setProjection(
+				Projections.rowCount()).uniqueResult();
 	}
 
 	public boolean isRegistered(String mail) {

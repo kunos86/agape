@@ -27,4 +27,6 @@ public interface OsobaDAOLocal {
 	boolean isRegistered(String mail);
 
 	List<Osoba> getNauczyciele();
+
+	Long liczbaUczniowByNauczyciel(Osoba osoba);
 }

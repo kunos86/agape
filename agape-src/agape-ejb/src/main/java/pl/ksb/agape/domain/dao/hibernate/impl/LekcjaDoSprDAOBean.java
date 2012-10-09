@@ -3,6 +3,7 @@ package pl.ksb.agape.domain.dao.hibernate.impl;
 import javax.ejb.Stateless;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.Name;
@@ -26,4 +27,10 @@ public class LekcjaDoSprDAOBean extends HibernateBaseDAO<LekcjaDoSpr> implements
 		return hibernateSession.createCriteria(LekcjaDoSpr.class).add(
 				Restrictions.eq("idNauczyciela", idNauczciela));
 	}
+
+	public Long liczbaLekcjiDoSprawdzenia(Long idNauczciela) {
+		return (Long) wszystkieLekcjeDoSprByIdNauczycielCriteria(idNauczciela)
+				.setProjection(Projections.rowCount()).uniqueResult();
+	}
+
 }
