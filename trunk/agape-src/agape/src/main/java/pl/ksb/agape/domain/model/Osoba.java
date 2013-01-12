@@ -9,6 +9,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +27,10 @@ import pl.ksb.agape.domain.model.dict.Status;
 
 @Entity
 @Table(name = "OSOBA", schema = "AGAPE", uniqueConstraints = @UniqueConstraint(columnNames = "email", name = "uniqueEmail"))
+
+
+@NamedQueries(
+		value={@NamedQuery(name="getOsobaMail",query="Select o from Osoba o where o.email = :email")})
 public class Osoba implements Serializable {
 	private static final long serialVersionUID = 8312693018289001116L;
 
@@ -70,9 +76,9 @@ public class Osoba implements Serializable {
 	@Column(name = "DATA_REJ")
 	private Date dataRej;
 
-	@Column(name = "status")
-	@Enumerated(EnumType.STRING)
-	private Status status;
+	@Column(name = "status", length=3, nullable=false)
+	@NotNull
+	private String status;
 
 	@Column(name = "wspolnota", length = 50)
 	@Length(max = 50)
@@ -162,11 +168,13 @@ public class Osoba implements Serializable {
 		this.dataRej = dataRej;
 	}
 
-	public Status getStatus() {
+
+
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
