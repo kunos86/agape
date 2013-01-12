@@ -1,0 +1,21 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+	<style>
+.formLabel {
+	font-weight: bold;
+}
+
+.formMessage {
+	font-weight: bold;
+	color: red;
+}
+</style>
+<h:panelGrid columns="5"> </h:panelGrid>
+    <h:outputLabel for="#{id}" value="#{label}#{required ? ' *' : ''}" />
+    <ui:insert  />
+    <h:message id="#{id}_message" for="#{id}" styleClass="formMessage" />
+</ui:composition>
