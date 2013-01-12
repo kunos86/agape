@@ -1,21 +1,32 @@
-<ui:composition
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<style>
 .formLabel {
-	font-weight: bold;
+
+	color: #363636;
+    float: right;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 0.5em;
+    padding-top: 0.2em;
+    text-align: right;
 }
 
 .formMessage {
 	font-weight: bold;
 	color: red;
 }
+.col1{
+width:#{labelWidth ==  null ? '100px' : labelWidth };
+}
+.col2{}
+.col3{}
 </style>
-<h:panelGrid columns="5"> </h:panelGrid>
-    <h:outputLabel for="#{id}" value="#{label}#{required ? ' *' : ''}" />
-    <ui:insert  />
-    <h:message id="#{id}_message" for="#{id}" styleClass="formMessage" />
+	<h:panelGrid columns="3" columnClasses="col1,col2,col3">
+		<h:outputText value="#{label}#{required ? ' *' : ''}" styleClass="formLabel"/>
+		<ui:insert />
+		<h:message id="#{id}_message" for="#{id}" styleClass="formMessage" />
+	</h:panelGrid>
 </ui:composition>
