@@ -6,12 +6,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 
 
-
+@FacesValidator("com.mkyong.passwordValidator")
 public class PasswordValidator implements Validator, Serializable {
 
 	private static final long serialVersionUID = -3153968932785488353L;
@@ -36,7 +37,7 @@ public class PasswordValidator implements Validator, Serializable {
 			// Compare the first password with the second password.
 			if (!password.equals(confirm)) {
 				throw new ValidatorException(
-						new FacesMessage("Hasła są różne!"));
+						new FacesMessage("Hasła są różne !"));
 			}
 
 		}
