@@ -21,7 +21,7 @@
 						<ui:param name="label" value="Imie" />
 						<ui:param name="id" value="imieInput" />
 						<ui:param name="required" value="true" />
-						<h:inputText id="imieInput" value="#{rejestracja.osoba.imie}"
+						<h:inputText id="imieInput" size="40" value="#{rejestracja.osoba.imie}"
 							required="true" />
 					</ui:decorate>
 
@@ -30,7 +30,7 @@
 						<ui:param name="label" value="Nazwisko" />
 						<ui:param name="id" value="nazwiskoInput" />
 						<ui:param name="required" value="false" />
-						<h:inputText id="nazwiskoInput"
+						<h:inputText id="nazwiskoInput" size="40"
 							value="#{rejestracja.osoba.nazwisko}" required="false" />
 					</ui:decorate>
 
@@ -39,7 +39,7 @@
 						<ui:param name="label" value="Email" />
 						<ui:param name="id" value="emailInput" />
 						<ui:param name="required" value="true" />
-						<h:inputText id="emailInput" value="#{rejestracja.osoba.email}"
+						<h:inputText id="emailInput" size="40" value="#{rejestracja.osoba.email}"
 							required="true" />
 					</ui:decorate>
 
@@ -48,7 +48,7 @@
 						<ui:param name="label" value="Wyznanie" />
 						<ui:param name="id" value="wyznanieInput" />
 						<ui:param name="required" value="false" />
-						<h:inputText id="wyznanieInput"
+						<h:inputText id="wyznanieInput" size="40"
 							value="#{rejestracja.osoba.wyznanie}" required="false" />
 					</ui:decorate>
 
@@ -57,7 +57,7 @@
 						<ui:param name="label" value="Wspólnota" />
 						<ui:param name="id" value="wspolnota" />
 						<ui:param name="required" value="false" />
-						<h:inputText id="wspolnotaInput"
+						<h:inputText id="wspolnotaInput" size="40"
 							value="#{rejestracja.osoba.wspolnota}" required="false" />
 					</ui:decorate>
 
@@ -66,8 +66,8 @@
 						<ui:param name="label" value="Data urodzenia" />
 						<ui:param name="id" value="dataUrField" />
 						<ui:param name="required" value="true" />
-						<rich:calendar id="dataUrField" label="Data Urodzenia"
-							required="true" datePattern="dd.MM.yyyy"
+						<rich:calendar id="dataUrField" label="Data Urodzenia" inputSize="40"
+							required="true" datePattern="dd.MM.yyyy" enableManualInput="true"
 							value="#{rejestracja.osoba.dataUr}">
 						</rich:calendar>
 					</ui:decorate>
@@ -77,7 +77,7 @@
 						<ui:param name="label" value="Adres" />
 						<ui:param name="id" value="adres" />
 						<ui:param name="required" value="false" />
-						<h:inputTextarea id="adresInput" cols="50" rows="4"
+						<h:inputTextarea  id="adresInput" cols="40" rows="4"
 							value="#{rejestracja.osoba.adres}" required="false" />
 					</ui:decorate>
 
