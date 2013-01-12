@@ -1,5 +1,6 @@
 package pl.ksb.agape.domain.dao;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -44,6 +45,12 @@ public class KursDAOBean {
     }
 	
 	public void zapisz(Kurs kurs){
+		
+		if (kurs.getId()==null){
+			kurs.setDataDodania(Calendar.getInstance().getTime());
+		}
+		kurs.setDataArch(Calendar.getInstance().getTime());
+		kurs.setStatus("A");
 		em.persist(kurs);
 	}
 	

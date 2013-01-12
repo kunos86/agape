@@ -40,7 +40,9 @@
 						<ui:param name="id" value="emailInput" />
 						<ui:param name="required" value="true" />
 						<h:inputText id="emailInput" size="40" value="#{rejestracja.osoba.email}"
-							required="true" />
+							required="true" >
+							<f:validator validatorId="uniqueEmailValidator"/>	
+						</h:inputText>
 					</ui:decorate>
 
 

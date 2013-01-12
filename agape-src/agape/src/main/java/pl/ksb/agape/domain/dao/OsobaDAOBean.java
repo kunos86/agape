@@ -25,11 +25,27 @@ public class OsobaDAOBean  {
 
 	public void save(Osoba osoba) {
 		osoba.setDataRej(new Date());
-		osoba.setStatus(Status.AKTUALNY);
+		osoba.setStatus("A");
 		osoba.setRodzajKonta(RodzajKonta.STUDENT);
 		em.persist(osoba);
 
 	}
+	
+	
+	
+	
+	public boolean isRegistered(String mail) {
+		boolean ret = false;
+		@SuppressWarnings("unchecked")
+		List<Osoba> osoby = em.createNamedQuery("getOsobaMail").setParameter("email", mail).getResultList();
+		if (osoby != null && !osoby.isEmpty()) {
+			ret = true;
+		}
+
+		return ret;
+
+	}
+
 
 //	public void update(Osoba osoba) {
 //		hibernateSession.update(osoba);

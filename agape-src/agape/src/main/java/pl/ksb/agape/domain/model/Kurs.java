@@ -30,8 +30,8 @@ import pl.ksb.agape.domain.model.dict.Status;
 @Entity
 @Table(name = "kurs", schema = "agape")
 @NamedQueries(
-		value={@NamedQuery(name="getWszystkieKursy",query="Select k from Kurs k order by k.nrKursu"), 
-				@NamedQuery(name="getWidoczneKursy", query="Select k from Kurs k where k.widocznosc = 'T' order by k.nrKursu")})
+		value={@NamedQuery(name="getWszystkieKursy",query="Select k from Kurs k where k.status = 'A' order by k.nrKursu"), 
+				@NamedQuery(name="getWidoczneKursy", query="Select k from Kurs k where k.status = 'A' and k.widocznosc = true order by k.nrKursu")})
 public class Kurs implements Serializable {
 
 	private static final long serialVersionUID = 6229300064198947190L;
@@ -54,9 +54,8 @@ public class Kurs implements Serializable {
 	@Length(max = 5000)
 	private String opis;
 
-	@Column(name = "widocznosc",length = 3, nullable = false)
-	@Length(max = 3)
-	private String widocznosc;
+	@Column(name = "widocznosc")
+	private Boolean widocznosc;
 
 	@Column(name = "data_dodania", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -66,9 +65,8 @@ public class Kurs implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataArch;
 
-	@Column(name = "status", nullable = true)
-	@Enumerated(EnumType.STRING)
-	private Status status;
+	@Column(name = "status", length=3, nullable = true)
+	private String status;
 
 	@Column(name = "image")
 	@Lob
@@ -119,17 +117,14 @@ public class Kurs implements Serializable {
 		this.opis = opis;
 	}
 
-	public boolean isWidocznosc() {
-		
-		return "T".equals(widocznosc);
+	
+
+	public Boolean getWidocznosc() {
+		return widocznosc;
 	}
 
-	public void setWidocznosc(boolean widocznosc) {
-		if (widocznosc){
-			this.widocznosc = "T";
-		}else{
-			this.widocznosc = "N";
-		}
+	public void setWidocznosc(Boolean widocznosc) {
+		this.widocznosc = widocznosc;
 	}
 
 	public Date getDataDodania() {
@@ -148,11 +143,12 @@ public class Kurs implements Serializable {
 		this.dataArch = dataArch;
 	}
 
-	public Status getStatus() {
+
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
