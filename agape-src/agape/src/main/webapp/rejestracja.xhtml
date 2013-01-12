@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/default.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:my="http://java.sun.com/jsf/composite/components">
+    <ui:define name="content">
+
+		<h:form id="osobaForm">
+
+			<rich:panel>
+				<f:facet name="header"> Rejestracja nowego uzytkownika </f:facet>
+				<h:messages />
+				
+				<h:panelGrid columns="2">
+				
+				<h:outputText value="Nazwisko" />
+						<h:inputText value="#{rejestracja.osoba.nazwisko}" />
+						
+						<h:outputText value="Imie" />
+						<h:inputText value="#{rejestracja.osoba.imie}" />
+						
+						
+						<h:outputText value="mail" />
+						<h:inputText value="#{rejestracja.osoba.email}" />
+						
+					
+				</h:panelGrid>
+				<h:commandButton value="Zapisz" action="#{rejestracja.zapisz()}" />
+					
+
+			</rich:panel>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
