@@ -6,49 +6,48 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	template="/WEB-INF/templates/default.xhtml"
-                xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j">
 
 
 	<ui:define name="content">
-	
 
 
 
- <h:form id="loginForm">
+
+		<h:form id="loginForm">
 			<a4j:region>
- 			<rich:panel> 
- 				<f:facet name="header">Login</f:facet>
- 				
+				<rich:panel>
+					<f:facet name="header">Login</f:facet>
 
- 				<p>Zaloguj się</p> 
 
-				<h:messages />
- 				<div class="dialog"> 
-								
+					<p>Zaloguj się</p>
 
-					
- 					<h:panelGrid columns="2"> 
-											
-						
- 					 <h:outputLabel for="username">Mail</h:outputLabel> 
-                     <h:inputText id="username" 
-                               value="#{permisssionManagement.username}"/> 
-                     <h:outputLabel for="password">Hasło</h:outputLabel> 
-                     <h:inputSecret id="password" 
-                                 value="#{permisssionManagement.password}"/> 
-                                          
+					<h:messages />
+					<div class="dialog">
 
- 					</h:panelGrid> 
- 				</div> 
- 				<div class="actionButtons"> 
-				<a4j:commandButton id="submit" value="Zaloguj" type="submit" render="loginForm"
-						action="#{permisssionManagement.login}" /> 
- 				</div> 
- 			</rich:panel> 
+
+
+						<h:panelGrid columns="2">
+
+
+							<h:outputLabel for="username">Mail</h:outputLabel>
+							<h:inputText id="username"
+								value="#{permisssionManagement.username}" />
+							<h:outputLabel for="password">Hasło</h:outputLabel>
+							<h:inputSecret id="password"
+								value="#{permisssionManagement.password}" />
+							
+						</h:panelGrid>
+					</div>
+					<div class="actionButtons">
+						<a4j:commandButton id="submit" value="Zaloguj" type="submit"
+							render="loginForm" action="#{permisssionManagement.login}" />
+					</div>
+				</rich:panel>
 
 
 			</a4j:region>
- 		</h:form> 
+		</h:form>
 
 
 
