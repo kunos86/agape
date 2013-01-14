@@ -79,7 +79,7 @@
 						<ui:param name="label" value="Adres" />
 						<ui:param name="id" value="adres" />
 						<ui:param name="required" value="false" />
-						<h:inputTextarea id="adresInput" cols="42" rows="4"
+						<h:inputTextarea id="adresInput" cols="40" rows="4"
 							value="#{rejestracja.osoba.adres}" required="false" />
 					</ui:decorate>
 
@@ -94,7 +94,7 @@
 
 					<ui:decorate template="/layout/field.xhtml">
 						<ui:param name="label" value="Powtórz Hasło" />
-						<ui:param name="id2" value="haslo2" />
+						<ui:param name="id" value="haslo2" />
 						<ui:param name="required" value="true" />
 						<h:inputSecret id="haslo2" required="true" size="40"
 							value="#{rejestracja.haslo2}">
@@ -110,14 +110,14 @@
 						</h:selectBooleanCheckbox>
 
 						<h:outputText value="Oświadczam, że zapoznałem się z" />
-						<h:commandLink  value="regulaminem">
+						<h:commandLink value="regulaminem">
 							<rich:componentControl target="popup" operation="show" />
 						</h:commandLink>
 					</h:panelGroup>
 
 
 
-					<h:commandButton value="Zapisz" action="#{rejestracja.zapisz()}" />
+					<a4j:commandButton value="Zapisz" action="#{rejestracja.zapisz()}"  render="@form"/>
 				</h:panelGrid>
 
 
@@ -127,27 +127,26 @@
 
 		</h:form>
 
-					<rich:popupPanel id="popup" modal="true" autosized="true"
-						resizeable="false">
-						<f:facet name="header">
-							<h:outputText value="Regulamin kursu" />
-						</f:facet>
+		<rich:popupPanel id="popup" modal="true" width="600" height="500"
+			resizeable="true">
+			<f:facet name="header">
+				<h:outputText value="Regulamin kursu" />
+			</f:facet>
+			<div style="overflow: scroll; width: 100%; height: 410px;">
+				<ui:include src="/regulamin.xhtml" />
 
-						<f:facet name="controls">
-							<h:outputLink value="#" onclick=""> 
-								X
-            				</h:outputLink>
-						</f:facet>
-						<p>
-							Regulamin Kursu Agape.
-							Osoba uczestniczaca w kursie zobowiazana jest do.
-							
-							<h:form style = "text-align:center;">
-						  	<h:commandButton value="Zamknij" onclick="#{rich:component('popup')}.hide()}" />							 
-							</h:form>			
-						</p>
-						
-					</rich:popupPanel>
+			</div>
+			<br />
+
+
+			<h:form style="text-align:center;">
+				<a4j:commandButton value="Zamknij" >
+					<rich:componentControl target="popup" operation="hide" />
+					
+				</a4j:commandButton>
+			</h:form>
+			
+		</rich:popupPanel>
 	</ui:define>
 
 </ui:composition>
