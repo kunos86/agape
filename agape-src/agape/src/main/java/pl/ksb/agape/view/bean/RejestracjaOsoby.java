@@ -35,6 +35,26 @@ public class RejestracjaOsoby implements Serializable {
 	
 	private Osoba osoba = new Osoba();
 	private String haslo2;
+	
+	private boolean regulamin;
+	
+	
+	
+	public boolean isRegulamin() {
+		return regulamin;
+	}
+
+	public void setRegulamin(boolean regulamin) {
+		this.regulamin = regulamin;
+	}
+
+	public String getHaslo2() {
+		return haslo2;
+	}
+
+	public void setHaslo2(String haslo2) {
+		this.haslo2 = haslo2;
+	}
 
 	public Osoba getOsoba() {
 		return osoba;
@@ -46,6 +66,11 @@ public class RejestracjaOsoby implements Serializable {
 
 	public String zapisz() {
 		String ret="";
+		if (!regulamin){
+			facesContext.addMessage(null, new FacesMessage( "Niezaakceptowales regulaminu. Aby sie zarejestrowac musisz zaakceptowac regulamin servisu."));
+			return "";
+		}
+		
 		try {
 			userManagement.register(osoba);
 			facesContext.addMessage(null, new FacesMessage(

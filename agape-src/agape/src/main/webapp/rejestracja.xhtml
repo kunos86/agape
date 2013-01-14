@@ -21,8 +21,8 @@
 						<ui:param name="label" value="Imie" />
 						<ui:param name="id" value="imieInput" />
 						<ui:param name="required" value="true" />
-						<h:inputText id="imieInput" size="40" value="#{rejestracja.osoba.imie}"
-							required="true" />
+						<h:inputText id="imieInput" size="40"
+							value="#{rejestracja.osoba.imie}" required="true" />
 					</ui:decorate>
 
 
@@ -39,9 +39,9 @@
 						<ui:param name="label" value="Email" />
 						<ui:param name="id" value="emailInput" />
 						<ui:param name="required" value="true" />
-						<h:inputText id="emailInput" size="40" value="#{rejestracja.osoba.email}"
-							required="true" >
-							<f:validator validatorId="uniqueEmailValidator"/>	
+						<h:inputText id="emailInput" size="40"
+							value="#{rejestracja.osoba.email}" required="true">
+							<f:validator validatorId="uniqueEmailValidator" />
 						</h:inputText>
 					</ui:decorate>
 
@@ -68,9 +68,9 @@
 						<ui:param name="label" value="Data urodzenia" />
 						<ui:param name="id" value="dataUrField" />
 						<ui:param name="required" value="true" />
-						<rich:calendar id="dataUrField" label="Data Urodzenia" inputSize="40"
-							required="true" datePattern="dd.MM.yyyy" enableManualInput="true"
-							value="#{rejestracja.osoba.dataUr}">
+						<rich:calendar id="dataUrField" label="Data Urodzenia"
+							inputSize="40" required="true" datePattern="dd.MM.yyyy"
+							enableManualInput="true" value="#{rejestracja.osoba.dataUr}">
 						</rich:calendar>
 					</ui:decorate>
 
@@ -79,13 +79,47 @@
 						<ui:param name="label" value="Adres" />
 						<ui:param name="id" value="adres" />
 						<ui:param name="required" value="false" />
-						<h:inputTextarea  id="adresInput" cols="40" rows="4"
+						<h:inputTextarea id="adresInput" cols="42" rows="4"
 							value="#{rejestracja.osoba.adres}" required="false" />
 					</ui:decorate>
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Hasło" />
+						<ui:param name="id" value="haslo" />
+						<ui:param name="required" value="true" />
+						<h:inputSecret id="haslo" required="true" size="40"
+							value="#{rejestracja.osoba.haslo}">
+						</h:inputSecret>
+					</ui:decorate>
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Powtórz Hasło" />
+						<ui:param name="id2" value="haslo2" />
+						<ui:param name="required" value="true" />
+						<h:inputSecret id="haslo2" required="true" size="40"
+							value="#{rejestracja.haslo2}">
+							<f:attribute name="passId" value="osobaForm:haslo" />
+							<f:validator validatorId="passwordValidator" />
+						</h:inputSecret>
+					</ui:decorate>
+
+					<!--  REGULAMIN  -->
+					<h:panelGroup>
+						<h:selectBooleanCheckbox value="#{rejestracja.regulamin}">
+							<a4j:ajax event="click" />
+						</h:selectBooleanCheckbox>
+
+						<h:outputText value="Oświadczam, że zapoznałem się z" />
+						<h:commandLink  value="regulaminem">
+							<rich:componentControl target="popup" operation="show" />
+						</h:commandLink>
+					</h:panelGroup>
+
 
 
 					<h:commandButton value="Zapisz" action="#{rejestracja.zapisz()}" />
 				</h:panelGrid>
+
 
 
 			</rich:panel>
@@ -93,6 +127,27 @@
 
 		</h:form>
 
+					<rich:popupPanel id="popup" modal="true" autosized="true"
+						resizeable="false">
+						<f:facet name="header">
+							<h:outputText value="Regulamin kursu" />
+						</f:facet>
+
+						<f:facet name="controls">
+							<h:outputLink value="#" onclick=""> 
+								X
+            				</h:outputLink>
+						</f:facet>
+						<p>
+							Regulamin Kursu Agape.
+							Osoba uczestniczaca w kursie zobowiazana jest do.
+							
+							<h:form style = "text-align:center;">
+						  	<h:commandButton value="Zamknij" onclick="#{rich:component('popup')}.hide()}" />							 
+							</h:form>			
+						</p>
+						
+					</rich:popupPanel>
 	</ui:define>
 
 </ui:composition>

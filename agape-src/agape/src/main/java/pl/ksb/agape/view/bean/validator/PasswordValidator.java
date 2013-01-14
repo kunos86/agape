@@ -12,13 +12,14 @@ import javax.faces.validator.ValidatorException;
 
 
 
-@FacesValidator("com.mkyong.passwordValidator")
+@FacesValidator("passwordValidator")
 public class PasswordValidator implements Validator, Serializable {
 
 	private static final long serialVersionUID = -3153968932785488353L;
 
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
+		
 
 		String passwordId = (String) component.getAttributes().get("passId");
 

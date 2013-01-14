@@ -24,10 +24,14 @@ public class OsobaDAOBean  {
 
 
 	public void save(Osoba osoba) {
-		osoba.setDataRej(new Date());
-		osoba.setStatus("A");
-		osoba.setRodzajKonta(RodzajKonta.STUDENT);
-		em.persist(osoba);
+		if (osoba.getId()==null){
+			osoba.setStatus("A");
+			osoba.setRodzajKonta(RodzajKonta.STUDENT);
+			osoba.setDataRej(new Date());
+			em.persist(osoba);
+		}else{
+			em.merge(osoba);
+		}
 
 	}
 	
