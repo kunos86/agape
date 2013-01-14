@@ -15,6 +15,7 @@
 				<f:facet name="header">
 					<h:outputText value="Lista lekcji" />
 				</f:facet>
+				<a4j:commandButton action="#{lekcjeBrowser.przejdzDoKursow()}" value="Wróc do kursów" immediate="true"/>
 				<rich:toolbar id="menu">
 					<a4j:region>
 
@@ -30,7 +31,7 @@
 						</a4j:commandButton>
 						
 						<a4j:commandButton value="Pytania lekcji"
-							action="#{lekcjeBrowser.przejdzDoPytn()}"
+							action="#{lekcjeBrowser.przejdzDoPytan()}"
 							disabled="#{lekcjeBrowser.selection==null or lekcjeBrowser.editMode}">
 						</a4j:commandButton>
 					</a4j:region>

@@ -1,5 +1,6 @@
 package pl.ksb.agape.view.bean.admin.kurs;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -122,6 +123,10 @@ public class PytaniaBrowser implements Serializable{
 		return pytania;
 	}
 	
+	public void przejdzDoPytan() throws IOException{
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/lekcje.jsf?id="+Encoder.encode(lekcja.getIdKursu()));  
+
+	}
 	
 	
 
