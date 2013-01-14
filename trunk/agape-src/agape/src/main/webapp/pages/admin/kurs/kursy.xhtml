@@ -16,46 +16,103 @@
 					<h:outputText value="Lista kursów" />
 				</f:facet>
 				<rich:toolbar id="menu">
+					<a4j:region>
+						<a4j:commandButton value="Dodaj kurs"
+							action="#{kursyBrowser.dodajKurs()}" render="@form"
+							disabled="#{kursyBrowser.editMode}">
 
-					<a4j:commandButton value="Dodaj kurs"
-						action="#{kursyBrowser.dodajKurs()}" render="kursPopup"
-						oncomplete="#{rich:component('kursPopup')}.show();" >
-					
-					</a4j:commandButton>
+						</a4j:commandButton>
 
-					<a4j:commandButton value="Edycja kurs"
-						action="#{kursyBrowser.edycjaKursu()}" render="kursPopup"
-						disabled="#{kursyBrowser.selection==null}"
-						 oncomplete="#{rich:component('kursPopup')}.show();" >
-					</a4j:commandButton>
+						<a4j:commandButton value="Edytuj kurs"
+							action="#{kursyBrowser.edycjaKursu()}" render="@form"
+							disabled="#{kursyBrowser.selection==null or kursyBrowser.editMode}">
+						</a4j:commandButton>
+
+						<a4j:commandButton value="Lekcje w kursie"
+							action="#{kursyBrowser.przejdzDoLekcji()}"
+							disabled="#{kursyBrowser.selection==null or kursyBrowser.editMode}">
+						</a4j:commandButton>
+					</a4j:region>
 				</rich:toolbar>
+
+				<rich:panel id="edycjaPanel" rendered="#{kursyBrowser.editMode}">
+					<a4j:region>
+
+						<h:panelGrid columns="1">
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Nr kursu" />
+								<ui:param name="id" value="nrKursu" />
+								<ui:param name="required" value="true" />
+								<h:inputText id="nrKursu" value="#{kursyBrowser.kurs.nrKursu}"
+									required="true" />
+							</ui:decorate>
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Tytuł" />
+								<ui:param name="id" value="tytulKursu" />
+								<ui:param name="required" value="true" />
+								<h:inputText id="tytulKursu" value="#{kursyBrowser.kurs.tytul}"
+									required="true" size="50" />
+							</ui:decorate>
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Wyświetl na stronie" />
+								<ui:param name="id" value="widocznoscKursu" />
+								<ui:param name="required" value="true" />
+								<h:selectBooleanCheckbox id="widocznoscKursu"
+									value="#{kursyBrowser.kurs.widocznosc}" />
+							</ui:decorate>
+
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Opis" />
+								<ui:param name="id" value="opisKursu" />
+								<ui:param name="required" value="false" />
+								<ui:param name="labelWidth" value="100px" />
+								<h:inputTextarea id="opisKursu"
+									value="#{kursyBrowser.kurs.opis}" cols="50" />
+							</ui:decorate>
+
+						</h:panelGrid>
+						<h:panelGrid columns="5">
+							<a4j:commandButton id="submit"
+								action="#{kursyBrowser.zapiszKurs()}" value="Zapisz"
+								execute="@region" render="@form">
+							</a4j:commandButton>
+
+							<a4j:commandButton id="cancel" immediate="true"
+								action="#{kursyBrowser.closeEditMode()}" render="@form"
+								value="Wyjdź" />
+						</h:panelGrid>
+					</a4j:region>
+				</rich:panel>
 
 				<rich:extendedDataTable value="#{kursyBrowser.kursy}" var="_row"
 					id="tabela" selectionMode="single"
-					selection="#{kursyBrowser.selection}"
-					>
-					<a4j:ajax event="selectionchange" render="menu" immediate="true"/>
+					selection="#{kursyBrowser.selection}">
+					<a4j:ajax event="selectionchange" render="menu" immediate="true" />
 
 
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Numer" />
 						</f:facet>
-						<h:outputText value="#{_row.nrKursu}" />
+						<h:outputText value="#{_row.nrKursu}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
 					</rich:column>
 
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Tytuł" />
 						</f:facet>
-						<h:outputText value="#{_row.tytul}" />
+						<h:outputText value="#{_row.tytul}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
 					</rich:column>
 
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Opis" />
 						</f:facet>
-						<h:outputText value="#{_row.opis}" />
+						<h:outputText value="#{_row.opis}" style="#{_row.widocznosc ? '' : 'color:grey;'}" />
 					</rich:column>
 				</rich:extendedDataTable>
 
@@ -67,68 +124,6 @@
 
 
 		</h:form>
-		<rich:popupPanel id="kursPopup" width="500" height="400" modal="true">
-			<f:facet name="header">
-				<h:outputText value="Dodanie/Edycja Kursu" />
-			</f:facet>
-			<a4j:outputPanel id="popupOutputPanel" ajaxRendered="true">
-				<h:form enctype="multipart/form-data">
-
-
-					<h:panelGrid columns="1">
-
-						<ui:decorate template="/layout/field.xhtml">
-							<ui:param name="label" value="Nr kursu" />
-							<ui:param name="id" value="nrKursu" />
-							<ui:param name="required" value="true" />
-							<h:inputText id="nrKursu" value="#{kursyBrowser.kurs.nrKursu}"
-								required="true" />
-						</ui:decorate>
-
-						<ui:decorate template="/layout/field.xhtml">
-							<ui:param name="label" value="Tytuł" />
-							<ui:param name="id" value="tytulKursu" />
-							<ui:param name="required" value="true" />
-							<h:inputText id="tytulKursu" value="#{kursyBrowser.kurs.tytul}"
-								required="true" size="50" />
-						</ui:decorate>
-
-						<ui:decorate template="/layout/field.xhtml">
-							<ui:param name="label" value="Wyświetl na stronie" />
-							<ui:param name="id" value="widocznoscKursu" />
-							<ui:param name="required" value="true" />
-							<h:selectBooleanCheckbox id="widocznoscKursu"
-								value="#{kursyBrowser.kurs.widocznosc}" />
-						</ui:decorate>
-
-
-						<ui:decorate template="/layout/field.xhtml">
-							<ui:param name="label" value="Opis" />
-							<ui:param name="id" value="opisKursu" />
-							<ui:param name="required" value="true" />
-							<ui:param name="labelWidth" value="100px" />
-							<h:inputTextarea id="opisKursu" value="#{kursyBrowser.kurs.opis}"
-								cols="50" />
-						</ui:decorate>
-
-					</h:panelGrid>
-					<h:panelGrid columns="5">
-						<a4j:commandButton id="submit"
-							action="#{kursyBrowser.zapiszKurs()}" value="Zapisz"
-							render="@form,tabela"
-							oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('kursPopup')}.hide();">
-						</a4j:commandButton>
-
-						<a4j:commandButton id="cancel" immediate="true" value="Wyjdź"
-							oncomplete="#{rich:component('kursPopup')}.hide();">
-						</a4j:commandButton>
-					</h:panelGrid>
-
-
-				</h:form>
-			</a4j:outputPanel>
-
-		</rich:popupPanel>
 	</ui:define>
 
 </ui:composition>
