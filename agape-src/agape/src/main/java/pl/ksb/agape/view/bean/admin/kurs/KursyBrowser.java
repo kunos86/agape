@@ -10,12 +10,12 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+
 
 import pl.ksb.agape.domain.dao.KursDAOBean;
 import pl.ksb.agape.domain.model.Kurs;
 import pl.ksb.agape.util.Encoder;
-import pl.ksb.agape.view.bean.SessionRedirectIds;
+
 
 
 @ManagedBean
