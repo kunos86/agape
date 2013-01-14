@@ -128,9 +128,14 @@ public class LekcjeBrowser implements Serializable {
 		this.selection = selection;
 	}
 
-	public void przejdzDoPytn() throws IOException{
+	public void przejdzDoPytan() throws IOException{
 		wczytajZaznaczenie();
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/pytania.jsf?id="+Encoder.encode(lekcja.getId()));  
+
+	}
+	
+	public void przejdzDoKursow() throws IOException{
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/kursy.jsf");  
 
 	}
 	
