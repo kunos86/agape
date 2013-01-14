@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +21,11 @@ import pl.ksb.agape.domain.model.dict.Status;
 
 @Entity
 @Table(name = "pytanie", schema = "agape")
+@NamedQueries(value = {
+		@NamedQuery(name = "getPytaniaLekcji", query = "Select p from Pytanie p where p.status = 'A' and p.idLekcja = :idLekcja order by p.nrPytanie"),
+		@NamedQuery(name = "getWidocznePytaniaLekcji", query = "Select p from Pytanie p where p.status = 'A' and p.idLekcja = :idLekcja and p.widocznosc = true order by p.nrPytanie") })
+
+
 public class Pytanie implements Serializable {
 
 	private static final long serialVersionUID = 9090565015091367287L;
@@ -32,9 +39,9 @@ public class Pytanie implements Serializable {
 	@NotNull
 	private Long nrPytanie;
 
-	@Column(name = "nr_lekcja", length = 10, nullable = false)
+	@Column(name = "id_lekcja", length = 10, nullable = false)
 	@NotNull
-	private Long nrLekcja;
+	private Long idLekcja;
 
 	@Column(name = "tresc", length = 500, nullable = true)
 	@Length(max = 500)
@@ -51,8 +58,8 @@ public class Pytanie implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataArch;
 
-	@Column(name = "status", nullable = true)
-	private Status status;
+	@Column(name = "status", length=3, nullable = true)
+	private String status;
 
 	public Long getId() {
 		return id;
@@ -70,12 +77,12 @@ public class Pytanie implements Serializable {
 		this.nrPytanie = nrPytanie;
 	}
 
-	public Long getNrLekcja() {
-		return nrLekcja;
+	public Long getIdLekcja() {
+		return idLekcja;
 	}
 
-	public void setNrLekcja(Long nrLekcja) {
-		this.nrLekcja = nrLekcja;
+	public void setIdLekcja(Long idLekcja) {
+		this.idLekcja = idLekcja;
 	}
 
 	public String getTresc() {
@@ -110,12 +117,14 @@ public class Pytanie implements Serializable {
 		this.dataArch = dataArch;
 	}
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
 
 }

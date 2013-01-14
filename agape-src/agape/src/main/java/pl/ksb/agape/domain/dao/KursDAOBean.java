@@ -33,6 +33,10 @@ public class KursDAOBean {
     @Inject
     private EntityManager em;
     
+    public Kurs getById(long id){
+    	return em.find(Kurs.class, id);
+    }
+    
 	@SuppressWarnings("unchecked")
 	public List<Kurs> getListaKursow(boolean tylkoWidoczne){
     	Query q=null;
@@ -46,12 +50,14 @@ public class KursDAOBean {
 	
 	public void zapisz(Kurs kurs){
 		
-		if (kurs.getId()==null){
-			kurs.setDataDodania(Calendar.getInstance().getTime());
-		}
 		kurs.setDataArch(Calendar.getInstance().getTime());
 		kurs.setStatus("A");
-		em.persist(kurs);
+		if (kurs.getId()==null){
+			kurs.setDataDodania(Calendar.getInstance().getTime());
+			em.persist(kurs);
+		}else{
+			em.merge(kurs);
+		}
 	}
 	
 }

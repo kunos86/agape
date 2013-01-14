@@ -9,18 +9,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-
-
 import pl.ksb.agape.domain.model.dict.Status;
 
 @Entity
 @Table(name = "lekcja", schema = "agape")
+@NamedQueries(value = {
+		@NamedQuery(name = "getLekcjeKursu", query = "Select l from Lekcja l where l.status = 'A' and l.idKursu = :idKursu order by l.nrLekcji"),
+		@NamedQuery(name = "getWidoczneLekcjeKursu", query = "Select l from Lekcja l where l.status = 'A' and l.idKursu = :idKursu and l.widocznosc = true order by l.nrLekcji") })
 public class Lekcja implements Serializable {
 
 	private static final long serialVersionUID = -6935488877088993468L;
@@ -57,8 +60,8 @@ public class Lekcja implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataArch;
 
-	@Column(name = "status", nullable = true)
-	private Status status;
+	@Column(name = "status", length = 3, nullable = true)
+	private String status;
 
 	@OneToMany()
 	@JoinColumn(name = "id_lekcja")
@@ -136,11 +139,11 @@ public class Lekcja implements Serializable {
 		this.dataArch = dataArch;
 	}
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

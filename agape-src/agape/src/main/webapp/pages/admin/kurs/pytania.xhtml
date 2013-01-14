@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+
+		<h:form>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Lista Pytań" />
+				</f:facet>
+				<rich:toolbar id="menu">
+					<a4j:region>
+
+						<a4j:commandButton value="Dodaj pytanie"
+							action="#{pytaniaBrowser.dodaj()}" render="@form"
+							disabled="#{pytaniaBrowser.editMode}">
+
+						</a4j:commandButton>
+					</a4j:region>
+				</rich:toolbar>
+				<rich:panel id="edycjaPanel" rendered="#{pytaniaBrowser.editMode}">
+
+					<a4j:region>
+						<h:panelGrid columns="1">
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Nr pytania" />
+								<ui:param name="id" value="nrPytania" />
+								<ui:param name="required" value="true" />
+								<h:inputText id="nrPytania"
+									value="#{pytaniaBrowser.pytanie.nrPytanie}" required="true" />
+							</ui:decorate>
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Wyświetl na stronie" />
+								<ui:param name="id" value="widocznoscPytania" />
+								<ui:param name="required" value="false" />
+								<h:selectBooleanCheckbox id="widocznoscPytania"
+									value="#{pytaniaBrowser.pytanie.widocznosc}" />
+							</ui:decorate>
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Treść" />
+								<ui:param name="id" value="tresc" />
+								<ui:param name="required" value="false" />
+								<h:inputTextarea id="tresc"
+									value="#{pytaniaBrowser.pytanie.tresc}" cols="50" />
+							</ui:decorate>
+
+
+						</h:panelGrid>
+						<h:panelGrid columns="5">
+							<a4j:commandButton id="submit" action="#{pytaniaBrowser.zapisz}"
+								value="Zapisz" render="@form,tabela" execute="@region" />
+							<a4j:commandButton id="cancel" immediate="true"
+								action="#{pytaniaBrowser.closeEditMode()}" render="@form"
+								value="Wyjdź">
+							</a4j:commandButton>
+						</h:panelGrid>
+
+					</a4j:region>
+
+				</rich:panel>
+
+				<rich:dataGrid value="#{pytaniaBrowser.pytania}" var="_row" style="width:100%"
+					columns="1">
+					<h:outputText value="Pytanie #{_row.nrPytanie}  "
+						style="font-weight: bold;#{_row.widocznosc ? '' : 'color:grey;'}" />
+						<a4j:commandLink value="edytuj" action="#{pytaniaBrowser.edycja(_row.id)}" render="@form" disabled="#{pytaniaBrowser.editMode}"/>
+					<br />
+				
+			
+					<h:outputText  value="#{_row.tresc}" style="#{_row.widocznosc ? '' : 'color:grey;'}"
+						 />
+
+
+
+
+				</rich:dataGrid>
+				</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

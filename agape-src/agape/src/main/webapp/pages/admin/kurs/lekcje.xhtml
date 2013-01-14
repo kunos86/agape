@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+
+		<h:form>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Lista lekcji" />
+				</f:facet>
+				<rich:toolbar id="menu">
+					<a4j:region>
+
+						<a4j:commandButton value="Dodaj lekcję"
+							action="#{lekcjeBrowser.dodaj()}" render="@form"
+							disabled="#{lekcjeBrowser.editMode}">
+
+						</a4j:commandButton>
+
+						<a4j:commandButton value="Edytuj lekcję"
+							action="#{lekcjeBrowser.edycja()}" render="@form"
+							disabled="#{lekcjeBrowser.selection==null or lekcjeBrowser.editMode}">
+						</a4j:commandButton>
+						
+						<a4j:commandButton value="Pytania lekcji"
+							action="#{lekcjeBrowser.przejdzDoPytn()}"
+							disabled="#{lekcjeBrowser.selection==null or lekcjeBrowser.editMode}">
+						</a4j:commandButton>
+					</a4j:region>
+				</rich:toolbar>
+				<rich:panel id="edycjaPanel" rendered="#{lekcjeBrowser.editMode}">
+
+					<a4j:region>
+						<h:panelGrid columns="1">
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Nr lekcji" />
+								<ui:param name="id" value="nrLekcji" />
+								<ui:param name="required" value="true" />
+								<h:inputText id="nrLekcji"
+									value="#{lekcjeBrowser.lekcja.nrLekcji}" required="true" />
+							</ui:decorate>
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Wyświetl na stronie" />
+								<ui:param name="id" value="widocznoscKursu" />
+								<ui:param name="required" value="false" />
+								<h:selectBooleanCheckbox id="widocznoscKursu"
+									value="#{lekcjeBrowser.lekcja.widocznosc}" />
+							</ui:decorate>
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Wprowadzenie" />
+								<ui:param name="id" value="wprowadzenieLekcja" />
+								<ui:param name="required" value="false" />
+								<h:inputTextarea id="wprowadzenieLekcja"
+									value="#{lekcjeBrowser.lekcja.wprowadzenie}" cols="50" />
+							</ui:decorate>
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Zadanie domowe" />
+								<ui:param name="id" value="pracaLekcja" />
+								<ui:param name="required" value="false" />
+								<h:inputTextarea id="pracaLekcja"
+									value="#{lekcjeBrowser.lekcja.zadaniaDomowe}" cols="50" />
+							</ui:decorate>
+
+							<ui:decorate template="/layout/field.xhtml">
+								<ui:param name="label" value="Opis" />
+								<ui:param name="id" value="opisKursu" />
+								<ui:param name="required" value="false" />
+								<ui:param name="labelWidth" value="100px" />
+								<h:inputTextarea id="opisKursu"
+									value="#{lekcjeBrowser.lekcja.opis}" cols="50" />
+							</ui:decorate>
+
+						</h:panelGrid>
+						<h:panelGrid columns="5">
+							<a4j:commandButton id="submit" action="#{lekcjeBrowser.zapisz}"
+								value="Zapisz" render="@form,tabela" execute="@region" />
+							<a4j:commandButton id="cancel" immediate="true"
+								action="#{lekcjeBrowser.closeEditMode()}" render="@form"
+								value="Wyjdź">
+							</a4j:commandButton>
+						</h:panelGrid>
+
+					</a4j:region>
+
+				</rich:panel>
+
+
+				<rich:extendedDataTable value="#{lekcjeBrowser.lekcje}" var="_row"
+					id="tabela" selectionMode="single"
+					selection="#{lekcjeBrowser.selection}">
+					<a4j:ajax event="selectionchange" render="menu" immediate="true" />
+
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Numer" />
+						</f:facet>
+						<h:outputText value="#{_row.nrLekcji}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Wprowadzenie" />
+						</f:facet>
+						<h:outputText value="#{_row.wprowadzenie}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Opis" />
+						</f:facet>
+						<h:outputText value="#{_row.opis}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
+					</rich:column>
+				</rich:extendedDataTable>
+
+
+
+			</rich:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
