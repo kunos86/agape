@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.Length;
 
 
 
-import pl.ksb.agape.domain.model.dict.RodzajKonta;
+import pl.ksb.agape.domain.model.dict.RolaEnum;
 import pl.ksb.agape.domain.model.dict.Status;
 
 @Entity
@@ -57,10 +57,6 @@ public class Osoba implements Serializable {
 	@Column(name = "haslo", length = 20)
 	@Length(max = 20)
 	private String haslo;
-
-	@Column(name = "RODZ_KONTA")
-	@Enumerated(EnumType.STRING)
-	private RodzajKonta rodzajKonta;
 
 	@Column(name = "wojewodztwo")
 	private String wojewodztwo;
@@ -126,14 +122,6 @@ public class Osoba implements Serializable {
 
 	public void setHaslo(String haslo) {
 		this.haslo = haslo;
-	}
-
-	public RodzajKonta getRodzajKonta() {
-		return rodzajKonta;
-	}
-
-	public void setRodzajKonta(RodzajKonta rodzajKonta) {
-		this.rodzajKonta = rodzajKonta;
 	}
 
 	public String getWojewodztwo() {

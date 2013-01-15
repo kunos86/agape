@@ -1,6 +1,6 @@
 package pl.ksb.agape.domain.model.dict;
 
 
-public enum RodzajKonta {
+public enum RolaEnum {
 	VISITOR, STUDENT, TEACHER, COORDINATOR
 }
