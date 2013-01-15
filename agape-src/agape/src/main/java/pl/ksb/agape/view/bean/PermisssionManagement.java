@@ -2,16 +2,12 @@ package pl.ksb.agape.view.bean;
 
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.naming.AuthenticationException;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
+
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
@@ -58,7 +54,7 @@ public class PermisssionManagement {
 	
 	public boolean isTeacherLogged(){
 		Subject subject = SecurityUtils.getSubject();
-		return subject.isAuthenticated() && (subject.hasRole("TEACHER") || subject.hasRole("COORDINATOR"));
+		return subject.isAuthenticated() && (subject.hasRole("TEACHER"));
 	}
 	
 	public boolean isCoordinatorLogged(){
@@ -103,7 +99,7 @@ public class PermisssionManagement {
 		       return "";
 		    }
 		}
-		return "/index.xhtml";
+		return "/pages/home.xhtml";
 	}
 	
 	

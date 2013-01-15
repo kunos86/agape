@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 
 
 import pl.ksb.agape.domain.model.Osoba;
-import pl.ksb.agape.domain.model.dict.RodzajKonta;
+import pl.ksb.agape.domain.model.dict.RolaEnum;
 import pl.ksb.agape.domain.model.dict.Status;
 
 @Stateless
@@ -26,7 +26,6 @@ public class OsobaDAOBean  {
 	public void save(Osoba osoba) {
 		if (osoba.getId()==null){
 			osoba.setStatus("A");
-			osoba.setRodzajKonta(RodzajKonta.STUDENT);
 			osoba.setDataRej(new Date());
 			em.persist(osoba);
 		}else{

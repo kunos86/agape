@@ -8,11 +8,8 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:my="http://java.sun.com/jsf/composite/components">
     <ui:define name="content">
-     <rich:panel>
-     
-     <h:outputText value="#{test.zalogowany}" />
-     </rich:panel>
-     
+		
+		<ui:include src="/components/news.xhtml" />
      
     </ui:define>
 </ui:composition>
