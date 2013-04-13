@@ -34,7 +34,7 @@ public class Rola implements Serializable{
 	private Long id_osoba;
 	
 	
-	@Column(name="rola", length=10)
+	@Column(name="rola", length=20)
 	@Enumerated(EnumType.STRING)
 	private RolaEnum  rola;
 	

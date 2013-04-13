@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Lista osób zarejestrowanych w systemie" />
+				</f:facet>
+				<rich:extendedDataTable sortMode="single" value="#{osobyDataModel}" 
+					
+					var="_row" rows="20" filterVar="filterValue"  >
+					<rich:column id="col1" sortBy="#{_row.nazwisko}" filterValue="#{_row.nazwisko}" 
+						filterExpression="#{empty filterValue or fn:startsWith(_row.nazwisko, filterValue)}">
+						<f:facet name="header">Nazwisko</f:facet>
+						<h:outputText value="#{_row.nazwisko}" />
+
+					</rich:column>
+					<rich:column id="col2" sortBy="#{_row.imie}" 
+						filterExpression="#{_row.imie}">
+						<f:facet name="header">Imię</f:facet>
+						<h:outputText value="#{_row.imie}" />
+					</rich:column>
+					<rich:column id="col3" sortBy="#{_row.email}"
+						filterExpression="#{_row.email}">
+						<f:facet name="header">Email</f:facet>
+						<h:outputText value="#{_row.email}" />
+
+					</rich:column>
+
+
+				</rich:extendedDataTable>
+
+
+			</rich:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

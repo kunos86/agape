@@ -33,6 +33,11 @@ public class KursDAOBean {
     @Inject
     private EntityManager em;
     
+   
+    
+    
+    
+    
     public Kurs getById(long id){
     	return em.find(Kurs.class, id);
     }
