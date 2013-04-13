@@ -30,7 +30,8 @@ import pl.ksb.agape.domain.model.dict.Status;
 
 
 @NamedQueries(
-		value={@NamedQuery(name="getOsobaMail",query="Select o from Osoba o where o.email = :email")})
+		value={@NamedQuery(name="getOsobaMail",query="Select o from Osoba o where o.email = :email"), 
+				@NamedQuery(name="getWszystkieOsoby",query="Select o from Osoba o")})
 public class Osoba implements Serializable {
 	private static final long serialVersionUID = 8312693018289001116L;
 

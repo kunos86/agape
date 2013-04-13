@@ -48,7 +48,18 @@ public class OsobaDAOBean  {
 		return ret;
 
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Osoba> getWszystkieOsoby(){
+		return em.createNamedQuery("getWszystkieOsoby").getResultList();	
+	}
 
+	
+	public Long getLiczbaOsob(){
+		return (Long) em.createQuery("Select count(o) from Osoba o").getSingleResult();	
+	}
+	
 
 //	public void update(Osoba osoba) {
 //		hibernateSession.update(osoba);
