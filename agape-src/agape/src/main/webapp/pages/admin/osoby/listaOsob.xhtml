@@ -14,15 +14,18 @@
 				<f:facet name="header">
 					<h:outputText value="Lista osób zarejestrowanych w systemie" />
 				</f:facet>
-				<rich:extendedDataTable sortMode="single" value="#{osobyDataModel}" 
+				<rich:extendedDataTable id="tabela" sortMode="single" value="#{osobyDataModel}" 
+					 
 					
-					var="_row" rows="20" filterVar="filterValue"  >
-					<rich:column id="col1" sortBy="#{_row.nazwisko}" filterValue="#{_row.nazwisko}" 
-						filterExpression="#{empty filterValue or fn:startsWith(_row.nazwisko, filterValue)}">
+					
+					var="_row" rows="5"  >
+					<rich:column id="col1" sortBy="#{_row.nazwisko}" 					 
+						filterExpression="_row.nazwisko" >
 						<f:facet name="header">Nazwisko</f:facet>
 						<h:outputText value="#{_row.nazwisko}" />
 
 					</rich:column>
+					
 					<rich:column id="col2" sortBy="#{_row.imie}" 
 						filterExpression="#{_row.imie}">
 						<f:facet name="header">Imię</f:facet>
@@ -34,6 +37,9 @@
 						<h:outputText value="#{_row.email}" />
 
 					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller for="tabela"/>
+					</f:facet>
 
 
 				</rich:extendedDataTable>
