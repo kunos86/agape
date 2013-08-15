@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Lista osób bez nauczyciela" />
+				</f:facet>
+				
+				<rich:toolbar id="menu">
+					<a4j:region>
+			
+
+						<a4j:commandButton value="Dodaj nauczyciela"
+							action="#{osobyBezNauczycielaBrowser.dodajNaczyciela}" render="@form"
+							disabled="#{osobyBezNauczycielaBrowser.selection==null or osobyBezNauczycielaBrowser.editMode}">
+						</a4j:commandButton>
+
+					</a4j:region>
+				</rich:toolbar>
+				
+				
+				<rich:panel id="edycjaPanel" rendered="#{osobyBezNauczycielaBrowser.editMode}">
+					<a4j:region>
+
+						<h:panelGrid columns="2">
+							<h:outputText value="Imię" />
+							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.imie}" />
+							<h:outputText value="Nazwisko" />
+							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.nazwisko}" />
+							
+							<h:outputText value="Data rej." />
+							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.dataRej}" >
+								<f:convertDateTime pattern="DD.MM.YYYY"/>
+							</h:outputText>
+							
+							
+							<h:outputText value="Data ur." />
+							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.dataUr}" >
+								<f:convertDateTime pattern="DD.MM.YYYY"/>
+							</h:outputText>
+							
+							<h:outputText value="Województow" />
+							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.wojewodztwo}" />
+					
+							
+							
+							
+						</h:panelGrid>
+						<h:panelGrid columns="5">
+							<a4j:commandButton id="submit"
+								action="#{osobyBezNauczycielaBrowser.zapisz()}" value="Zapisz"
+								execute="@region" render="@form">
+							</a4j:commandButton>
+
+							<a4j:commandButton id="cancel" immediate="true"
+								action="#{osobyBezNauczycielaBrowser.closeEditMode()}" render="@form"
+								value="Wyjdź" />
+						</h:panelGrid>
+					</a4j:region>
+				</rich:panel>
+				
+				
+				
+				<rich:extendedDataTable sortMode="single" value="#{osobyBezNauczycielaDataModel}" 
+					selection="#{osobyBezNauczycielaBrowser.selection}"
+					var="_row" rows="20" filterVar="filterValue"  >
+					<a4j:ajax event="selectionchange" render="menu" immediate="true" />
+					<rich:column id="col1" sortBy="#{_row.nazwisko}" filterValue="#{_row.nazwisko}" 
+						filterExpression="#{empty filterValue or fn:startsWith(_row.nazwisko, filterValue)}">
+						<f:facet name="header">Nazwisko</f:facet>
+						<h:outputText value="#{_row.nazwisko}" />
+
+					</rich:column>
+					<rich:column id="col2" sortBy="#{_row.imie}" 
+						filterExpression="#{_row.imie}">
+						<f:facet name="header">Imię</f:facet>
+						<h:outputText value="#{_row.imie}" />
+					</rich:column>
+					<rich:column id="col3" sortBy="#{_row.email}"
+						filterExpression="#{_row.email}">
+						<f:facet name="header">Email</f:facet>
+						<h:outputText value="#{_row.email}" />
+
+					</rich:column>
+
+
+				</rich:extendedDataTable>
+
+
+			</rich:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

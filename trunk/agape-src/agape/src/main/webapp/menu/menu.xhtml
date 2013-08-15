@@ -27,8 +27,12 @@
 					action="/pages/admin/kurs/kursy.xhtml" />
 				<rich:panelMenuItem label="Uprawnienia do kursów" submitMode="ajax"
 					action="/pages/admin/uprawnieniaKursy.xhtml" />
-				<rich:panelMenuItem label="Lista kont" submitMode="ajax"
-					action="/pages/admin/listaOsob.xhtml" />
+
+				<rich:panelMenuItem label="Lista osób" mode="ajax"
+					action="/pages/admin/osoby/listaOsob.xhtml" />
+				<rich:panelMenuItem label="Osoby bez nauczyciela" mode="server"
+					action="/pages/admin/osoby/osobyBezNauczyciela.xhtml" />
+					
 				<rich:panelMenuItem label="Dodaj news" submitMode="ajax" immediate="true"
 					action="/pages/admin/addNews.xhtml" />
 

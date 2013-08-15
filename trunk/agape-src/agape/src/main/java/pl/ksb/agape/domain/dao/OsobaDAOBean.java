@@ -1,6 +1,5 @@
 package pl.ksb.agape.domain.dao;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +9,6 @@ import javax.persistence.EntityManager;
 
 
 import pl.ksb.agape.domain.model.Osoba;
-import pl.ksb.agape.domain.model.dict.RolaEnum;
-import pl.ksb.agape.domain.model.dict.Status;
 
 @Stateless
 
@@ -20,6 +17,10 @@ public class OsobaDAOBean  {
 
 	@Inject
 	private EntityManager em;
+	
+	public Osoba getById(Long id){
+		return em.find(Osoba.class, id);
+	}
 	   
 
 
@@ -33,6 +34,9 @@ public class OsobaDAOBean  {
 		}
 
 	}
+	
+	
+	
 	
 	
 	
@@ -51,8 +55,8 @@ public class OsobaDAOBean  {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Osoba> getWszystkieOsoby(){
-		return em.createNamedQuery("getWszystkieOsoby").getResultList();	
+	public List<Osoba> getWszystkieOsoby(int firstRow, int numRows){
+		return em.createNamedQuery("getWszystkieOsoby").setFirstResult(firstRow).setMaxResults(numRows).getResultList();	
 	}
 
 	
@@ -60,7 +64,28 @@ public class OsobaDAOBean  {
 		return (Long) em.createQuery("Select count(o) from Osoba o").getSingleResult();	
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Osoba> getOsobyBezNauczyciela(){
+		
+			
+		return em.createQuery("select o from Osoba o where not exists (Select id from UczenNauczyciel u where u.uczen.id = o.id and aktualny = 'T') ").getResultList();
+	}
+	
+	
+	public Long getLiczbaOsobyBezNauczyciela(){
+		
+			
+		return (Long)em.createQuery("select count(o) from Osoba o where not exists (Select id from UczenNauczyciel u where u.uczen.id = o.id and aktualny = 'T') ").getSingleResult();
+	}
+	
+	public List<Osoba> getListaNauczycieli(){
+		return em.createQuery("select o from Osoba o where exists (Select id from UczenNauczyciel u where u.uczen.id = o.id and aktualny = 'T') ").getResultList();
 
+	}
+
+	
+	
+	
 //	public void update(Osoba osoba) {
 //		hibernateSession.update(osoba);
 //	}
