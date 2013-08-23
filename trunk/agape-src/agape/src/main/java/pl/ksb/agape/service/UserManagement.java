@@ -5,15 +5,16 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import pl.ksb.agape.domain.dao.OsobaDAOBean;
-import pl.ksb.agape.domain.dao.RolaDAOBean;
+import pl.ksb.agape.domain.dao.UserDAOBean;
+import pl.ksb.agape.domain.dao.RoleDAOBean;
 import pl.ksb.agape.domain.model.Member;
-import pl.ksb.agape.domain.model.Osoba;
-import pl.ksb.agape.domain.model.Rola;
-import pl.ksb.agape.domain.model.dict.RolaEnum;
+import pl.ksb.agape.domain.model.User;
+import pl.ksb.agape.domain.model.Role;
+import pl.ksb.agape.domain.model.dict.RoleEnum;
 
 /**
  * Session Bean implementation class UserManagement
@@ -29,21 +30,20 @@ public class UserManagement {
     @Inject
     private Logger log;
 
-    @Inject
-    private EntityManager em;
     
     @EJB
-    private OsobaDAOBean osobaDAOBean;
+    private UserDAOBean userDAOBean;
     
 	@Inject
-	private RolaDAOBean rolaDAOBean;
+	private RoleDAOBean roleDAOBean;
 	
-    public void register(Osoba osoba) throws Exception {
-        log.info("Registering " + osoba.getEmail());
-        osobaDAOBean.save(osoba);
-		Rola rola = new Rola();
-		rola.setId_osoba(osoba.getId());
-		rola.setRola(RolaEnum.STUDENT);
-		rolaDAOBean.zapisz(rola);
+	@TransactionAttribute
+    public void register(User user) throws Exception {
+        log.info("Registering " + user.getEmail());
+        userDAOBean.save(user);
+		Role rola = new Role();
+		rola.setUser(user);
+		rola.setRoleName(RoleEnum.STUDENT);
+		roleDAOBean.save(rola);
     }
 }

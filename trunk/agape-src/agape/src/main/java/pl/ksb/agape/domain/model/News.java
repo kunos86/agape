@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -24,17 +25,19 @@ public class News implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name="id", precision=10, scale=0)
+	@Column(name = "id", unique = true, precision = 10, scale = 0)
 	private Long id;
 	
-	@Column(name="tresc", length=500)
+	@Column(name="content", length=500, nullable=false)
 	@Length(max=500)
-	private String tresc;
+	@NotNull
+	private String content;
 	
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data_arch")
-	private Date dataArch;
+	@Column(name="mofification_date", nullable=false)
+	@NotNull
+	private Date modificationDate;
 
 
 	public Long getId() {
@@ -48,24 +51,28 @@ public class News implements Serializable {
 
 
 
-	public String getTresc() {
-		return tresc;
+
+	public String getContent() {
+		return content;
 	}
 
 
-	public void setTresc(String tresc) {
-		this.tresc = tresc;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 
-	public Date getDataArch() {
-		return dataArch;
+	public Date getModificationDate() {
+		return modificationDate;
 	}
 
 
-	public void setDataArch(Date dataArch) {
-		this.dataArch = dataArch;
-	} 
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
+	}
+
+
+
 	
 	
 	

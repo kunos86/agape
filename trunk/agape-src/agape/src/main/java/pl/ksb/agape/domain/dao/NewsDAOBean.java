@@ -25,9 +25,8 @@ public class NewsDAOBean {
 	
 	public void zapisz(News news){
 		
-		news.setDataArch(Calendar.getInstance().getTime());
+		news.setModificationDate(Calendar.getInstance().getTime());
 		if (news.getId()==null){
-			
 			em.persist(news);
 		}else{
 			em.merge(news);
@@ -36,7 +35,7 @@ public class NewsDAOBean {
 	
 	public List<News> getNewsToStartPage(int number)
 	{
-		return em.createQuery("Select n from News n order by n.dataArch desc").setMaxResults(number).getResultList();
+		return em.createQuery("Select n from News n order by n.modificationDate desc").setMaxResults(number).getResultList();
 	}
 
 }

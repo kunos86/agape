@@ -20,36 +20,36 @@
 			
 
 						<a4j:commandButton value="Dodaj nauczyciela"
-							action="#{osobyBezNauczycielaBrowser.dodajNaczyciela}" render="@form"
-							disabled="#{osobyBezNauczycielaBrowser.selection==null or osobyBezNauczycielaBrowser.editMode}">
+							action="#{studentsWithoutTeacherBrowser.addTeacher()}" render="@form"
+							disabled="#{studentsWithoutTeacherBrowser.selection==null or studentsWithoutTeacherBrowser.editMode}">
 						</a4j:commandButton>
 
 					</a4j:region>
 				</rich:toolbar>
 				
 				
-				<rich:panel id="edycjaPanel" rendered="#{osobyBezNauczycielaBrowser.editMode}">
+				<rich:panel id="edycjaPanel" rendered="#{studentsWithoutTeacherBrowser.editMode}">
 					<a4j:region>
 
 						<h:panelGrid columns="2">
 							<h:outputText value="Imię" />
-							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.imie}" />
+							<h:outputText value="#{studentsWithoutTeacherBrowser.user.name}" />
 							<h:outputText value="Nazwisko" />
-							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.nazwisko}" />
+							<h:outputText value="#{studentsWithoutTeacherBrowser.user.surname}" />
 							
 							<h:outputText value="Data rej." />
-							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.dataRej}" >
+							<h:outputText value="#{studentsWithoutTeacherBrowser.user.registrationDate}" >
 								<f:convertDateTime pattern="DD.MM.YYYY"/>
 							</h:outputText>
 							
 							
 							<h:outputText value="Data ur." />
-							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.dataUr}" >
+							<h:outputText value="#{studentsWithoutTeacherBrowser.user.birthDate}" >
 								<f:convertDateTime pattern="DD.MM.YYYY"/>
 							</h:outputText>
 							
 							<h:outputText value="Województow" />
-							<h:outputText value="#{osobyBezNauczycielaBrowser.osoba.wojewodztwo}" />
+							<h:outputText value="#{studentsWithoutTeacherBrowser.user.country}" />
 					
 							
 							
@@ -57,12 +57,12 @@
 						</h:panelGrid>
 						<h:panelGrid columns="5">
 							<a4j:commandButton id="submit"
-								action="#{osobyBezNauczycielaBrowser.zapisz()}" value="Zapisz"
+								action="#{studentsWithoutTeacherBrowser.save()}" value="Zapisz"
 								execute="@region" render="@form">
 							</a4j:commandButton>
 
 							<a4j:commandButton id="cancel" immediate="true"
-								action="#{osobyBezNauczycielaBrowser.closeEditMode()}" render="@form"
+								action="#{studentsWithoutTeacherBrowser.closeEditMode()}" render="@form"
 								value="Wyjdź" />
 						</h:panelGrid>
 					</a4j:region>
@@ -70,20 +70,20 @@
 				
 				
 				
-				<rich:extendedDataTable sortMode="single" value="#{osobyBezNauczycielaDataModel}" 
-					selection="#{osobyBezNauczycielaBrowser.selection}"
+				<rich:extendedDataTable sortMode="single" value="#{studentsWithoutTeacherDataModel}" 
+					selection="#{studentsWithoutTeacherBrowser.selection}"
 					var="_row" rows="20" filterVar="filterValue"  >
 					<a4j:ajax event="selectionchange" render="menu" immediate="true" />
-					<rich:column id="col1" sortBy="#{_row.nazwisko}" filterValue="#{_row.nazwisko}" 
-						filterExpression="#{empty filterValue or fn:startsWith(_row.nazwisko, filterValue)}">
+					<rich:column id="col1" sortBy="#{_row.surname}" filterValue="#{_row.surname}" 
+						filterExpression="#{empty filterValue or fn:startsWith(_row.surname, filterValue)}">
 						<f:facet name="header">Nazwisko</f:facet>
-						<h:outputText value="#{_row.nazwisko}" />
+						<h:outputText value="#{_row.surname}" />
 
 					</rich:column>
-					<rich:column id="col2" sortBy="#{_row.imie}" 
-						filterExpression="#{_row.imie}">
+					<rich:column id="col2" sortBy="#{_row.name}" 
+						filterExpression="#{_row.name}">
 						<f:facet name="header">Imię</f:facet>
-						<h:outputText value="#{_row.imie}" />
+						<h:outputText value="#{_row.name}" />
 					</rich:column>
 					<rich:column id="col3" sortBy="#{_row.email}"
 						filterExpression="#{_row.email}">

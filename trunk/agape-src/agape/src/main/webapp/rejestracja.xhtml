@@ -22,7 +22,7 @@
 						<ui:param name="id" value="imieInput" />
 						<ui:param name="required" value="true" />
 						<h:inputText id="imieInput" size="40"
-							value="#{rejestracja.osoba.imie}" required="true" />
+							value="#{registration.user.name}" required="true" />
 					</ui:decorate>
 
 
@@ -31,7 +31,7 @@
 						<ui:param name="id" value="nazwiskoInput" />
 						<ui:param name="required" value="false" />
 						<h:inputText id="nazwiskoInput" size="40"
-							value="#{rejestracja.osoba.nazwisko}" required="false" />
+							value="#{registration.user.surname}" required="false" />
 					</ui:decorate>
 
 
@@ -40,7 +40,7 @@
 						<ui:param name="id" value="emailInput" />
 						<ui:param name="required" value="true" />
 						<h:inputText id="emailInput" size="40"
-							value="#{rejestracja.osoba.email}" required="true">
+							value="#{registration.user.email}" required="true">
 							<f:validator validatorId="uniqueEmailValidator" />
 						</h:inputText>
 					</ui:decorate>
@@ -51,7 +51,7 @@
 						<ui:param name="id" value="wyznanieInput" />
 						<ui:param name="required" value="false" />
 						<h:inputText id="wyznanieInput" size="40"
-							value="#{rejestracja.osoba.wyznanie}" required="false" />
+							value="#{registration.user.religion}" required="false" />
 					</ui:decorate>
 
 
@@ -60,7 +60,7 @@
 						<ui:param name="id" value="wspolnota" />
 						<ui:param name="required" value="false" />
 						<h:inputText id="wspolnotaInput" size="40"
-							value="#{rejestracja.osoba.wspolnota}" required="false" />
+							value="#{registration.user.community}" required="false" />
 					</ui:decorate>
 
 
@@ -68,9 +68,9 @@
 						<ui:param name="label" value="Data urodzenia" />
 						<ui:param name="id" value="dataUrField" />
 						<ui:param name="required" value="true" />
-						<rich:calendar id="dataUrField" label="Data Urodzenia"
+						<rich:calendar id="dataUrField" label="Data Urodzenia DD.MM.YYYY"
 							inputSize="40" required="true" datePattern="dd.MM.yyyy"
-							enableManualInput="true" value="#{rejestracja.osoba.dataUr}">
+							enableManualInput="true" value="#{registration.user.birthDate}">
 						</rich:calendar>
 					</ui:decorate>
 
@@ -80,7 +80,7 @@
 						<ui:param name="id" value="adres" />
 						<ui:param name="required" value="false" />
 						<h:inputTextarea id="adresInput" cols="40" rows="4"
-							value="#{rejestracja.osoba.adres}" required="false" />
+							value="#{registration.user.address}" required="false" />
 					</ui:decorate>
 
 					<ui:decorate template="/layout/field.xhtml">
@@ -88,7 +88,7 @@
 						<ui:param name="id" value="haslo" />
 						<ui:param name="required" value="true" />
 						<h:inputSecret id="haslo" required="true" size="40"
-							value="#{rejestracja.osoba.haslo}">
+							value="#{registration.user.password}">
 						</h:inputSecret>
 					</ui:decorate>
 
@@ -97,7 +97,7 @@
 						<ui:param name="id" value="haslo2" />
 						<ui:param name="required" value="true" />
 						<h:inputSecret id="haslo2" required="true" size="40"
-							value="#{rejestracja.haslo2}">
+							value="#{registration.password2}">
 							<f:attribute name="passId" value="osobaForm:haslo" />
 							<f:validator validatorId="passwordValidator" />
 						</h:inputSecret>
@@ -105,7 +105,7 @@
 
 					<!--  REGULAMIN  -->
 					<h:panelGroup>
-						<h:selectBooleanCheckbox value="#{rejestracja.regulamin}">
+						<h:selectBooleanCheckbox value="#{registration.regulations}">
 							<a4j:ajax event="click" />
 						</h:selectBooleanCheckbox>
 
@@ -117,7 +117,7 @@
 
 
 
-					<a4j:commandButton value="Zapisz" action="#{rejestracja.zapisz()}"  render="@form"/>
+					<a4j:commandButton value="Zapisz" action="#{registration.save()}"  render="@form"/>
 				</h:panelGrid>
 
 

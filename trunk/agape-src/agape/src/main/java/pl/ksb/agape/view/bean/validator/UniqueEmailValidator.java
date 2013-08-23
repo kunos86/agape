@@ -12,7 +12,7 @@ import javax.faces.validator.ValidatorException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import pl.ksb.agape.domain.dao.OsobaDAOBean;
+import pl.ksb.agape.domain.dao.UserDAOBean;
 
 
 
@@ -22,7 +22,7 @@ public class UniqueEmailValidator implements Serializable, Validator {
 	private static final long serialVersionUID = -4654359700527230138L;
 
 	@EJB
-	private OsobaDAOBean osobaDAOBean;
+	private UserDAOBean userDAOBean;
 	
 	
 	public void validate(FacesContext arg0, UIComponent arg1, Object value)
@@ -40,13 +40,13 @@ public class UniqueEmailValidator implements Serializable, Validator {
 
 
 		try {
-			osobaDAOBean = (OsobaDAOBean) new InitialContext().lookup("java:module/OsobaDAOBean");
+			userDAOBean = (UserDAOBean) new InitialContext().lookup("java:module/UserDAOBean");
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		if (osobaDAOBean.isRegistered(mail)) {
+		if (userDAOBean.isRegistered(mail)) {
 			throw new ValidatorException(new FacesMessage(
 					"Konto o podanym adresie email już istnieje"));
 

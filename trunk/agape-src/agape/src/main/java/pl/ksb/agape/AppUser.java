@@ -1,6 +1,6 @@
 package pl.ksb.agape;
 
-import pl.ksb.agape.domain.model.Osoba;
+import pl.ksb.agape.domain.model.User;
 
 //public class AppUser implements org.picketlink.idm.api.User {
 //

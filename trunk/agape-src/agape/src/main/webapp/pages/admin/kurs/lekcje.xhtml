@@ -15,28 +15,29 @@
 				<f:facet name="header">
 					<h:outputText value="Lista lekcji" />
 				</f:facet>
-				<a4j:commandButton action="#{lekcjeBrowser.przejdzDoKursow()}" value="Wróc do kursów" immediate="true"/>
+				<a4j:commandButton action="#{lessonsBrowser.goToCourses()}"
+					value="Wróc do kursów" immediate="true" />
 				<rich:toolbar id="menu">
 					<a4j:region>
 
 						<a4j:commandButton value="Dodaj lekcję"
-							action="#{lekcjeBrowser.dodaj()}" render="@form"
-							disabled="#{lekcjeBrowser.editMode}">
+							action="#{lessonsBrowser.add()}" render="@form"
+							disabled="#{lessonsBrowser.editMode}">
 
 						</a4j:commandButton>
 
 						<a4j:commandButton value="Edytuj lekcję"
-							action="#{lekcjeBrowser.edycja()}" render="@form"
-							disabled="#{lekcjeBrowser.selection==null or lekcjeBrowser.editMode}">
+							action="#{lessonsBrowser.edycja()}" render="@form"
+							disabled="#{lessonsBrowser.selection==null or lessonsBrowser.editMode}">
 						</a4j:commandButton>
-						
+
 						<a4j:commandButton value="Pytania lekcji"
-							action="#{lekcjeBrowser.przejdzDoPytan()}"
-							disabled="#{lekcjeBrowser.selection==null or lekcjeBrowser.editMode}">
+							action="#{lessonsBrowser.goToQuestions()}"
+							disabled="#{lessonsBrowser.selection==null or lessonsBrowser.editMode}">
 						</a4j:commandButton>
 					</a4j:region>
 				</rich:toolbar>
-				<rich:panel id="edycjaPanel" rendered="#{lekcjeBrowser.editMode}">
+				<rich:panel id="edycjaPanel" rendered="#{lessonsBrowser.editMode}">
 
 					<a4j:region>
 						<h:panelGrid columns="1">
@@ -46,7 +47,7 @@
 								<ui:param name="id" value="nrLekcji" />
 								<ui:param name="required" value="true" />
 								<h:inputText id="nrLekcji"
-									value="#{lekcjeBrowser.lekcja.nrLekcji}" required="true" />
+									value="#{lessonsBrowser.lesson.number}" required="true" />
 							</ui:decorate>
 
 							<ui:decorate template="/layout/field.xhtml">
@@ -54,7 +55,7 @@
 								<ui:param name="id" value="widocznoscKursu" />
 								<ui:param name="required" value="false" />
 								<h:selectBooleanCheckbox id="widocznoscKursu"
-									value="#{lekcjeBrowser.lekcja.widocznosc}" />
+									value="#{lessonsBrowser.lesson.enabled}" />
 							</ui:decorate>
 
 							<ui:decorate template="/layout/field.xhtml">
@@ -62,7 +63,7 @@
 								<ui:param name="id" value="wprowadzenieLekcja" />
 								<ui:param name="required" value="false" />
 								<h:inputTextarea id="wprowadzenieLekcja"
-									value="#{lekcjeBrowser.lekcja.wprowadzenie}" cols="50" />
+									value="#{lessonsBrowser.lesson.introduction}" cols="50" />
 							</ui:decorate>
 
 							<ui:decorate template="/layout/field.xhtml">
@@ -70,7 +71,7 @@
 								<ui:param name="id" value="pracaLekcja" />
 								<ui:param name="required" value="false" />
 								<h:inputTextarea id="pracaLekcja"
-									value="#{lekcjeBrowser.lekcja.zadaniaDomowe}" cols="50" />
+									value="#{lessonsBrowser.lesson.homework}" cols="50" />
 							</ui:decorate>
 
 							<ui:decorate template="/layout/field.xhtml">
@@ -79,15 +80,15 @@
 								<ui:param name="required" value="false" />
 								<ui:param name="labelWidth" value="100px" />
 								<h:inputTextarea id="opisKursu"
-									value="#{lekcjeBrowser.lekcja.opis}" cols="50" />
+									value="#{lessonsBrowser.lesson.description}" cols="50" />
 							</ui:decorate>
 
 						</h:panelGrid>
 						<h:panelGrid columns="5">
-							<a4j:commandButton id="submit" action="#{lekcjeBrowser.zapisz}"
+							<a4j:commandButton id="submit" action="#{lessonsBrowser.save()}"
 								value="Zapisz" render="@form,tabela" execute="@region" />
 							<a4j:commandButton id="cancel" immediate="true"
-								action="#{lekcjeBrowser.closeEditMode()}" render="@form"
+								action="#{lessonsBrowser.closeEditMode()}" render="@form"
 								value="Wyjdź">
 							</a4j:commandButton>
 						</h:panelGrid>
@@ -97,9 +98,9 @@
 				</rich:panel>
 
 
-				<rich:extendedDataTable value="#{lekcjeBrowser.lekcje}" var="_row"
+				<rich:extendedDataTable value="#{lessonsBrowser.lessons}" var="_row"
 					id="tabela" selectionMode="single"
-					selection="#{lekcjeBrowser.selection}">
+					selection="#{lessonsBrowser.selection}">
 					<a4j:ajax event="selectionchange" render="menu" immediate="true" />
 
 
@@ -107,21 +108,24 @@
 						<f:facet name="header">
 							<h:outputText value="Numer" />
 						</f:facet>
-						<h:outputText value="#{_row.nrLekcji}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
+						<h:outputText value="#{_row.number}"
+							style="#{_row.enabled ? '' : 'color:grey;'}" />
 					</rich:column>
 
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Wprowadzenie" />
 						</f:facet>
-						<h:outputText value="#{_row.wprowadzenie}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
+						<h:outputText value="#{_row.introduction}"
+							style="#{_row.enabled ? '' : 'color:grey;'}" />
 					</rich:column>
 
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Opis" />
 						</f:facet>
-						<h:outputText value="#{_row.opis}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
+						<h:outputText value="#{_row.description}"
+							style="#{_row.enabled ? '' : 'color:grey;'}" />
 					</rich:column>
 				</rich:extendedDataTable>
 
