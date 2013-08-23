@@ -15,18 +15,18 @@
 				<f:facet name="header">
 					<h:outputText value="Lista Pytań" />
 				</f:facet>
-				<a4j:commandButton action="#{pytaniaBrowser.przejdzDoPytan()}" value="Wróc do lekcji" immediate="true"/>
+				<a4j:commandButton action="#{questionsBrowser.goToLessons()}" value="Wróc do lekcji" immediate="true"/>
 				<rich:toolbar id="menu">
 					<a4j:region>
 
 						<a4j:commandButton value="Dodaj pytanie"
-							action="#{pytaniaBrowser.dodaj()}" render="@form"
-							disabled="#{pytaniaBrowser.editMode}">
+							action="#{questionsBrowser.add()}" render="@form"
+							disabled="#{questionsBrowser.editMode}">
 
 						</a4j:commandButton>
 					</a4j:region>
 				</rich:toolbar>
-				<rich:panel id="edycjaPanel" rendered="#{pytaniaBrowser.editMode}">
+				<rich:panel id="edycjaPanel" rendered="#{questionsBrowser.editMode}">
 
 					<a4j:region>
 						<h:panelGrid columns="1">
@@ -36,7 +36,7 @@
 								<ui:param name="id" value="nrPytania" />
 								<ui:param name="required" value="true" />
 								<h:inputText id="nrPytania"
-									value="#{pytaniaBrowser.pytanie.nrPytanie}" required="true" />
+									value="#{questionsBrowser.question.number}" required="true" />
 							</ui:decorate>
 
 							<ui:decorate template="/layout/field.xhtml">
@@ -44,7 +44,7 @@
 								<ui:param name="id" value="widocznoscPytania" />
 								<ui:param name="required" value="false" />
 								<h:selectBooleanCheckbox id="widocznoscPytania"
-									value="#{pytaniaBrowser.pytanie.widocznosc}" />
+									value="#{questionsBrowser.question.enabled}" />
 							</ui:decorate>
 
 							<ui:decorate template="/layout/field.xhtml">
@@ -52,16 +52,16 @@
 								<ui:param name="id" value="tresc" />
 								<ui:param name="required" value="false" />
 								<h:inputTextarea id="tresc"
-									value="#{pytaniaBrowser.pytanie.tresc}" cols="50" />
+									value="#{questionsBrowser.question.content}" cols="50" />
 							</ui:decorate>
 
 
 						</h:panelGrid>
 						<h:panelGrid columns="5">
-							<a4j:commandButton id="submit" action="#{pytaniaBrowser.zapisz}"
+							<a4j:commandButton id="submit" action="#{questionsBrowser.save()}"
 								value="Zapisz" render="@form,tabela" execute="@region" />
 							<a4j:commandButton id="cancel" immediate="true"
-								action="#{pytaniaBrowser.closeEditMode()}" render="@form"
+								action="#{questionsBrowser.closeEditMode()}" render="@form"
 								value="Wyjdź">
 							</a4j:commandButton>
 						</h:panelGrid>
@@ -70,15 +70,15 @@
 
 				</rich:panel>
 
-				<rich:dataGrid value="#{pytaniaBrowser.pytania}" var="_row" style="width:100%"
+				<rich:dataGrid value="#{questionsBrowser.questions}" var="_row" style="width:100%"
 					columns="1">
-					<h:outputText value="Pytanie #{_row.nrPytanie}  "
-						style="font-weight: bold;#{_row.widocznosc ? '' : 'color:grey;'}" />
-						<a4j:commandLink value="edytuj" action="#{pytaniaBrowser.edycja(_row.id)}" render="@form" disabled="#{pytaniaBrowser.editMode}"/>
+					<h:outputText value="Pytanie #{_row.number}  "
+						style="font-weight: bold;#{_row.enabled ? '' : 'color:grey;'}" />
+						<a4j:commandLink value="edytuj" action="#{questionsBrowser.edit(_row.id)}" render="@form" disabled="#{questionsBrowser.editMode}"/>
 					<br />
 				
 			
-					<h:outputText  value="#{_row.tresc}" style="#{_row.widocznosc ? '' : 'color:grey;'}"
+					<h:outputText  value="#{_row.content}" style="#{_row.enabled ? '' : 'color:grey;'}"
 						 />
 
 

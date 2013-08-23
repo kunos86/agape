@@ -14,22 +14,22 @@
 				<f:facet name="header">
 					<h:outputText value="Lista osób zarejestrowanych w systemie" />
 				</f:facet>
-				<rich:extendedDataTable id="tabela" sortMode="single" value="#{osobyDataModel}" 
+				<rich:extendedDataTable id="tabela" sortMode="single" value="#{usersDataModel}" 
 					 
 					
 					
 					var="_row" rows="5"  >
-					<rich:column id="col1" sortBy="#{_row.nazwisko}" 					 
-						filterExpression="_row.nazwisko" >
+					<rich:column id="col1" sortBy="#{_row.surname}" 					 
+						filterExpression="_row.surname" >
 						<f:facet name="header">Nazwisko</f:facet>
-						<h:outputText value="#{_row.nazwisko}" />
+						<h:outputText value="#{_row.surname}" />
 
 					</rich:column>
 					
-					<rich:column id="col2" sortBy="#{_row.imie}" 
-						filterExpression="#{_row.imie}">
+					<rich:column id="col2" sortBy="#{_row.name}" 
+						filterExpression="#{_row.name}">
 						<f:facet name="header">Imię</f:facet>
-						<h:outputText value="#{_row.imie}" />
+						<h:outputText value="#{_row.name}" />
 					</rich:column>
 					<rich:column id="col3" sortBy="#{_row.email}"
 						filterExpression="#{_row.email}">

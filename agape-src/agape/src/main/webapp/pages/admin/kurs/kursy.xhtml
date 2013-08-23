@@ -18,24 +18,24 @@
 				<rich:toolbar id="menu">
 					<a4j:region>
 						<a4j:commandButton value="Dodaj kurs" styleClass="buttonA"
-							action="#{kursyBrowser.dodajKurs()}" render="@form"
-							disabled="#{kursyBrowser.editMode}">
+							action="#{coursesBrowser.addCourse()}" render="@form"
+							disabled="#{coursesBrowser.editMode}">
 
 						</a4j:commandButton>
 
 						<a4j:commandButton value="Edytuj kurs"
-							action="#{kursyBrowser.edycjaKursu()}" render="@form"
-							disabled="#{kursyBrowser.selection==null or kursyBrowser.editMode}">
+							action="#{coursesBrowser.editeCourse()}" render="@form"
+							disabled="#{coursesBrowser.selection==null or coursesBrowser.editMode}">
 						</a4j:commandButton>
 
 						<a4j:commandButton value="Lekcje w kursie"
-							action="#{kursyBrowser.przejdzDoLekcji()}"
-							disabled="#{kursyBrowser.selection==null or kursyBrowser.editMode}">
+							action="#{coursesBrowser.goToLesson()}"
+							disabled="#{coursesBrowser.selection==null or coursesBrowser.editMode}">
 						</a4j:commandButton>
 					</a4j:region>
 				</rich:toolbar>
 
-				<rich:panel id="edycjaPanel" rendered="#{kursyBrowser.editMode}">
+				<rich:panel id="edycjaPanel" rendered="#{coursesBrowser.editMode}">
 					<a4j:region>
 
 						<h:panelGrid columns="1">
@@ -44,7 +44,7 @@
 								<ui:param name="label" value="Nr kursu" />
 								<ui:param name="id" value="nrKursu" />
 								<ui:param name="required" value="true" />
-								<h:inputText id="nrKursu" value="#{kursyBrowser.kurs.nrKursu}"
+								<h:inputText id="nrKursu" value="#{coursesBrowser.course.number}"
 									required="true" />
 							</ui:decorate>
 
@@ -52,7 +52,7 @@
 								<ui:param name="label" value="Tytuł" />
 								<ui:param name="id" value="tytulKursu" />
 								<ui:param name="required" value="true" />
-								<h:inputText id="tytulKursu" value="#{kursyBrowser.kurs.tytul}"
+								<h:inputText id="tytulKursu" value="#{coursesBrowser.course.title}"
 									required="true" size="50" />
 							</ui:decorate>
 
@@ -61,7 +61,7 @@
 								<ui:param name="id" value="widocznoscKursu" />
 								<ui:param name="required" value="true" />
 								<h:selectBooleanCheckbox id="widocznoscKursu"
-									value="#{kursyBrowser.kurs.widocznosc}" />
+									value="#{coursesBrowser.course.enabled}" />
 							</ui:decorate>
 
 
@@ -71,26 +71,26 @@
 								<ui:param name="required" value="false" />
 								<ui:param name="labelWidth" value="100px" />
 								<h:inputTextarea id="opisKursu"
-									value="#{kursyBrowser.kurs.opis}" cols="50" />
+									value="#{coursesBrowser.course.description}" cols="50" />
 							</ui:decorate>
 
 						</h:panelGrid>
 						<h:panelGrid columns="5">
 							<a4j:commandButton id="submit"
-								action="#{kursyBrowser.zapiszKurs()}" value="Zapisz"
+								action="#{coursesBrowser.saveCourse()}" value="Zapisz"
 								execute="@region" render="@form">
 							</a4j:commandButton>
 
 							<a4j:commandButton id="cancel" immediate="true"
-								action="#{kursyBrowser.closeEditMode()}" render="@form"
+								action="#{coursesBrowser.closeEditMode()}" render="@form"
 								value="Wyjdź" />
 						</h:panelGrid>
 					</a4j:region>
 				</rich:panel>
 
-				<rich:extendedDataTable value="#{kursyBrowser.kursy}" var="_row"
+				<rich:extendedDataTable value="#{coursesBrowser.courses}" var="_row"
 					id="tabela" selectionMode="single"
-					selection="#{kursyBrowser.selection}">
+					selection="#{coursesBrowser.selection}">
 					<a4j:ajax event="selectionchange" render="menu" immediate="true" />
 
 
@@ -98,21 +98,21 @@
 						<f:facet name="header">
 							<h:outputText value="Numer" />
 						</f:facet>
-						<h:outputText value="#{_row.nrKursu}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
+						<h:outputText value="#{_row.number}" style="#{_row.enabled ? '' : 'color:grey;'}"/>
 					</rich:column>
 
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Tytuł" />
 						</f:facet>
-						<h:outputText value="#{_row.tytul}" style="#{_row.widocznosc ? '' : 'color:grey;'}"/>
+						<h:outputText value="#{_row.title}" style="#{_row.enabled ? '' : 'color:grey;'}"/>
 					</rich:column>
 
 					<rich:column>
 						<f:facet name="header">
 							<h:outputText value="Opis" />
 						</f:facet>
-						<h:outputText value="#{_row.opis}" style="#{_row.widocznosc ? '' : 'color:grey;'}" />
+						<h:outputText value="#{_row.description}" style="#{_row.enabled ? '' : 'color:grey;'}" />
 					</rich:column>
 				</rich:extendedDataTable>
 

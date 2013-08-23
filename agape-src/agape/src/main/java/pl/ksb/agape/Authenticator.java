@@ -21,7 +21,6 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.osgi.service.useradmin.User;
 
-import pl.ksb.agape.domain.model.Osoba;
 
 public class Authenticator  extends AuthorizingRealm {
 
@@ -37,7 +36,7 @@ public class Authenticator  extends AuthorizingRealm {
 	    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken at) throws AuthenticationException {
 	    	System.out.println("AuthenticationInfo!!!!!!!!!!!!!!!!!");
 	    	UsernamePasswordToken token = (UsernamePasswordToken) at;
-	    	Osoba osoba = new Osoba();
+	    	pl.ksb.agape.domain.model.User user = new pl.ksb.agape.domain.model.User();
 	    	
 //	    	assertRealmsConfigured();
 //	    	 SimpleAccount account = new SimpleAccount();
@@ -59,10 +58,10 @@ public class Authenticator  extends AuthorizingRealm {
 //	        currentUser.login(token);
 //	        
 //	        
-	        osoba.setEmail(token.getUsername());
-	        osoba.setHaslo("kunos");
+	        user.setEmail(token.getUsername());
+	        user.setPassword(token.getPassword().toString());
 	 
-	        return new SimpleAuthenticationInfo(osoba, osoba.getHaslo(), getName());
+	        return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
 	    }
 	 
 	    @Override

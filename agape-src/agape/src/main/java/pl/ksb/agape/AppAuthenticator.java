@@ -3,7 +3,7 @@ package pl.ksb.agape;
 import javax.inject.Inject;
 
 
-import pl.ksb.agape.domain.model.Osoba;
+import pl.ksb.agape.domain.model.User;
 
 //public class AppAuthenticator extends BaseAuthenticator implements Authenticator {
 //
