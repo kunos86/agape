@@ -1,0 +1,45 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:form>
+		<!-- Logo -->
+		<img id="img_logo" src="/agape/img/logo.png" alt="Biblijny Kompas" />
+
+		<!-- Przycisk rejestracji -->
+		<h:commandButton id="img_naglowek_zarejestruj" value="Zarejestruj się"
+			action="/rejestracja.xhtml" image="/img/zarejestruj.png"
+			rendered="#{!permissionManagement.logged}"
+			styleClass="img_naglowek_zarejestruj" />
+
+		<!-- Przycisk logowania -->
+		<h:commandButton id="img_naglowek_zaloguj" action="/login.xhtml"
+			value="Zaloguj się" image="/img/zaloguj.png"
+			rendered="#{!permissionManagement.logged}"
+			styleClass="img_naglowek_zaloguj" />
+			
+		<h:commandButton id="img_naglowek_wyloguj" action="#{permissionManagement.logout()}"
+			value="Wyloguj" 
+			rendered="#{permissionManagement.logged}"
+			styleClass="img_naglowek_zaloguj buttonBig" />
+
+		<!-- Menu -->
+		<div id="menu_kontener">
+			<ul id="menu_przyciski">
+				<li id="glowna" class="aktualna">
+				<h:commandLink value="Strona Główna" action="home" />
+					</li>
+				<li id="aktualnosci"><a href="aktualnosci.html"
+					title="Aktualności">Aktualności</a></li>
+				<li id="o_nas"><a href="onas.html" title="O nas">O nas</a></li>
+				<li id="kursy"><a href="kursy.html" title="Kursy">Kursy</a></li>
+				<li id="pomoc"><a href="pomoc.html" title="Pomoc">Pomoc</a></li>
+				<li id="kontakt"><a href="kontakt.html" title="Kontakt">Kontakt</a>
+				</li>
+			</ul>
+		</div>
+	</h:form>
+</ui:composition>
