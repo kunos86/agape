@@ -32,16 +32,16 @@
 
 							<h:outputLabel for="username">Mail</h:outputLabel>
 							<h:inputText id="username"
-								value="#{permisssionManagement.username}" />
+								value="#{permissionManagement.username}" />
 							<h:outputLabel for="password">Hasło</h:outputLabel>
 							<h:inputSecret id="password"
-								value="#{permisssionManagement.password}" />
+								value="#{permissionManagement.password}" />
 							
 						</h:panelGrid>
 					</div>
 					<div class="actionButtons">
 						<a4j:commandButton id="submit" value="Zaloguj" type="submit"
-							render="loginForm" action="#{permisssionManagement.login}" />
+							render="loginForm" action="#{permissionManagement.login()}" />
 					</div>
 				</rich:panel>
 

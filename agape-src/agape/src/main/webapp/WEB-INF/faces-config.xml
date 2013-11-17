@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This file is not required if you don't need any extra configuration. -->
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
- xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="         http://java.sun.com/xml/ns/javaee         http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
- <navigation-rule>
-  <from-view-id>/rejestracja.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>registered</from-outcome>
-   <to-view-id>/login.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
- <application>
-  <locale-config >
-   <default-locale>pl</default-locale>
-  </locale-config>
-  
-  
- </application>
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="         http://java.sun.com/xml/ns/javaee         http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	<navigation-rule>
+		<from-view-id>/rejestracja.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>registered</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<if>#{permissionManagement.studentLogged}</if>
+			<to-view-id>/pages/student/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<if>#{permissionManagement.coordinatorLogged || permissionManagement.teacherLogged}</if>
+			<to-view-id>/pages/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<application>
+		<locale-config>
+			<default-locale>pl</default-locale>
+		</locale-config>
+	</application>
 </faces-config>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:form id="osobaForm">
+			<h:messages />
+			<rich:panel header="Witaj w lekcji nr #{lessonViewBrowser.lesson.number}">
+
+
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Wprowadzenie" />
+				<h:outputText value="#{lessonViewBrowser.lesson.introduction}" />
+			</h:panelGrid>
+
+			<br />
+
+			<rich:dataGrid value="#{lessonViewBrowser.questionAnswerList}" var="_qa"
+				columns="1" id="grid" elements="#{lessonViewBrowser.questionAnswerList.size()}">
+
+
+				<h:panelGrid columns="1">
+					<h:outputText
+						value="#{_qa.question.number}.  #{_qa.question.content}" />
+
+					<h:inputTextarea cols="80" rows="6" value="#{_qa.answer.content}"
+						readonly="#{lessonViewBrowser.educationState.sentDate ne null}" />
+
+
+				</h:panelGrid>
+
+
+
+			</rich:dataGrid>
+			<br />
+
+		
+			</rich:panel>
+
+
+
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+

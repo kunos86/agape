@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/default.xhtml"
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,18 +8,79 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:my="http://java.sun.com/jsf/composite/components">
 	<ui:define name="content">
-	<h:form>
-	<rich:panel>
+		<h:form>
+			<rich:panel
+				header="Dostępnych kursów:  #{lessonListBrowser.coursesCount}">
 
 
+				<rich:dataGrid columns="1" value="#{lessonListBrowser.courses}"
+					var="_course">
+					<rich:collapsiblePanel switchType="client"
+						header="#{_course.title}">
+						<rich:dataTable value="#{_course.lessons}" var="_lesson">
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Nr lekcji" />
+								</f:facet>
+								<h:outputText value="#{_lesson.number}"
+									style="#{_lesson.educationStates.toArray()[0].read ? '' : 'font-weight:bold;'   }" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Wprowadzenie do lekcji" />
+								</f:facet>
+								<h:outputText value="#{_lesson.introduction}"
+									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Data udostępnienia" />
+								</f:facet>
+								<h:outputText
+									value="#{_lesson.educationStates.toArray()[0].sharedDate}"
+									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
+									<f:convertDateTime pattern="dd.MM.yyyy" />
+								</h:outputText>
+							</rich:column>
 
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Data wysłania rozwiązania" />
+								</f:facet>
+								<h:outputText
+									value="#{_lesson.educationStates.toArray()[0].sentDate}"
+									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
+									<f:convertDateTime pattern="dd.MM.yyyy" />
+								</h:outputText>
+							</rich:column>
 
-	</rich:panel>
-	
-	</h:form>
-	
-	
-	
-	
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Data sprawdzenia rozwiązania" />
+								</f:facet>
+								<h:outputText
+									value="#{_lesson.educationStates.toArray()[0].checkedDate}"
+									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
+									<f:convertDateTime pattern="dd.MM.yyyy" />
+								</h:outputText>
+							</rich:column>
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Operacje" />
+								</f:facet>
+								<a4j:commandButton value="Przejdź do lekcji"
+									action="#{lessonListBrowser.goToLesson(_lesson.id)}"
+									styleClass="buttonSmall" />
+							</rich:column>
+
+						</rich:dataTable>
+
+					</rich:collapsiblePanel>
+
+				</rich:dataGrid>
+			</rich:panel>
+
+		</h:form>
 	</ui:define>
-	</ui:composition>
+</ui:composition>

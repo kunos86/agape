@@ -1,0 +1,141 @@
+h1 {
+	color: #009ed2;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 26px;
+}
+
+h2 {
+	color: #009ed2;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 17px;
+}
+
+div#kolumna_lewa h2 {
+	margin-top: 5px;
+}
+
+ul#menu_przyciski li a {
+	color: #8f8f8f;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 160%;
+	text-indent: 0px;
+	text-decoration: none;
+}
+
+.tekst{
+	color: #6b6b6b;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 14px;
+	line-height: 130%;
+	margin-top: 6px;
+	text-align: justify;
+	text-justify: auto;
+}
+
+div#aktualnosci_kontener .tekst {
+	margin-top: 9px;
+	margin-bottom: 15px;
+}
+
+div#kolumna_prawa p#tekst {
+	margin-top: 20px;
+	text-align: justify;
+	text-justify: auto;
+}
+
+.aktualnosci_data {
+	color: #b0b0b0;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 17px;
+	line-height: 130%;
+	margin: 16px 0 16px 0;
+	text-align: justify;
+	text-justify: auto;
+}
+
+.tekst_kategorie {
+	color: #b0b0b0;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 18px;
+	margin: 14px 0 14px 0;
+	text-align: justify;
+	text-justify: auto;
+}
+
+div#kolumny_aktualnosci a, div#kolumny_kursy a {
+	text-decoration: none;
+}
+
+p#tekst_onas{
+	color: #6b6b6b;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 14px;
+	line-height: 170%;
+	margin-top: 6px;
+	margin-bottom: 15px;
+	text-align: justify;
+	text-justify: auto;
+}
+
+.tekst_pola_kontakt {
+	display: block;
+	margin-bottom: 36px;
+	color: #b0b0b0;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 15px;
+	text-align: justify;
+	text-justify: auto;
+}
+
+.tekst_niebieski {
+	color: #009ed2;
+}
+
+div#adminpanel_info2_lewa p, div#adminpanel_info2_prawa p {
+	margin-bottom: 10px;
+}
+
+div#rejestracja_pola_lewa p {
+	margin-bottom: 20px;
+}
+
+div#rejestracja_pola_lewa p:nth-child(7) {
+	margin-bottom: 80px;
+}
+
+div#rejestracja_oswiadczenie p {
+	float: left;
+	color: #989898;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 14px;
+	margin-left: 5px;
+	margin-top: 2px;
+}
+
+p#pola_wymagane {
+	color: #989898;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 14px;
+	margin-left: 37px;
+	margin-top: 475px;
+	position: absolute;
+}
+
+div#zaloguj_pola_lewa p {
+	margin-bottom: 20px;
+}
+
+p#przypomnij_haslo {
+	color: #6b6b6b;
+	font-family: "trebuchet ms", sans-serif;
+	font-size: 11px;
+	margin-left: 37px;
+	margin-top: 125px;
+	position: absolute;
+}
+
+div#zaloguj_kontener a {
+	text-decoration: none;
+}

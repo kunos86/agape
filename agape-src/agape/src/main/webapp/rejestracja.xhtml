@@ -11,11 +11,11 @@
 
 		<h:form id="osobaForm">
 
-			<rich:panel>
+			<rich:panel styleClass="formPanel">
 				<f:facet name="header"> Rejestracja nowego uzytkownika </f:facet>
-				<h:messages />
+				<h:messages styleClass="formMessage" />
 
-				<h:panelGrid columns="1" width="100%">
+				<h:panelGrid columns="3" width="100%">
 
 					<ui:decorate template="/layout/field.xhtml">
 						<ui:param name="label" value="Imie" />
@@ -115,13 +115,12 @@
 						</h:commandLink>
 					</h:panelGroup>
 
-
-
-					<a4j:commandButton value="Zapisz" action="#{registration.save()}"  render="@form"/>
 				</h:panelGrid>
 
-
-
+				<div class="buttonPanel">
+				<a4j:commandButton value="Zapisz" action="#{registration.save()}"
+					render="@form" />
+				</div>
 			</rich:panel>
 
 
@@ -140,12 +139,12 @@
 
 
 			<h:form style="text-align:center;">
-				<a4j:commandButton value="Zamknij" >
+				<a4j:commandButton value="Zamknij">
 					<rich:componentControl target="popup" operation="hide" />
-					
+
 				</a4j:commandButton>
 			</h:form>
-			
+
 		</rich:popupPanel>
 	</ui:define>
 

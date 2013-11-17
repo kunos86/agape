@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/default.xhtml"
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -15,32 +15,36 @@
 				<f:facet name="header">
 					<h:outputText value="Lista lekcji" />
 				</f:facet>
-				<a4j:commandButton action="#{lessonsBrowser.goToCourses()}"
-					value="Wróc do kursów" immediate="true" />
 				<rich:toolbar id="menu">
-					<a4j:region>
+					<a4j:commandButton action="#{lessonsBrowser.goToCourses()}"
+						value="Wróc do kursów" immediate="true" styleClass="buttonSmall" />
 
-						<a4j:commandButton value="Dodaj lekcję"
-							action="#{lessonsBrowser.add()}" render="@form"
-							disabled="#{lessonsBrowser.editMode}">
+					<rich:toolbarGroup>
+						<a4j:region>
 
-						</a4j:commandButton>
+							<a4j:commandButton value="Dodaj lekcję" styleClass="buttonSmall"
+								action="#{lessonsBrowser.add()}" render="@form"
+								disabled="#{lessonsBrowser.editMode}">
 
-						<a4j:commandButton value="Edytuj lekcję"
-							action="#{lessonsBrowser.edycja()}" render="@form"
-							disabled="#{lessonsBrowser.selection==null or lessonsBrowser.editMode}">
-						</a4j:commandButton>
+							</a4j:commandButton>
 
-						<a4j:commandButton value="Pytania lekcji"
-							action="#{lessonsBrowser.goToQuestions()}"
-							disabled="#{lessonsBrowser.selection==null or lessonsBrowser.editMode}">
-						</a4j:commandButton>
-					</a4j:region>
+							<a4j:commandButton value="Edytuj lekcję" styleClass="buttonSmall"
+								action="#{lessonsBrowser.edycja()}" render="@form"
+								disabled="#{lessonsBrowser.selection==null or lessonsBrowser.editMode}">
+							</a4j:commandButton>
+
+							<a4j:commandButton value="Pytania lekcji"
+								styleClass="buttonSmall"
+								action="#{lessonsBrowser.goToQuestions()}"
+								disabled="#{lessonsBrowser.selection==null or lessonsBrowser.editMode}">
+							</a4j:commandButton>
+						</a4j:region>
+					</rich:toolbarGroup>
 				</rich:toolbar>
 				<rich:panel id="edycjaPanel" rendered="#{lessonsBrowser.editMode}">
 
 					<a4j:region>
-						<h:panelGrid columns="1">
+						<h:panelGrid columns="3">
 
 							<ui:decorate template="/layout/field.xhtml">
 								<ui:param name="label" value="Nr lekcji" />

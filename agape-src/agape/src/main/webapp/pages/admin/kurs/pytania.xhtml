@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/default.xhtml"
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -15,21 +15,24 @@
 				<f:facet name="header">
 					<h:outputText value="Lista Pytań" />
 				</f:facet>
-				<a4j:commandButton action="#{questionsBrowser.goToLessons()}" value="Wróc do lekcji" immediate="true"/>
 				<rich:toolbar id="menu">
-					<a4j:region>
+					<a4j:commandButton action="#{questionsBrowser.goToLessons()}"
+						value="Wróc do lekcji" immediate="true" styleClass="buttonSmall" />
+					<rich:toolbarGroup>
 
-						<a4j:commandButton value="Dodaj pytanie"
-							action="#{questionsBrowser.add()}" render="@form"
-							disabled="#{questionsBrowser.editMode}">
+						<a4j:region>
+							<a4j:commandButton value="Dodaj pytanie" styleClass="buttonSmall"
+								action="#{questionsBrowser.add()}" render="@form"
+								disabled="#{questionsBrowser.editMode}">
 
-						</a4j:commandButton>
-					</a4j:region>
+							</a4j:commandButton>
+						</a4j:region>
+					</rich:toolbarGroup>
 				</rich:toolbar>
 				<rich:panel id="edycjaPanel" rendered="#{questionsBrowser.editMode}">
 
 					<a4j:region>
-						<h:panelGrid columns="1">
+						<h:panelGrid columns="3">
 
 							<ui:decorate template="/layout/field.xhtml">
 								<ui:param name="label" value="Nr pytania" />
@@ -58,8 +61,9 @@
 
 						</h:panelGrid>
 						<h:panelGrid columns="5">
-							<a4j:commandButton id="submit" action="#{questionsBrowser.save()}"
-								value="Zapisz" render="@form,tabela" execute="@region" />
+							<a4j:commandButton id="submit"
+								action="#{questionsBrowser.save()}" value="Zapisz"
+								render="@form,tabela" execute="@region" />
 							<a4j:commandButton id="cancel" immediate="true"
 								action="#{questionsBrowser.closeEditMode()}" render="@form"
 								value="Wyjdź">
@@ -70,22 +74,24 @@
 
 				</rich:panel>
 
-				<rich:dataGrid value="#{questionsBrowser.questions}" var="_row" style="width:100%"
-					columns="1">
+				<rich:dataGrid value="#{questionsBrowser.questions}" var="_row"
+					style="width:100%" columns="1">
 					<h:outputText value="Pytanie #{_row.number}  "
 						style="font-weight: bold;#{_row.enabled ? '' : 'color:grey;'}" />
-						<a4j:commandLink value="edytuj" action="#{questionsBrowser.edit(_row.id)}" render="@form" disabled="#{questionsBrowser.editMode}"/>
+					<a4j:commandLink value="edytuj"
+						action="#{questionsBrowser.edit(_row.id)}" render="@form"
+						disabled="#{questionsBrowser.editMode}" />
 					<br />
-				
-			
-					<h:outputText  value="#{_row.content}" style="#{_row.enabled ? '' : 'color:grey;'}"
-						 />
+
+
+					<h:outputText value="#{_row.content}"
+						style="#{_row.enabled ? '' : 'color:grey;'}" />
 
 
 
 
 				</rich:dataGrid>
-				</rich:panel>
+			</rich:panel>
 		</h:form>
 	</ui:define>
 

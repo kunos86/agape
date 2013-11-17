@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/default.xhtml"
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -51,10 +51,16 @@
 							<h:outputText value="Województow" />
 							<h:outputText value="#{studentsWithoutTeacherBrowser.user.country}" />
 					
-							
+							<h:outputText value="Nauczyciel" />
+							<h:selectOneListbox value="#{studentsWithoutTeacherBrowser.teacherId}">
+								<f:selectItems value="#{teachersDataList.selectItemsList}"/>
+							</h:selectOneListbox>
 							
 							
 						</h:panelGrid>
+						
+						
+						
 						<h:panelGrid columns="5">
 							<a4j:commandButton id="submit"
 								action="#{studentsWithoutTeacherBrowser.save()}" value="Zapisz"

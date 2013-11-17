@@ -5,29 +5,63 @@
        xmlns:a4j="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich">
 <h:head>
-   <title>KSB</title>
+   <title>Biblijny Kompas</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <h:outputStylesheet name="screen.css" library="css"/>
-   <h:outputStylesheet name="system.css" library="css"/>
+   <h:outputStylesheet name="main.css" library="css"/>
+   <h:outputStylesheet name="rf.css" library="css"/>
+   <h:outputStylesheet name="typography.css" library="css"/>
+   <h:outputStylesheet name="reset.css" library="css"/>
+         
 </h:head>
 <h:body>
-   <div id="container">
-      <div class="dualbrand">
-         <h:graphicImage name="baner.png" library="gfx"/>
-         <ui:include src="/menu/barMenu.xhtml" />
-      </div>
-      <div id="aside">
-        <ui:include src="/menu/menu.xhtml" />
-      </div>
-      <div id="content">
-         <ui:insert name="content">
-       </ui:insert>
-      </div>
-      <div id="footer">
-         <p>
-            Korespondencyjna Szkoła Biblijna Agape.pl 2013<br />
-         </p>
-      </div>
-   </div>
+
+
+	<!-- Kontener strony glownej -->
+	<div id="kontener_glowna">  
+		<!-- Kontener centrujacy -->
+		<div id="center">
+			<!-- Naglowek -->
+			<div id="naglowek">
+				<ui:include src="/layout/menu/barMenu.xhtml" />
+				
+			</div>
+			<!-- Tresc strony -->
+			<div id="tresc_glowna">
+				<div id="cytat">
+					<img id="img_cytat" src="img/cytat.png" alt=""/>
+				</div>
+				<div id="kolumny_glowna">
+			         <ui:insert name="content"/>
+				</div>
+			</div>
+		</div>
+		<div id="stopka_kontener">
+				<div id="stopka">
+			
+				</div>
+		</div>
+	</div>
+
+
+
+
+<!--    <div id="container"> -->
+<!--       <div class="dualbrand"> -->
+<!--          <h:graphicImage name="baner.png" library="gfx"/> -->
+<!--          <ui:include src="/menu/barMenu.xhtml" /> -->
+<!--       </div> -->
+<!--       <div id="aside"> -->
+<!--         <ui:include src="/menu/menu.xhtml" /> -->
+<!--       </div> -->
+<!--       <div id="content"> -->
+<!--          <ui:insert name="content"> -->
+<!--        </ui:insert> -->
+<!--       </div> -->
+<!--       <div id="footer"> -->
+<!--          <p> -->
+<!--             Korespondencyjna Szkoła Biblijna Agape.pl 2013<br /> -->
+<!--          </p> -->
+<!--       </div> -->
+<!--    </div> -->
 </h:body>
 </html>

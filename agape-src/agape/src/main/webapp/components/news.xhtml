@@ -5,23 +5,23 @@
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	
+
 	<rich:panel>
-	<f:facet name="header">
-	<h:outputText value="Aktualności" />
-	</f:facet>
-	
-	<rich:dataGrid value="#{newsBrowser.news}" var="_row" style="width:100%">
-		<h:outputText value="#{_row.dataArch}" style="font-weight:bold;">
-			<f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Etc/GMT-1" locale="pl_PL" />
-		</h:outputText><br />
-		<h:outputText value="#{_row.tresc}"  escape="false"/>
-		
-	
-	
-	</rich:dataGrid>
+		<f:facet name="header">
+			<h:outputText value="Aktualności" />
+		</f:facet>
+
+		<rich:dataGrid value="#{newsBrowser.news}" var="_row"
+			style="width:100%">
+			<h:outputText value="#{_row.modificationDate}"
+				style="font-weight:bold;">
+				<f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Etc/GMT-1"
+					locale="pl_PL" />
+			</h:outputText>
+			<br />
+			<h:outputText value="#{_row.content}" escape="false" />
+
+		</rich:dataGrid>
 	</rich:panel>
-	
-	
-	
+
 </ui:composition>
