@@ -23,7 +23,7 @@
         <!--
         <javaee6.with.tools.version>1.0.0.M12-redhat-1</javaee6.with.tools.version>
         -->
-        <org.richfaces.bom.version>4.2.3.Final</org.richfaces.bom.version>
+        <org.richfaces.bom.version>4.3.4.Final</org.richfaces.bom.version>
             </properties>
 
     <dependencyManagement>
@@ -52,6 +52,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            
         </dependencies>
     </dependencyManagement>
 
@@ -198,6 +199,12 @@
         </dependency>
         
 <!--         <dependency> -->
+<!--             <groupId>pl.ksb.agape</groupId> -->
+<!--              <artifactId>agape-skin</artifactId> -->
+<!--               <version>0.0.1</version> -->
+<!--          </dependency> -->
+        
+<!--         <dependency> -->
 <!-- 		   <groupId>org.jboss.seam.security</groupId> -->
 <!-- 		   <artifactId>seam-security-api</artifactId> -->
 <!-- 		   <version>3.1.0.Final</version> -->
@@ -227,20 +234,18 @@
 <!--       </exclusion> -->
 <!--    </exclusions> -->
 <!-- 		</dependency> -->
-		
-<!-- 		<dependency> -->
-<!--    <groupId>org.hibernate</groupId> -->
-<!--    <artifactId>hibernate-core</artifactId> -->
-<!--    <version>4.0.1.Final</version> -->
 
-   
-<!--    <exclusions> -->
-<!--       <exclusion> -->
-<!--          <groupId>antlr</groupId> -->
-<!--          <artifactId>antlr</artifactId> -->
-<!--       </exclusion> -->
-<!--    </exclusions> -->
-<!-- </dependency> -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>4.0.1.Final</version>
+	   <exclusions>
+	      <exclusion>
+	         <groupId>antlr</groupId>
+	         <artifactId>antlr</artifactId>
+	      </exclusion>
+	   </exclusions>
+	</dependency>
 
 
  		<dependency>
