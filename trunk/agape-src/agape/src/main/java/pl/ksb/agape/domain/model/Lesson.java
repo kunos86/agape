@@ -19,8 +19,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import pl.ksb.agape.domain.model.dict.Status;
-
 @Entity
 @Table(name = "lesson", schema = "agape")
 @NamedQueries(value = {
@@ -39,12 +37,11 @@ public class Lesson implements Serializable {
 	@NotNull
 	private Long number;
 
-	
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	@JoinColumn(name="course_id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "course_id")
 	@NotNull
 	private Course course;
-	  
+
 	@Column(name = "description", length = 500)
 	private String description;
 
@@ -65,12 +62,12 @@ public class Lesson implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificationDate;
 
-	@Column(name = "status", length=3, nullable = false)
+	@Column(name = "status", length = 3, nullable = false)
 	private String status;
 
 	@OneToMany()
-	@JoinColumn(name = "id_lekcja")
-	private Collection<EducationState> stanyZaawansowania;
+	@JoinColumn(name = "lesson_id")
+	private Collection<EducationState> educationStates;
 
 	public Long getId() {
 		return id;
@@ -79,8 +76,6 @@ public class Lesson implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public Long getNumber() {
 		return number;
@@ -138,8 +133,6 @@ public class Lesson implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-
-
 	public Date getModificationDate() {
 		return modificationDate;
 	}
@@ -156,13 +149,12 @@ public class Lesson implements Serializable {
 		this.status = status;
 	}
 
-	public Collection<EducationState> getStanyZaawansowania() {
-		return stanyZaawansowania;
+	public Collection<EducationState> getEducationStates() {
+		return educationStates;
 	}
 
-	public void setStanyZaawansowania(
-			Collection<EducationState> stanyZaawansowania) {
-		this.stanyZaawansowania = stanyZaawansowania;
+	public void setEducationStates(Collection<EducationState> educationStates) {
+		this.educationStates = educationStates;
 	}
 
 }

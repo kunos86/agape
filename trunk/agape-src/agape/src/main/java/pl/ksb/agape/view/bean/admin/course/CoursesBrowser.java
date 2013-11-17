@@ -117,7 +117,7 @@ public class CoursesBrowser implements Serializable{
 	
 	public void goToLesson() throws IOException{
 		loadSelectedCourses();
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/lekcje.jsf?id="+Encoder.encode(course.getId()));  
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/lekcje.jsf?faces-redirect=true&id="+Encoder.encode(course.getId()));  
 		
 		
 		

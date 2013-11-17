@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import pl.ksb.agape.domain.model.dict.RoleEnum;
 
-@Generated(value="Dali", date="2013-08-15T15:19:07.557+0200")
+@Generated(value="Dali", date="2013-10-31T23:58:42.071+0100")
 @StaticMetamodel(Role.class)
 public class Role_ {
 	public static volatile SingularAttribute<Role, Long> id;

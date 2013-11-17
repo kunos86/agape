@@ -6,7 +6,7 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2013-08-22T21:41:20.797+0200")
+@Generated(value="Dali", date="2013-11-03T14:46:45.986+0100")
 @StaticMetamodel(Lesson.class)
 public class Lesson_ {
 	public static volatile SingularAttribute<Lesson, Long> id;
@@ -19,5 +19,5 @@ public class Lesson_ {
 	public static volatile SingularAttribute<Lesson, Date> creationDate;
 	public static volatile SingularAttribute<Lesson, Date> modificationDate;
 	public static volatile SingularAttribute<Lesson, String> status;
-	public static volatile CollectionAttribute<Lesson, EducationState> stanyZaawansowania;
+	public static volatile CollectionAttribute<Lesson, EducationState> educationStates;
 }
