@@ -5,75 +5,62 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	<a4j:outputPanel  id="mainMenu">
+	<a4j:outputPanel id="mainMenu">
 
 
 
 
-		<rich:panelMenu immediate="true" itemMode="server">
+		<rich:panelMenu itemMode="ajax" style="padding-top:20px;">
 
 
-			<rich:panelMenuGroup label="Panel ucznia" expanded="true"  rendered="#{permisssionManagement.studentLogged}">
+			<rich:panelMenuGroup label="Panel ucznia" expanded="true"
+				rendered="#{permissionManagement.studentLogged}">
 				<rich:panelMenuItem label="Mój profil"
-					action="/pages/student/home.xhtml" />
+					action="/pages/student/home.xhtml?faces-redirect=true" />
 				<rich:panelMenuItem label="Dostępne lekcje"
-					action="/pages/student/listaLekcji.seam" />
+					action="/pages/student/mojeKursy.seam?faces-redirect=true" />
 
 			</rich:panelMenuGroup>
 
-			<rich:panelMenuGroup label="Panel koordynatora" expanded="true" rendered="#{permisssionManagement.coordinatorLogged}" >
+			<rich:panelMenuGroup label="Panel koordynatora" expanded="true"
+				rendered="#{permissionManagement.coordinatorLogged}">
 
-				<rich:panelMenuItem label="Edycja kursów" submitMode="ajax" immediate="true"
-					action="/pages/admin/kurs/kursy.xhtml" />
-				<rich:panelMenuItem label="Uprawnienia do kursów" submitMode="ajax"
-					action="/pages/admin/uprawnieniaKursy.xhtml" />
+				<rich:panelMenuItem label="Edycja kursów" mode="ajax"
+					action="/pages/admin/kurs/kursy.xhtml?faces-redirect=true" />
+				<rich:panelMenuItem label="Uprawnienia do kursów" mode="ajax"
+					action="/pages/admin/uprawnieniaKursy.xhtml?faces-redirect=true" />
 
 				<rich:panelMenuItem label="Lista osób" mode="ajax"
-					action="/pages/admin/osoby/listaOsob.xhtml" />
-				<rich:panelMenuItem label="Osoby bez nauczyciela" mode="server"
-					action="/pages/admin/osoby/osobyBezNauczyciela.xhtml" />
-					
-				<rich:panelMenuItem label="Dodaj news" submitMode="ajax" immediate="true"
-					action="/pages/admin/addNews.xhtml" />
+					action="/pages/admin/osoby/listaOsob.xhtml?faces-redirect=true" />
+				<rich:panelMenuItem label="Osoby bez nauczyciela" mode="ajax"
+					action="/pages/admin/osoby/osobyBezNauczyciela.xhtml?faces-redirect=true" />
+
+				<rich:panelMenuItem label="Dodaj news" mode="ajax"
+					action="/pages/admin/addNews.xhtml?faces-redirect=true" />
 
 
 			</rich:panelMenuGroup>
 
-			<rich:panelMenuGroup label="Panel nauczyciela" expanded="true" rendered="#{permisssionManagement.teacherLogged}" >
-				<rich:panelMenuItem label="Mój profil" submitMode="ajax"
+			<rich:panelMenuGroup label="Panel nauczyciela" expanded="true"
+				rendered="#{permissionManagement.teacherLogged}">
+				<rich:panelMenuItem label="Mój profil"
 					action="/pages/teacher/home.xhtml" />
-				<rich:panelMenuItem label="Moi uczniowie" submitMode="ajax"
+				<rich:panelMenuItem label="Moi uczniowie"
 					action="/pages/teacher/uczniowie.xhtml" />
-				<rich:panelMenuItem label="Oczekujące osoby" submitMode="ajax"
+				<rich:panelMenuItem label="Oczekujące osoby"
 					action="/pages/teacher/oczekujaceOsoby.xhtml" />
-				<rich:panelMenuItem label="Niesprawdzone lekcje" submitMode="ajax"
-					action="/pages/teacher/lekcjeDoSprawdzenia.xhtml" />
+				<rich:panelMenuItem label="Niesprawdzone lekcje"
+					action="/pages/teacher/lekcjeDoSprawdzenia.xhtml?faces-redirect=true" />
 
-			</rich:panelMenuGroup>
-
-			<rich:panelMenuGroup label="Agape.pl" expanded="true">
-			<rich:panelMenuItem label="Strona Główna" immediate="true"
-				action="/index.xhtml" />
-			<rich:panelMenuItem label="Zaloguj się" immediate="true" rendered="#{!permisssionManagement.logged}"
-				action="/login.xhtml" />
-			<rich:panelMenuItem label="Wyloguj się" immediate="true" rendered="#{permisssionManagement.logged}"
-				action="#{permisssionManagement.logout}" />
-			<rich:panelMenuItem label="Rejestracja" immediate="true"
-				action="/rejestracja.xhtml" />
-			<rich:panelMenuItem label="Krok 0" action="/krok0.xhtml"
-				immediate="true" />
-
-			<rich:panelMenuItem label="O kursie Jana">
-			</rich:panelMenuItem>
 			</rich:panelMenuGroup>
 
 			<rich:panelMenuGroup label="Kurs" expanded="true">
 
 
-				<rich:panelMenuItem label="Inne2"/>
+				<rich:panelMenuItem label="Inne2" />
 
 			</rich:panelMenuGroup>
-			<rich:panelMenuItem label="Nagrody"/>
+	
 
 
 

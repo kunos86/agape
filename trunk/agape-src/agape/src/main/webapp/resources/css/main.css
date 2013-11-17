@@ -1,0 +1,625 @@
+
+body {
+   /* background-color: white; */
+    margin: auto;  
+    width: 100%;
+}
+
+div#kontener {
+	background: url('../img/kontener_tlo.jpg') repeat-x;
+}
+
+div#kontener_glowna {
+	background: url('../img/kontener_glowna_tlo.jpg') repeat-x;
+	
+}
+
+div#center {
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+}
+
+div#naglowek {
+	/* background-color: red; */
+	height: 140px;
+	width: 960px;
+}
+
+
+
+/********************** NAGLOWEK ***********************/
+
+img#img_logo {
+	height: 88px;
+	margin-left: 10px;
+	margin-top: 23px;
+	position: absolute;
+	width: 250px;
+}
+
+.img_naglowek_zaloguj {
+	position: absolute;
+	margin-left: 860px;
+	margin-top: 14px;
+}
+
+.img_naglowek_zarejestruj {
+	position: absolute;
+	margin-left: 740px;
+	margin-top: 14px;
+	
+}
+
+/*********************** Menu *************************/
+
+div#menu_kontener {
+	/* background-color: green; */
+	height: 30px;
+	margin-top: 105px;
+	margin-left: 372px;
+	position: absolute;
+	width: 588px;
+}
+
+ul#menu_przyciski {
+	position: absolute;
+}
+
+ul#menu_przyciski li {
+	/* background-color: blue; */
+	float: left;
+	height: 24px;
+	list-style-type: none;
+	margin-left: 40px;
+	width: 85px;
+}
+
+ul#menu_przyciski li a {
+	display: block;
+	height: 100%;
+	text-align: right;
+	width: 100%;
+}
+
+ul#menu_przyciski li#glowna {
+	margin-left: 0px;
+	width: 107px;
+}
+
+ul#menu_przyciski li#aktualnosci {
+	width: 85px;
+}
+
+ul#menu_przyciski li#o_nas {
+	width: 45px;
+}
+
+ul#menu_przyciski li#kursy {
+	width: 45px;
+}
+
+ul#menu_przyciski li#pomoc {
+	width: 50px;
+}
+
+ul#menu_przyciski li#kontakt {
+	width: 55px;
+}
+
+/*********************** TRESC *************************/
+
+div#tresc {
+	/* background-color: cyan; */
+	margin: 0px;
+	padding: 0px;
+	width: 960px;
+}
+
+div#tresc_glowna {
+	/* background-color: cyan; */
+	height: 685px;
+	margin: 0px;
+	padding: 0px;
+	width: 960px;
+}
+
+div#cytat {
+	height: 110px;
+	width: 960px;
+}
+
+img#img_cytat {
+	height: 69px;
+	margin-top: 25px;
+	width: 960px;
+}
+
+div#kolumny_glowna {
+	/* background-color: green; */
+	overflow: hidden;
+	width: 960px;
+}
+
+div#kolumna_lewa_glowna {
+	float: left;
+	height: 580px;
+	width: 530px;
+}
+
+.kolumny_przerwa {
+	float: left;
+	height: 100%;
+	width: 60px;
+}
+
+div#kolumna_prawa_glowna {
+	/* background-color: green; */
+	float: left;
+	height: 580px;
+	width: 370px;
+}
+
+.naglowki {
+	border-bottom: 1px solid #d4d4d4;
+	height: 40px;
+	margin-top: 25px;
+}
+
+
+.formPanel{
+	background-color: #E7E7E7;
+}
+
+.formLabel {
+    float: right;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 0.5em;
+    padding-top: 0.2em;
+    text-align: right;
+}
+
+.formMessage {
+	font-weight: bold;
+	color: red;
+}
+
+.buttonPanel{
+	text-align: right;
+}
+
+.buttonSmall{
+	font-size: 13px;
+    padding:1px 2px 1px 2px !important;
+    border-radius: 3px !importanat;
+}
+.buttonBig{
+	padding:6px 13px 6px 13px !important;    
+	font-weight: bold;
+}
+
+
+button, input[type="reset"], input[type="submit"], input[type="button"] {
+    background-color: #008dde;
+    background-position: left top;
+    border-color: #11808A;
+    border-width: 1px;
+    color: #FFFFFF;
+    font-family: trebuchet ms",sans-serif;
+    font-size: 14px;
+    padding:4px 10px 4px 10px;
+    border-radius: 5px;
+    background-image:none !important;
+}
+button[disabled]:active, button[disabled],
+input[type="reset"][disabled]:active,
+input[type="reset"][disabled],
+input[type="button"][disabled]:active,
+input[type="button"][disabled],
+select[disabled] > input[type="button"],
+select[disabled] > input[type="button"]:active,
+input[type="submit"][disabled]:active,
+input[type="submit"][disabled] {
+  padding: 0px 6px 0px 6px;
+  border: 2px outset ButtonFace;
+  color: #808080;
+  cursor: inherit;
+  background-color: #c7c3c8;
+  background-image:none !important;
+}
+
+
+
+div#kurs_glowna_kontener {
+	/* background-color: gray; */
+	border-top: 1px solid #e8e8e8;
+	height: 540px;
+	float: left;
+	overflow: auto;
+	width: 530px;
+}
+
+.kurs_glowna_tresc {
+	/* background-color: darkgray; */
+	height: 120px;
+	margin-top: 30px;
+	width: 530px;
+}
+
+.img_glowna_kurs {
+	float: left;
+}
+
+div#kurs_glowna_opis {
+	/* background-color: yellow; */
+	float: left;
+	height: 120px;
+	margin-left: 20px;
+	width: 390px;
+}
+
+.img_zapiszsie {
+	float: left;
+	margin-left: 250px;
+	position: absolute;
+}
+
+div#onas_glowna_kontener {
+	/* background-color: blue; */
+	border-top: 1px solid #e8e8e8;
+	height: 180px;
+}
+
+div#jakzaczac_glowna_kontener {
+	/* background-color: blue; */
+	border-top: 1px solid #e8e8e8;
+	height: 220px;
+}
+
+img#img_przykladowykurs {
+	float: left;
+	margin-left: 110px;
+	margin-top: 26px;
+	position: absolute;
+}
+
+img#img_zalozkonto {
+	float: left;
+	margin-left: 94px;
+	margin-top: 35px;
+	position: absolute;
+}
+
+div#stopka_kontener {
+	background: url('../img/stopka_tlo.jpg') repeat-x;
+	background-color: #e7e7e7;
+	height: 250px;
+	width: 100%;
+}
+
+div#stopka {
+	/* background-color: yellow; */
+	height: 250px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+}
+
+/********************** AKTUALNOSCI ***********************/
+
+div#kolumny_aktualnosci {
+	/* background-color: green; */
+	height: 580px;
+	overflow: hidden;
+	width: 960px;
+}
+
+div#kolumna_lewa_aktualnosci {
+	float: left;
+	width: 630px;
+}
+
+div#kolumna_prawa_aktualnosci {
+	float: left;
+	width: 270px;
+}
+
+.aktualnosci_wpis {
+	border-bottom: 1px solid #e8e8e8;
+}
+
+/********************* KURSY *********************/
+
+.kursy_wpis {
+	/* background-color: darkgray; */
+	height: 120px;
+	margin-top: 20px;
+	margin-bottom: 25px;
+	width: 630px;
+}
+
+div#kolumny_kursy {
+	/* background-color: green; */
+	height: 540px;
+	overflow: hidden;
+	width: 960px;
+}
+
+div#kolumna_lewa_kursy {
+	float: left;
+	width: 270px;
+}
+
+div#kolumna_prawa_kursy {
+	float: left;
+	width: 630px;
+}
+
+div#kolumna_prawa_kursy img{
+	margin-right: 15px;
+	float: left;
+}
+
+.kursy_opis_kontener {
+	/* background-color: yellow; */
+	float: left;
+	height: 120px;
+	margin-left: 10px;
+	width: 485px;
+}
+
+.kursy_opis_kontener .img_zapiszsie {
+	margin-left: 360px;
+}
+
+/*********************** KONTAKT **********************/
+
+div#kolumny_kontakt {
+	/* background-color: green; */
+	height: 460px;
+	overflow: hidden;
+	width: 960px;
+}
+
+div#kolumna_lewa_kontakt {
+	float: left;
+	width: 630px;
+}
+
+div#kolumna_prawa_kontakt {
+	float: left;
+	width: 270px;
+}
+
+div#formularz_kontener {
+
+}
+
+div#kontakt_pola_nazwy {
+	/* background-color: yellow; */
+	height: 360px;
+	float: left;
+	margin-top: 30px;
+	width: 100px;
+}
+
+div#kontakt_pola {
+	/* background-color: green; */
+	float: left;
+	height: 360px;
+	margin-top: 25px;
+	width: 340px;
+}
+
+.formularz_pole {
+	background-color: #f6f6f6;
+	border: 1px solid #b0b0b0;
+	height: 30px;
+	margin-bottom: 21px;
+	width: 180px;
+}
+
+textarea#formularz_wiadomosc {
+	background-color: #f6f6f6;
+	border: 1px solid #b0b0b0;
+	height: 120px;
+	margin-bottom: 21px;
+	max-height: 180px;
+	max-width: 340px;
+	overflow: hidden;
+	width: 270px;
+}
+
+/***************** ADMIN PANEL ****************/
+
+div#kolumna_lewa_adminpanel {
+	float: left;
+	width: 200px;
+}
+
+div#kolumna_prawa_adminpanel {
+	float: left;
+	width: 700px;
+}
+
+div#adminpanel_zdjecie {
+	/* background-color: yellow; */
+	float: left;
+	height: 75px;
+	margin-top: 17px;
+	width: 75px;
+}
+
+div#adminpanel_info {
+	/* background-color: cyan; */
+	height: 75px;
+	margin-left: 95px;
+	margin-top: 15px;
+	position: absolute;
+	width: 275px;
+}
+
+div#adminpanel_info2_lewa {
+	/* background-color: gray; */
+	height: 160px;
+	margin-top: 115px;
+	position: absolute;
+	width: 75px;
+}
+
+div#adminpanel_info2_prawa {
+	/* background-color: green; */
+	display: block;
+	height: 160px;
+	margin-left: 95px;
+	margin-top: 115px;
+	position: absolute;
+	width: 275px;
+}
+
+/********************** REJESTRACJA KONTENER **********************/
+
+div#kontener_rejestracja {
+	background: url('../img/kontener_tlo.jpg') repeat-x;
+	background-color: #f1f1f1;
+}
+
+div#tresc_rejestracja {	
+	height: 650px;
+	margin: 0px;
+	overflow: hidden;
+	padding: 0px;
+	width: 960px;
+}
+
+div#rejestracja_kontener {
+	height: 560px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	width: 400px;
+}
+
+div#rejestracja_zawartosc {
+	background-color: #e7e7e7;
+	border: 1px solid #b0b0b0;
+	height: 520px;
+	margin-top: 13px;
+	width: 398px;
+}
+
+div#rejestracja_pola_lewa {
+	/* background-color: yellow; */
+	height: 410px;
+	margin-left: 45px;
+	margin-top: 25px;
+	position: absolute;
+	width: 110px;
+}
+
+div#rejestracja_pola_prawa {
+	/* background-color: green; */
+	height: 410px;
+	margin-left: 155px;
+	margin-top: 25px;
+	position: absolute;
+	width: 198px;
+}
+
+.rejestracja_pole {
+	background-color: #f6f6f6;
+	border: 1px solid #b0b0b0;
+	height: 30px;
+	margin-bottom: 9px;
+	width: 198px;
+}
+
+textarea#rejestracja_adres {
+	background-color: #f6f6f6;
+	border: 1px solid #b0b0b0;
+	height: 90px;
+	margin-bottom: 9px;
+	min-height: 90px;
+	min-width: 198px;
+	max-height: 90px;
+	max-width: 198px;
+	overflow: hidden;
+	width: 198px;
+}
+
+div#rejestracja_oswiadczenie {
+	/* background-color: yellow; */
+	margin-left: 35px;
+	margin-top: 445px;
+	position: absolute;
+}
+
+div#rejestracja_oswiadczenie input {
+	float: left;
+}
+
+img#img_zarejestruj {
+	margin-left: 270px;
+	margin-top: 472px;
+	position: absolute;
+}
+
+/******************* LOGOWANIE ***********************/
+
+div#tresc_zaloguj {	
+	height: 460px;
+	margin: 0px;
+	overflow: hidden;
+	padding: 0px;
+	width: 960px;
+}
+
+div#zaloguj_kontener {
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 105px;
+	margin-bottom: auto;
+	width: 300px;
+}
+
+div#zaloguj_zawartosc {
+	background-color: #e7e7e7;
+	border: 1px solid #b0b0b0;
+	height: 160px;
+	margin-top: 14px;
+	width: 300px;
+}
+
+div#zaloguj_pola_lewa {
+	/* background-color: yellow; */
+	height: 80px;
+	margin-left: 40px;
+	margin-top: 25px;
+	position: absolute;
+	width: 60px;
+}
+
+div#zaloguj_pola_prawa {
+	/* background-color: green; */
+	height: 410px;
+	margin-left: 100px;
+	margin-top: 25px;
+	position: absolute;
+	width: 198px;
+}
+
+.zaloguj_pole {
+	background-color: #f6f6f6;
+	border: 1px solid #b0b0b0;
+	height: 30px;
+	margin-bottom: 9px;
+	width: 160px;
+}
+
+img#img_zaloguj {
+	margin-left: 160px;
+	margin-top: 111px;
+	position: absolute;
+}
