@@ -15,11 +15,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 
-
 @Entity
-@Table(name = "educationState", schema = "agape")
+@Table(name = "education_state", schema = "agape")
 public class EducationState implements Serializable {
 
 	/**
@@ -33,6 +34,7 @@ public class EducationState implements Serializable {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "student_id", nullable = false)
 	@NotNull
 	private User student;
@@ -47,7 +49,7 @@ public class EducationState implements Serializable {
 	private Date sharedDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "sentDate")
+	@Column(name = "sent_Date")
 	private Date sentDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -59,11 +61,11 @@ public class EducationState implements Serializable {
 	private String comment;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "readed_date")
-	private Date readedDate;
+	@Column(name = "read_date")
+	private Date readDate;
 
-	@Column(name = "readedCommentDate")
-	private boolean readedCommentDate = false;
+	@Column(name = "read_comment_date")
+	private Date readCommentDate;
 
 	public Long getId() {
 		return id;
@@ -101,6 +103,10 @@ public class EducationState implements Serializable {
 		return sentDate;
 	}
 
+	public boolean isSent() {
+		return sentDate != null;
+	}
+
 	public void setSentDate(Date sentDate) {
 		this.sentDate = sentDate;
 	}
@@ -121,22 +127,24 @@ public class EducationState implements Serializable {
 		this.comment = comment;
 	}
 
-	public Date getReadedDate() {
-		return readedDate;
+	public boolean isRead() {
+		return readDate != null;
 	}
 
-	public void setReadedDate(Date readedDate) {
-		this.readedDate = readedDate;
+	public Date getReadDate() {
+		return readDate;
 	}
 
-	public boolean isReadedCommentDate() {
-		return readedCommentDate;
+	public void setReadDate(Date readDate) {
+		this.readDate = readDate;
 	}
 
-	public void setReadedCommentDate(boolean readedCommentDate) {
-		this.readedCommentDate = readedCommentDate;
+	public Date getReadCommentDate() {
+		return readCommentDate;
 	}
-	
 
+	public void setReadCommentDate(Date readCommentDate) {
+		this.readCommentDate = readCommentDate;
+	}
 
 }

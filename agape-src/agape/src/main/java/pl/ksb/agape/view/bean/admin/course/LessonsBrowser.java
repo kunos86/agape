@@ -128,12 +128,12 @@ public class LessonsBrowser implements Serializable {
 
 	public void goToQuestions() throws IOException{
 		loadSelection();
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/pytania.jsf?id="+Encoder.encode(lesson.getId()));  
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/pytania.jsf?faces-redirect=true&id="+Encoder.encode(lesson.getId()));  
 
 	}
 	
 	public void goToCourses() throws IOException{
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/kursy.jsf");  
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/agape/pages/admin/kurs/kursy.jsf?faces-redirect=true");  
 
 	}
 	

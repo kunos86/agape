@@ -28,7 +28,7 @@ public class AddNewsBrowser implements Serializable{
 	private NewsDAOBean newsDAOBean;
 	
 	
-	public void zapisz(){
+	public void save(){
 		
 		newsDAOBean.zapisz(news);
 		
