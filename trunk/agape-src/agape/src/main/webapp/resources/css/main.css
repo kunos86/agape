@@ -584,6 +584,17 @@ div#zaloguj_kontener {
 	width: 300px;
 }
 
+.teacherListRow{
+	background-color: #e6e6e6;;
+}
+.blueHeader{
+	color: #009ED2 ;
+    font-family: "trebuchet ms",sans-serif  !important;
+    font-size: 20px;
+}
+
+
+
 div#zaloguj_zawartosc {
 	background-color: #e7e7e7;
 	border: 1px solid #b0b0b0;

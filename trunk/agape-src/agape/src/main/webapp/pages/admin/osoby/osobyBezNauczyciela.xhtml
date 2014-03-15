@@ -80,19 +80,16 @@
 					selection="#{studentsWithoutTeacherBrowser.selection}"
 					var="_row" rows="20" filterVar="filterValue"  >
 					<a4j:ajax event="selectionchange" render="menu" immediate="true" />
-					<rich:column id="col1" sortBy="#{_row.surname}" filterValue="#{_row.surname}" 
-						filterExpression="#{empty filterValue or fn:startsWith(_row.surname, filterValue)}">
+					<rich:column id="col1">
 						<f:facet name="header">Nazwisko</f:facet>
 						<h:outputText value="#{_row.surname}" />
 
 					</rich:column>
-					<rich:column id="col2" sortBy="#{_row.name}" 
-						filterExpression="#{_row.name}">
+					<rich:column id="col2" >
 						<f:facet name="header">Imię</f:facet>
 						<h:outputText value="#{_row.name}" />
 					</rich:column>
-					<rich:column id="col3" sortBy="#{_row.email}"
-						filterExpression="#{_row.email}">
+					<rich:column id="col3" >
 						<f:facet name="header">Email</f:facet>
 						<h:outputText value="#{_row.email}" />
 
