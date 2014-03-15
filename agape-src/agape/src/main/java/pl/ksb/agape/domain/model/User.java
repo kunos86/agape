@@ -1,12 +1,11 @@
 package pl.ksb.agape.domain.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -20,18 +19,33 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
-
-
-import pl.ksb.agape.domain.model.dict.RoleEnum;
-import pl.ksb.agape.domain.model.dict.Status;
-
 @Entity
 @Table(name = "USER", schema = "AGAPE", uniqueConstraints = @UniqueConstraint(columnNames = "email", name = "uniqueEmail"))
-@NamedQueries(
-		value={@NamedQuery(name="getUserByMail",query="Select u from User u where u.email = :email"), 
-				@NamedQuery(name="getUsers",query="Select u from User u")})
+@NamedQueries(value = {
+		@NamedQuery(name = "getUserByMail", query = "Select u from User u where u.email = :email"),
+		@NamedQuery(name = "getUsers", query = "Select u from User u") })
 public class User implements Serializable {
 	private static final long serialVersionUID = 8312693018289001116L;
+
+	@Column(name = "address", length = 50)
+	@Length(max = 50)
+	private String address;
+
+	@Column(name = "birth_date")
+	private Date birthDate;
+
+	@Column(name = "community", length = 50)
+	@Length(max = 50)
+	private String community;
+
+	@Column(name = "country")
+	private String country;
+
+	@Column(name = "email", length = 30, unique = true)
+	@Email
+	@NotNull
+	@Length(max = 30)
+	private String email;
 
 	@Id
 	@GeneratedValue
@@ -43,153 +57,25 @@ public class User implements Serializable {
 	@Length(min = 2, max = 30)
 	private String name;
 
-	@Column(name = "surname", length = 50)
-	@Length(max = 50)
-	private String surname;
-
-	@Column(name = "email", length = 30, unique = true)
-	@Email
-	@NotNull
-	@Length(max = 30)
-	private String email;
-
 	@Column(name = "password", length = 20)
 	@Length(max = 20)
 	private String password;
-
-	@Column(name = "country")
-	private String country;
-
-	@Column(name = "address", length = 50)
-	@Length(max = 50)
-	private String address;
-
-	@Column(name = "birth_date")
-	private Date birthDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "registration_date")
 	private Date registrationDate;
 
-	@Column(name = "status", length=3, nullable=false)
-	@NotNull
-	private String status;
-
-	@Column(name = "community", length = 50)
-	@Length(max = 50)
-	private String community;
-
 	@Column(name = "religion", length = 50)
 	@Length(max = 50)
 	private String religion;
 
-	public Long getId() {
-		return id;
-	}
+	@Column(name = "status", length = 3, nullable = false)
+	@NotNull
+	private String status;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-
-
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
-
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getCommunity() {
-		return community;
-	}
-
-	public void setCommunity(String community) {
-		this.community = community;
-	}
-
-	public String getReligion() {
-		return religion;
-	}
-
-	public void setReligion(String religion) {
-		this.religion = religion;
-	}
-
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (this.id != null ? this.id.hashCode() : 0);
-		return hash;
-	}
+	@Column(name = "surname", length = 50)
+	@Length(max = 50)
+	private String surname;
 
 	@Override
 	public boolean equals(Object object) {
@@ -202,6 +88,120 @@ public class User implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public Integer getAge() {
+		Integer ret = null;
+		if (birthDate != null) {
+			Calendar cBirth = Calendar.getInstance();
+			cBirth.setTime(birthDate);
+			ret = Calendar.getInstance().get(Calendar.YEAR)
+					- cBirth.get(Calendar.YEAR);
+		}
+		return ret;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public String getCommunity() {
+		return community;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public String getReligion() {
+		return religion;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (this.id != null ? this.id.hashCode() : 0);
+		return hash;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public void setCommunity(String community) {
+		this.community = community;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public void setReligion(String religion) {
+		this.religion = religion;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	@Override
