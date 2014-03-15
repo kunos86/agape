@@ -10,14 +10,14 @@
 
 
 
-		<rich:panelMenu itemMode="ajax" style="padding-top:20px;">
+		<rich:panelMenu style="padding-top:20px;"  itemMode="server">
 
 
 			<rich:panelMenuGroup label="Panel ucznia" expanded="true"
 				rendered="#{permissionManagement.studentLogged}">
-				<rich:panelMenuItem label="Mój profil"
+				<rich:panelMenuItem label="Mój profil"  mode="server"
 					action="/pages/student/home.xhtml?faces-redirect=true" />
-				<rich:panelMenuItem label="Dostępne lekcje"
+				<rich:panelMenuItem label="Dostępne lekcje" mode="server"
 					action="/pages/student/mojeKursy.seam?faces-redirect=true" />
 
 			</rich:panelMenuGroup>
@@ -25,17 +25,17 @@
 			<rich:panelMenuGroup label="Panel koordynatora" expanded="true"
 				rendered="#{permissionManagement.coordinatorLogged}">
 
-				<rich:panelMenuItem label="Edycja kursów" mode="ajax"
+				<rich:panelMenuItem label="Edycja kursów"  mode="server"
 					action="/pages/admin/kurs/kursy.xhtml?faces-redirect=true" />
-				<rich:panelMenuItem label="Uprawnienia do kursów" mode="ajax"
+				<rich:panelMenuItem label="Uprawnienia do kursów" mode="server"
 					action="/pages/admin/uprawnieniaKursy.xhtml?faces-redirect=true" />
 
-				<rich:panelMenuItem label="Lista osób" mode="ajax"
+				<rich:panelMenuItem label="Lista osób"  mode="server"
 					action="/pages/admin/osoby/listaOsob.xhtml?faces-redirect=true" />
-				<rich:panelMenuItem label="Osoby bez nauczyciela" mode="ajax"
+				<rich:panelMenuItem label="Osoby bez nauczyciela"  mode="server"
 					action="/pages/admin/osoby/osobyBezNauczyciela.xhtml?faces-redirect=true" />
 
-				<rich:panelMenuItem label="Dodaj news" mode="ajax"
+				<rich:panelMenuItem label="Dodaj news"  mode="server"
 					action="/pages/admin/addNews.xhtml?faces-redirect=true" />
 
 
@@ -43,13 +43,13 @@
 
 			<rich:panelMenuGroup label="Panel nauczyciela" expanded="true"
 				rendered="#{permissionManagement.teacherLogged}">
-				<rich:panelMenuItem label="Mój profil"
+				<rich:panelMenuItem label="Mój profil"  mode="server"
 					action="/pages/teacher/home.xhtml" />
-				<rich:panelMenuItem label="Moi uczniowie"
+				<rich:panelMenuItem label="Moi uczniowie"  mode="server"
 					action="/pages/teacher/uczniowie.xhtml" />
-				<rich:panelMenuItem label="Oczekujące osoby"
+				<rich:panelMenuItem label="Oczekujące osoby"  mode="server"
 					action="/pages/teacher/oczekujaceOsoby.xhtml" />
-				<rich:panelMenuItem label="Niesprawdzone lekcje"
+				<rich:panelMenuItem label="Niesprawdzone lekcje"  mode="server"
 					action="/pages/teacher/lekcjeDoSprawdzenia.xhtml?faces-redirect=true" />
 
 			</rich:panelMenuGroup>

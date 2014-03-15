@@ -9,40 +9,67 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:my="http://java.sun.com/jsf/composite/components">
 	<ui:define name="content">
+		<h:outputScript name="jquery.dataTables.min.js" library="js" />
+		<h:outputScript name="dataTablesExt.js" library="js" />
+		<h:outputStylesheet name="jquery-ui-1.10.3.custom.min.css"
+			library="css" />
 		<h:form>
 			<rich:panel>
 				<f:facet name="header">
 					<h:outputText value="Lista osób zarejestrowanych w systemie" />
-				</f:facet>
-				<rich:extendedDataTable id="tabela" sortMode="single" value="#{usersDataModel}" 
-					 
-					
-					
-					var="_row" rows="5"  >
-					<rich:column id="col1" sortBy="#{_row.surname}" 					 
-						filterExpression="_row.surname" >
-						<f:facet name="header">Nazwisko</f:facet>
-						<h:outputText value="#{_row.surname}" />
-
-					</rich:column>
-					
-					<rich:column id="col2" sortBy="#{_row.name}" 
-						filterExpression="#{_row.name}">
-						<f:facet name="header">Imię</f:facet>
-						<h:outputText value="#{_row.name}" />
-					</rich:column>
-					<rich:column id="col3" sortBy="#{_row.email}"
-						filterExpression="#{_row.email}">
-						<f:facet name="header">Email</f:facet>
-						<h:outputText value="#{_row.email}" />
-
-					</rich:column>
-					<f:facet name="footer">
-						<rich:dataScroller for="tabela"/>
-					</f:facet>
+				</f:facet>	
+				<table id="studentsTable" class="borderTable" style="width: 100%">
+					<thead>
+						<tr>
+							<th style="width: 70%">Nazwisko i Imię</th>
+							<th style="width: 30%">Mail</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="_row" value="#{usersBrowser.users}">
+							<tr>
+								<td >#{_row.surname} #{_row.name}</td>
+								<td >#{_row.email}</td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+				<script type="text/javascript">
+				$(document).ready(function(){
+					showDataTableJQ( $('#studentsTable'));
+				});
+			</script>
 
 
-				</rich:extendedDataTable>
+				<!-- 				<rich:extendedDataTable id="tabela" sortMode="single" value="#{usersDataModel}"  -->
+
+
+
+				<!-- 					var="_row" rows="5"  > -->
+				<!-- 					<rich:column id="col1" sortBy="#{_row.surname}" 					  -->
+				<!-- 						filterExpression="_row.surname" > -->
+				<!-- 						<f:facet name="header">Nazwisko</f:facet> -->
+				<!-- 						<h:outputText value="#{_row.surname}" /> -->
+
+				<!-- 					</rich:column> -->
+
+				<!-- 					<rich:column id="col2" sortBy="#{_row.name}"  -->
+				<!-- 						filterExpression="#{_row.name}"> -->
+				<!-- 						<f:facet name="header">Imię</f:facet> -->
+				<!-- 						<h:outputText value="#{_row.name}" /> -->
+				<!-- 					</rich:column> -->
+				<!-- 					<rich:column id="col3" sortBy="#{_row.email}" -->
+				<!-- 						filterExpression="#{_row.email}"> -->
+				<!-- 						<f:facet name="header">Email</f:facet> -->
+				<!-- 						<h:outputText value="#{_row.email}" /> -->
+
+				<!-- 					</rich:column> -->
+				<!-- 					<f:facet name="footer"> -->
+				<!-- 						<rich:dataScroller for="tabela"/> -->
+				<!-- 					</f:facet> -->
+
+
+				<!-- 				</rich:extendedDataTable> -->
 
 
 			</rich:panel>

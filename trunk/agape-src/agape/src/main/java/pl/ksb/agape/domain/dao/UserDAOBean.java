@@ -4,101 +4,80 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import pl.ksb.agape.domain.model.User;
 
 @Stateless
-public class UserDAOBean {
+public class UserDAOBean extends BaseDAO<User> {
 
-	@Inject
-	private EntityManager em;
-
-	public User getById(Long id) {
-		return em.find(User.class, id);
-	}
-
-	public void save(User osoba) {
-		if (osoba.getId() == null) {
-			osoba.setStatus("A");
-			osoba.setRegistrationDate(new Date());
-			em.persist(osoba);
-		} else {
-			em.merge(osoba);
-		}
-
-	}
-
-	public boolean isRegistered(String mail) {
-		boolean ret = false;
-		@SuppressWarnings("unchecked")
-		List<User> osoby = em.createNamedQuery("getUserByMail")
-				.setParameter("email", mail).getResultList();
-		if (osoby != null && !osoby.isEmpty()) {
-			ret = true;
-		}
-
-		return ret;
-
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<User> getUsers(int firstRow, int numRows) {
-		return em.createNamedQuery("getUsers").setFirstResult(firstRow)
-				.setMaxResults(numRows).getResultList();
-	}
-
-	public User getUserByMail(String mail) {
-
-		// List<User> osoby = ;
-
-		// Session session =
-		// HibernateUtil.getSessionFactory().getCurrentSession();
-		//
-		// Transaction tx = session.beginTransaction();
-		//
-		// User u = (User) session.createCriteria(User.class)
-		// .add(Restrictions.eq(User_.email.getName(), mail))
-		// .uniqueResult();
-		//
-		// session.close();
-		// return u;
-
-		return (User) em.createNamedQuery("getUserByMail")
-				.setParameter("email", mail).getSingleResult();
-	}
-
-	public Long getCountUsers() {
-		return (Long) em.createQuery("Select count(u) from User u")
-				.getSingleResult();
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<User> getStudentsWithoutTeacher() {
-
-		return em
-				.createQuery(
-						"select u from User u where not exists (Select id from StudentTeacher s where s.student.id = u.id and s.current = 'T') "
-								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT')")
-				.getResultList();
+	public List<User> getAll() {
+		return getHibernateSession().createCriteria(User.class).list();
 	}
 
 	public Long getCountStudentsWithoutTeacher() {
 
-		return (Long) em
+		return (Long) getEntityManager()
 				.createQuery(
 						"select count(u) from User u where not exists(Select id from StudentTeacher s where s.student.id = u.id and s.current = 'T') "
 								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT')")
 				.getSingleResult();
 	}
 
+	public Long getCountUsers() {
+		return (Long) getHibernateSession().createCriteria(User.class)
+				.setProjection(Projections.rowCount()).uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<User> getStudentsWithoutTeacher() {
+
+		return getEntityManager()
+				.createQuery(
+						"select u from User u where not exists (Select id from StudentTeacher s where s.student.id = u.id and s.current = 'T') "
+								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT')")
+				.getResultList();
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<User> getTeachers() {
-		return em
+		return getEntityManager()
 				.createQuery(
 						"select u from User u where exists (select r.id from Role r where r.user.id=u.id and r.roleName='TEACHER') ")
 				.getResultList();
+
+	}
+
+	public User getUserByMail(String mail) {
+
+		return (User) getHibernateSession().createCriteria(User.class)
+				.add(Restrictions.eq("email", mail)).uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<User> getUsers(int firstRow, int numRows) {
+		return getEntityManager().createNamedQuery("getUsers")
+				.setFirstResult(firstRow).setMaxResults(numRows)
+				.getResultList();
+	}
+
+	public boolean isRegistered(String mail) {
+		Long c = (Long) getHibernateSession().createCriteria(User.class)
+				.add(Restrictions.eq("email", mail))
+				.setProjection(Projections.rowCount()).uniqueResult();
+		return c != null && c > 0;
+
+	}
+
+	@Override
+	public void save(User osoba) {
+		if (osoba.getId() == null) {
+			osoba.setStatus("A");
+			osoba.setRegistrationDate(new Date());
+		}
+		saveOrUpdate(osoba);
 
 	}
 
@@ -150,18 +129,7 @@ public class UserDAOBean {
 	// Projections.rowCount()).uniqueResult();
 	// }
 	//
-	// public boolean isRegistered(String mail) {
-	// boolean ret = false;
-	// @SuppressWarnings("unchecked")
-	// List<Osoba> osoby = hibernateSession.createCriteria(Osoba.class)
-	// .add(Restrictions.eq("email", mail)).list();
-	// if (osoby != null && !osoby.isEmpty()) {
-	// ret = true;
-	// }
-	//
-	// return ret;
-	//
-	// }
+
 	//
 	// @SuppressWarnings("unchecked")
 	// public List<Osoba> getNauczyciele() {
