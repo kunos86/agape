@@ -6,17 +6,17 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2013-10-31T23:58:41.977+0100")
+@Generated(value="Dali", date="2014-03-01T12:23:25.977+0100")
 @StaticMetamodel(Course.class)
 public class Course_ {
-	public static volatile SingularAttribute<Course, Long> id;
-	public static volatile SingularAttribute<Course, Long> number;
-	public static volatile SingularAttribute<Course, String> title;
+	public static volatile SingularAttribute<Course, Date> creationDate;
 	public static volatile SingularAttribute<Course, String> description;
 	public static volatile SingularAttribute<Course, Boolean> enabled;
-	public static volatile SingularAttribute<Course, Date> creationDate;
-	public static volatile SingularAttribute<Course, Date> modificationDate;
-	public static volatile SingularAttribute<Course, String> status;
+	public static volatile SingularAttribute<Course, Long> id;
 	public static volatile SingularAttribute<Course, byte[]> image;
 	public static volatile CollectionAttribute<Course, Lesson> lessons;
+	public static volatile SingularAttribute<Course, Date> modificationDate;
+	public static volatile SingularAttribute<Course, Long> number;
+	public static volatile SingularAttribute<Course, String> status;
+	public static volatile SingularAttribute<Course, String> title;
 }
