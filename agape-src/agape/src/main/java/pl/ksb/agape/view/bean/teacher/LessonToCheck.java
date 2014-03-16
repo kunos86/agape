@@ -22,14 +22,10 @@ public class LessonToCheck implements Serializable {
 	@EJB
 	private EducationStateDAOBean educationStateDAOBean;
 
-	private List<EducationState> studentEducationState;
-
 	@ManagedProperty(value = "#{sessionLoggedUser}")
 	private SessionLoggedUser sessionLoggedUser;
 
-	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
-		this.sessionLoggedUser = sessionLoggedUser;
-	}
+	private List<EducationState> studentEducationState;
 
 	public List<EducationState> getStudentEducationState() {
 		if (studentEducationState == null) {
@@ -45,5 +41,9 @@ public class LessonToCheck implements Serializable {
 		return "/pages/lekcja.xhtml?faces-redirect=true&idLekcja="
 				+ Encoder.encode(idLesson) + "&idStudent="
 				+ Encoder.encode(idStudent);
+	}
+
+	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
+		this.sessionLoggedUser = sessionLoggedUser;
 	}
 }

@@ -15,86 +15,64 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-
 import javax.validation.constraints.NotNull;
 
 import pl.ksb.agape.domain.model.dict.RoleEnum;
 
-
 @Entity
-@Table(name="role", schema="agape")
-public class Role implements Serializable{
+@Table(name = "role", schema = "agape")
+public class Role implements Serializable {
 
 	private static final long serialVersionUID = 314667071377078317L;
-
 
 	@Id
 	@GeneratedValue
 	@Column(name = "id", unique = true, precision = 10, scale = 0)
 	private Long id;
-		
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	@JoinColumn(name="user_id")
-	@NotNull
-	private User user;
-	
-	
-	@Column(name="role_name", length=20, nullable=false)
-	@Enumerated(EnumType.STRING)
-	private RoleEnum  roleName;
-	
-	
+
 	@Column(name = "modification_date", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificationDate;
 
+	@Column(name = "role_name", length = 20, nullable = false)
+	@Enumerated(EnumType.STRING)
+	private RoleEnum roleName;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "user_id")
+	@NotNull
+	private User user;
 
 	public Long getId() {
 		return id;
 	}
 
-
-	public void setId(Long id) {
-		this.id = id;
+	public Date getModificationDate() {
+		return modificationDate;
 	}
-
-
-	public User getUser() {
-		return user;
-	}
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 
 	public RoleEnum getRoleName() {
 		return roleName;
 	}
 
-
-	public void setRoleName(RoleEnum roleName) {
-		this.roleName = roleName;
+	public User getUser() {
+		return user;
 	}
 
-
-	public Date getModificationDate() {
-		return modificationDate;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
 
 	public void setModificationDate(Date modificationDate) {
 		this.modificationDate = modificationDate;
 	}
 
+	public void setRoleName(RoleEnum roleName) {
+		this.roleName = roleName;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-
-
-
-	
-
-	
 }

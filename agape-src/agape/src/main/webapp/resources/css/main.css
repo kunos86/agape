@@ -593,7 +593,35 @@ div#zaloguj_kontener {
     font-size: 20px;
 }
 
+.messageInfo{
+	background-color: yellow;
+	border: 1px solid #b0b0b0;
+	width: 100%;
+	top-padding: 10px;
+	min-height: 20px;
+	border-radius:5px;
+	padding-top:5px;
+	padding-bottom:5px;	
+	margin-bottom:5px;
+	font-weight: bold;
+}
 
+
+
+
+.messageWarn{
+	background-color: #f96f6f;
+	border: 1px solid #ef5757;
+	color: balck;
+	width: 100%;
+	top-padding: 10px;
+	min-height: 20px;
+	border-radius:5px;
+	padding-top:5px;
+	padding-bottom:5px;	
+	margin-bottom:5px;
+	font-weight: bold;
+}
 
 div#zaloguj_zawartosc {
 	background-color: #e7e7e7;
