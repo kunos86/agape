@@ -41,6 +41,17 @@ public class CourseDAOBean extends BaseDAO<Course> {
 	}
 
 	@SuppressWarnings("unchecked")
+	public List<Course> getCoursesForTeacher(Long teacherId) {
+		// TODO: dodac wczytywanie uprawnien
+		List<Course> l = getHibernateSession().createCriteria(Course.class)
+				.setFetchMode("lessons", FetchMode.EAGER)
+				.add(Restrictions.eq("status", "A"))
+				.addOrder(Order.asc("number"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		return l;
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<Course> getCoursesListForStudent(Long userId) {
 
 		List<Course> ret = getHibernateSession().createCriteria(Course.class)
@@ -49,8 +60,8 @@ public class CourseDAOBean extends BaseDAO<Course> {
 				.setFetchMode("l.educationStates", FetchMode.EAGER)
 				.createAlias("l.educationStates", "st")
 				.add(Restrictions.eq("st.student.id", userId))
-				// .add(Restrictions.eq("enabled", true))
-				// .add(Restrictions.eq("l.enabled", true))
+				.add(Restrictions.eq("enabled", true))
+				.add(Restrictions.eq("l.enabled", true))
 				.addOrder(Order.asc("number"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 

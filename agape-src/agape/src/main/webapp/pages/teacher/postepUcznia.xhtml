@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<rich:panel header="Stan postępów ucznia">
+			<h:messages infoClass="messageInfo" warnClass="messageWarn" />
+
+
+
+			<h:outputFormat value="Informacje o uczniu:" styleClass="blueHeader" />
+			<h:panelGrid columns="2">
+				<h:outputText value="Imię:" />
+				<h:outputText value="#{studentProgresBrowser.student.name}" />
+
+				<h:outputText value="Nazwisko:" />
+				<h:outputText value="#{studentProgresBrowser.student.surname}" />
+
+			</h:panelGrid>
+			<h:form>
+
+				<rich:dataGrid id="coursesList"
+					value="#{studentProgresBrowser.courses}" var="_course" columns="1">
+
+					<rich:collapsiblePanel switchType="client"
+						header="Kurs #{_course.number} : #{_course.title}">
+						<rich:dataTable id="table" value="#{_course.lessons}" var="_l">
+							<rich:column>
+								<f:facet name="header">Nr</f:facet>
+								<h:outputText value="#{_l.number}" />
+							</rich:column>
+							<rich:column width="300">
+								<f:facet name="header">Opis</f:facet>
+								<h:outputText value="#{_l.description}" />
+							</rich:column>
+							<rich:column width="200">
+								<f:facet name="header">Stan</f:facet>
+								<h:outputText
+									value="#{studentProgresBrowser.getState(_l.id, studentProgresBrowser.student.id)}" />
+							</rich:column>
+							<rich:column width="100">
+								<f:facet name="header">Operacje</f:facet>
+								<a4j:commandButton id="button"
+									action="#{studentProgresBrowser.shareLesson()}"
+									value="Udostępnij lekcję"
+									disabled="#{studentProgresBrowser.getState(_l.id, studentProgresBrowser.student.id) ne 'Nieudostępniona'}"
+									styleClass="buttonSmall" render="@form" execute="@this">
+									<a4j:param value="#{_l.id}"
+										assignTo="#{studentProgresBrowser.lessonId}" />
+									<a4j:param value="#{studentProgresBrowser.student.id}"
+										assignTo="#{studentProgresBrowser.studentId}" />
+									<a4j:ajax render="table" event="action"/>
+								</a4j:commandButton>
+
+							</rich:column>
+						</rich:dataTable>
+					</rich:collapsiblePanel>
+
+				</rich:dataGrid>
+			</h:form>
+		</rich:panel>
+	</ui:define>
+</ui:composition>

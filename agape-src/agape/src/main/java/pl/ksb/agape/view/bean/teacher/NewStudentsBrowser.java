@@ -1,5 +1,6 @@
 package pl.ksb.agape.view.bean.teacher;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -12,6 +13,7 @@ import javax.faces.context.FacesContext;
 import pl.ksb.agape.domain.dao.StudentTeacherDAOBean;
 import pl.ksb.agape.domain.dao.UserDAOBean;
 import pl.ksb.agape.domain.model.User;
+import pl.ksb.agape.util.Encoder;
 import pl.ksb.agape.view.bean.SessionLoggedUser;
 
 @ManagedBean
@@ -31,7 +33,7 @@ public class NewStudentsBrowser {
 	@EJB
 	private UserDAOBean userDAOBean;
 
-	public void addStudentToMe() {
+	public void addStudentToMe() throws IOException {
 		// TODO: sprawdzenie czy uczeń nie został wybrany przez innego
 		// nauczyciela w innej sesji
 
@@ -40,17 +42,14 @@ public class NewStudentsBrowser {
 			User student = userDAOBean.getById(selectedId);
 			studentTeacherDAOBean.setCuurentTeacherForStudent(student,
 					sessionLoggedUser.getUser());
-			loadStudents();
+
 			FacesContext
 					.getCurrentInstance()
-					.addMessage(
-							null,
-							new FacesMessage(
-									FacesMessage.SEVERITY_INFO,
-									student.getFullName()
-											+ " został dodany do listy Twoich uczniów.",
-									student.getFullName()
-											+ " został dodany do listy Twoich uczniów."));
+					.getExternalContext()
+					.redirect(
+							"/agape/pages/teacher/postepUcznia.jsf?faces-redirect=true&new=T&id="
+									+ Encoder.encode(selectedId));
+
 		} else {
 			FacesContext
 					.getCurrentInstance()
