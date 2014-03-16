@@ -5,13 +5,10 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import pl.ksb.agape.domain.model.User;
-import pl.ksb.agape.domain.model.dict.RoleEnum;
-import pl.ksb.agape.domain.model.dict.Status;
 
 @Stateless
 public class UserDAOBean extends BaseDAO<User> {
@@ -34,28 +31,18 @@ public class UserDAOBean extends BaseDAO<User> {
 				.setProjection(Projections.rowCount()).uniqueResult();
 	}
 
-	public Criteria getCzekajacyUczniowie() {
-		Criteria ret = getHibernateSession()
-				.createCriteria(User.class)
+	@SuppressWarnings("unchecked")
+	public List<User> getStudentsByTeacher(Long teacherId) {
 
-				.add(Restrictions.eq("status", Status.AKTUALNY))
-				.createAlias("role", "r")
-				.add(Restrictions.eq("r.roleName", RoleEnum.STUDENT))
-				.add(Restrictions
-						.sqlRestriction("not exists (select 1 from agape.student_teacher n where n.student_id = this_.id and n.current='T')"));
-		return ret;
+		return getHibernateSession()
+				.createQuery(
+						"from User u where exists(Select id from StudentTeacher s where s.student.id = u.id "
+								+ "and s.current = 'T' and s.teacher.id = :teacherId) "
+								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT')")
+				.setParameter("teacherId", teacherId).list();
+
 	}
 
-	//
-	// public Criteria getUczniowieByNauczyciel(Osoba osoba) {
-	// Criteria ret = hibernateSession.createCriteria(Osoba.class);
-	// ret.add(Restrictions.eq("status", Status.AKTUALNY));
-	// ret.add(Restrictions.eq("rodzajKonta", RodzajKonta.STUDENT));
-	// ret.add(Restrictions
-	// .sqlRestriction("exists (select 1 from uczniowie_naucz n where n.id_ucznia = this_.id and n.aktualny='Y' and n.id_nauczyciela = "
-	// + osoba.getId() + ")"));
-	// return ret;
-	// }
 	//
 	// public Long liczbaUczniowByNauczyciel(Osoba osoba) {
 	// return (Long) getUczniowieByNauczyciel(osoba).setProjection(

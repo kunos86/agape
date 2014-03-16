@@ -9,12 +9,12 @@
 	xmlns:my="http://java.sun.com/jsf/composite/components">
 	<ui:define name="content">
 		<h:form>
-			<rich:panel header="Oczekujcy uczniowie">
+			<rich:panel header="Moi uczniowie">
 				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
 
 
 
-				<rich:dataTable id="tabela" value="#{newStudentsBrowser.students}"
+				<rich:dataTable id="tabela" value="#{myStudentsBrowser.students}"
 					var="_row">
 					<rich:column id="col1" style="width:200px">
 						<f:facet name="header">Uczeń</f:facet>
@@ -29,13 +29,12 @@
 					
 					<rich:column id="col2">
 						<f:facet name="header">Operacja</f:facet>
-						<a4j:commandButton  value="Pokaż info" styleClass="buttonSmall"/>
 						<a4j:commandButton id="button" 
-							action="#{newStudentsBrowser.addStudentToMe()}" immediate="true"
-							value="Pobierz ucznia" styleClass="buttonSmall" render="@form"
+							action="#{myStudentsBrowser.progres()}" immediate="true"
+							value="Postępy" styleClass="buttonSmall" render="@form"
 							execute="@this">
 							<a4j:param value="#{_row.id }"
-								assignTo="#{newStudentsBrowser.selectedId}" />
+								assignTo="#{myStudentsBrowser.selectedId}" />
 						</a4j:commandButton>
 	
 
