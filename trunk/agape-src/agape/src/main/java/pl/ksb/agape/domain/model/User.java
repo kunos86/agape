@@ -3,13 +3,16 @@ package pl.ksb.agape.domain.model;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -69,6 +72,10 @@ public class User implements Serializable {
 	@Length(max = 50)
 	private String religion;
 
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	// @Transient
+	private List<Role> roles;
+
 	@Column(name = "status", length = 3, nullable = false)
 	@NotNull
 	private String status;
@@ -121,6 +128,14 @@ public class User implements Serializable {
 		return email;
 	}
 
+	public String getFullName() {
+		String name = this.name;
+		if (this.surname != null && !this.surname.isEmpty()) {
+			name += " " + surname;
+		}
+		return name;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -139,6 +154,10 @@ public class User implements Serializable {
 
 	public String getReligion() {
 		return religion;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
 	}
 
 	public String getStatus() {
@@ -194,6 +213,10 @@ public class User implements Serializable {
 
 	public void setReligion(String religion) {
 		this.religion = religion;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	public void setStatus(String status) {

@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import pl.ksb.agape.domain.model.User;
+import pl.ksb.agape.domain.model.dict.RoleEnum;
+import pl.ksb.agape.domain.model.dict.Status;
 
 @Stateless
 public class UserDAOBean extends BaseDAO<User> {
@@ -30,6 +33,35 @@ public class UserDAOBean extends BaseDAO<User> {
 		return (Long) getHibernateSession().createCriteria(User.class)
 				.setProjection(Projections.rowCount()).uniqueResult();
 	}
+
+	public Criteria getCzekajacyUczniowie() {
+		Criteria ret = getHibernateSession()
+				.createCriteria(User.class)
+
+				.add(Restrictions.eq("status", Status.AKTUALNY))
+				.createAlias("role", "r")
+				.add(Restrictions.eq("r.roleName", RoleEnum.STUDENT))
+				.add(Restrictions
+						.sqlRestriction("not exists (select 1 from agape.student_teacher n where n.student_id = this_.id and n.current='T')"));
+		return ret;
+	}
+
+	//
+	// public Criteria getUczniowieByNauczyciel(Osoba osoba) {
+	// Criteria ret = hibernateSession.createCriteria(Osoba.class);
+	// ret.add(Restrictions.eq("status", Status.AKTUALNY));
+	// ret.add(Restrictions.eq("rodzajKonta", RodzajKonta.STUDENT));
+	// ret.add(Restrictions
+	// .sqlRestriction("exists (select 1 from uczniowie_naucz n where n.id_ucznia = this_.id and n.aktualny='Y' and n.id_nauczyciela = "
+	// + osoba.getId() + ")"));
+	// return ret;
+	// }
+	//
+	// public Long liczbaUczniowByNauczyciel(Osoba osoba) {
+	// return (Long) getUczniowieByNauczyciel(osoba).setProjection(
+	// Projections.rowCount()).uniqueResult();
+	// }
+	//
 
 	@SuppressWarnings("unchecked")
 	public List<User> getStudentsWithoutTeacher() {
@@ -71,16 +103,6 @@ public class UserDAOBean extends BaseDAO<User> {
 
 	}
 
-	@Override
-	public void save(User osoba) {
-		if (osoba.getId() == null) {
-			osoba.setStatus("A");
-			osoba.setRegistrationDate(new Date());
-		}
-		saveOrUpdate(osoba);
-
-	}
-
 	// public void update(Osoba osoba) {
 	// hibernateSession.update(osoba);
 	// }
@@ -104,31 +126,16 @@ public class UserDAOBean extends BaseDAO<User> {
 	// return (Osoba) hibernateSession.createCriteria(Osoba.class)
 	// .add(Restrictions.eq("id", id)).uniqueResult();
 	// }
-	//
-	// public Criteria getCzekajacyUczniowie() {
-	// Criteria ret = hibernateSession.createCriteria(Osoba.class);
-	// ret.add(Restrictions.eq("status", Status.AKTUALNY));
-	// ret.add(Restrictions.eq("rodzajKonta", RodzajKonta.STUDENT));
-	// ret.add(Restrictions
-	// .sqlRestriction("not exists (select 1 from uczniowie_naucz n where n.id_ucznia = this_.id and n.aktualny='Y')"));
-	// return ret;
-	// }
-	//
-	// public Criteria getUczniowieByNauczyciel(Osoba osoba) {
-	// Criteria ret = hibernateSession.createCriteria(Osoba.class);
-	// ret.add(Restrictions.eq("status", Status.AKTUALNY));
-	// ret.add(Restrictions.eq("rodzajKonta", RodzajKonta.STUDENT));
-	// ret.add(Restrictions
-	// .sqlRestriction("exists (select 1 from uczniowie_naucz n where n.id_ucznia = this_.id and n.aktualny='Y' and n.id_nauczyciela = "
-	// + osoba.getId() + ")"));
-	// return ret;
-	// }
-	//
-	// public Long liczbaUczniowByNauczyciel(Osoba osoba) {
-	// return (Long) getUczniowieByNauczyciel(osoba).setProjection(
-	// Projections.rowCount()).uniqueResult();
-	// }
-	//
+
+	@Override
+	public void save(User osoba) {
+		if (osoba.getId() == null) {
+			osoba.setStatus("A");
+			osoba.setRegistrationDate(new Date());
+		}
+		saveOrUpdate(osoba);
+
+	}
 
 	//
 	// @SuppressWarnings("unchecked")
