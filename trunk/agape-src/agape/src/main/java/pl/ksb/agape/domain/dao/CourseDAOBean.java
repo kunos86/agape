@@ -11,12 +11,10 @@ import javax.persistence.Query;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
-import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import pl.ksb.agape.domain.model.Course;
-import pl.ksb.agape.domain.model.Lesson;
 
 /**
  * Session Bean implementation class KursDAOBean
@@ -53,7 +51,6 @@ public class CourseDAOBean extends BaseDAO<Course> {
 
 	@SuppressWarnings("unchecked")
 	public List<Course> getCoursesListForStudent(Long userId) {
-
 		List<Course> ret = getHibernateSession().createCriteria(Course.class)
 				.setFetchMode("lessons", FetchMode.EAGER)
 				.createAlias("lessons", "l")
@@ -62,15 +59,8 @@ public class CourseDAOBean extends BaseDAO<Course> {
 				.add(Restrictions.eq("st.student.id", userId))
 				.add(Restrictions.eq("enabled", true))
 				.add(Restrictions.eq("l.enabled", true))
-				.addOrder(Order.asc("number"))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.addOrder(Order.asc("number")).list();
 
-		for (Course c : ret) {
-			Hibernate.initialize(c.getLessons());
-			for (Lesson l : c.getLessons()) {
-				Hibernate.initialize(l.getEducationStates());
-			}
-		}
 		return ret;
 	}
 

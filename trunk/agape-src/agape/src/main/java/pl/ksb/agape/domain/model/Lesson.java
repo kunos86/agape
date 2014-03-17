@@ -28,133 +28,133 @@ public class Lesson implements Serializable {
 
 	private static final long serialVersionUID = -6935488877088993468L;
 
-	@Id
-	@GeneratedValue
-	@Column(name = "id", unique = true, precision = 10, scale = 0)
-	private Long id;
-
-	@Column(name = "number", length = 10, nullable = false)
-	@NotNull
-	private Long number;
-
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "course_id")
 	@NotNull
 	private Course course;
 
+	@Column(name = "creation_date", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
+
 	@Column(name = "description", length = 500)
 	private String description;
 
-	@Column(name = "introduction", length = 2000)
-	private String introduction;
-
-	@Column(name = "homework", length = 2000)
-	private String homework;
+	@OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
+	// @JoinColumn(name = "lesson_id")
+	private Collection<EducationState> educationStates;
 
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
 
-	@Column(name = "creation_date", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date creationDate;
+	@Column(name = "homework", length = 2000)
+	private String homework;
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id", unique = true, precision = 10, scale = 0)
+	private Long id;
+
+	@Column(name = "introduction", length = 2000)
+	private String introduction;
 
 	@Column(name = "modification_date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificationDate;
 
+	@Column(name = "number", length = 10, nullable = false)
+	@NotNull
+	private Long number;
+
 	@Column(name = "status", length = 3, nullable = false)
 	private String status;
 
-	@OneToMany()
-	@JoinColumn(name = "lesson_id")
-	private Collection<EducationState> educationStates;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getNumber() {
-		return number;
-	}
-
-	public void setNumber(Long number) {
-		this.number = number;
-	}
-
 	public Course getCourse() {
 		return course;
-	}
-
-	public void setCourse(Course course) {
-		this.course = course;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getIntroduction() {
-		return introduction;
-	}
-
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
-	}
-
-	public String getHomework() {
-		return homework;
-	}
-
-	public void setHomework(String homework) {
-		this.homework = homework;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public Date getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public Date getModificationDate() {
-		return modificationDate;
-	}
-
-	public void setModificationDate(Date modificationDate) {
-		this.modificationDate = modificationDate;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
+	public String getDescription() {
+		return description;
 	}
 
 	public Collection<EducationState> getEducationStates() {
 		return educationStates;
 	}
 
+	public String getHomework() {
+		return homework;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public Date getModificationDate() {
+		return modificationDate;
+	}
+
+	public Long getNumber() {
+		return number;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public void setEducationStates(Collection<EducationState> educationStates) {
 		this.educationStates = educationStates;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setHomework(String homework) {
+		this.homework = homework;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
+	}
+
+	public void setNumber(Long number) {
+		this.number = number;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
