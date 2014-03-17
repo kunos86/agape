@@ -118,15 +118,19 @@ div#tresc {
 
 div#tresc_glowna {
 	/* background-color: cyan; */
-	height: 685px;
+	min-height: 685px;
 	margin: 0px;
 	padding: 0px;
 	width: 960px;
 }
 
 div#cytat {
-	height: 110px;
+	margin: 20px;
+	height: 60px;
 	width: 960px;
+	color: #009ED2 ;
+    font-family: "trebuchet ms",sans-serif  !important;
+    font-size: 20px;
 }
 
 img#img_cytat {
