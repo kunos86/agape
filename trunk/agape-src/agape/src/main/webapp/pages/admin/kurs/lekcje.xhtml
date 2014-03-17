@@ -90,10 +90,10 @@
 						</h:panelGrid>
 						<h:panelGrid columns="5">
 							<a4j:commandButton id="submit" action="#{lessonsBrowser.save()}"
-								value="Zapisz" render="@form,tabela" execute="@region" />
+								value="Zapisz" render="@form,tabela" execute="@region" styleClass="buttonSmall" />
 							<a4j:commandButton id="cancel" immediate="true"
 								action="#{lessonsBrowser.closeEditMode()}" render="@form"
-								value="Wyjdź">
+								value="Wyjdź" styleClass="buttonSmall">
 							</a4j:commandButton>
 						</h:panelGrid>
 

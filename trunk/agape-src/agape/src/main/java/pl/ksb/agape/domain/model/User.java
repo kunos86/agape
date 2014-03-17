@@ -41,8 +41,52 @@ public class User implements Serializable {
 	@Length(max = 50)
 	private String community;
 
-	@Column(name = "country")
+	@Column(name = "country", length = 100)
 	private String country;
+
+	@Column(name = "province", length = 100)
+	private String province;
+
+	@Column(name = "sex", length = 10)
+	private String sex;
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Column(name = "place", length = 100)
+	private String place;
+
+	@Column(name = "code", length = 10)
+	private String code;
 
 	@Column(name = "email", length = 30, unique = true)
 	@Email

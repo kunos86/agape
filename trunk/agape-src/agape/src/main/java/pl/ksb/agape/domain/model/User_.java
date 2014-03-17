@@ -6,7 +6,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2014-03-16T15:32:36.216+0100")
+@Generated(value="Dali", date="2014-03-17T19:10:49.025+0100")
 @StaticMetamodel(User.class)
 public class User_ {
 	public static volatile SingularAttribute<User, String> address;
@@ -22,4 +22,8 @@ public class User_ {
 	public static volatile ListAttribute<User, Role> roles;
 	public static volatile SingularAttribute<User, String> status;
 	public static volatile SingularAttribute<User, String> surname;
+	public static volatile SingularAttribute<User, String> province;
+	public static volatile SingularAttribute<User, String> place;
+	public static volatile SingularAttribute<User, String> code;
+	public static volatile SingularAttribute<User, String> sex;
 }

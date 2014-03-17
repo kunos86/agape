@@ -78,12 +78,12 @@
 						<h:panelGrid columns="5">
 							<a4j:commandButton id="submit"
 								action="#{coursesBrowser.saveCourse()}" value="Zapisz"
-								execute="@region" render="@form">
+								execute="@region" render="@form" styleClass="buttonSmall">
 							</a4j:commandButton>
 
 							<a4j:commandButton id="cancel" immediate="true"
 								action="#{coursesBrowser.closeEditMode()}" render="@form"
-								value="Wyjdź" />
+								value="Wyjdź" styleClass="buttonSmall"/>
 						</h:panelGrid>
 					</a4j:region>
 				</rich:panel>
