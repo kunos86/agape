@@ -12,7 +12,7 @@
 		<h:form id="osobaForm">
 
 			<rich:panel styleClass="formPanel">
-				<f:facet name="header"> Rejestracja nowego uzytkownika </f:facet>
+				<f:facet name="header"> Rejestracja użytkownika </f:facet>
 				<h:messages styleClass="formMessage" />
 
 				<h:panelGrid columns="3" width="100%">
@@ -33,7 +33,20 @@
 						<h:inputText id="nazwiskoInput" size="40"
 							value="#{registration.user.surname}" required="false" />
 					</ui:decorate>
-
+					
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Płeć" />
+						<ui:param name="id" value="sex" />
+						<ui:param name="required" value="true" />
+						<h:selectOneRadio  id="sex"
+							value="#{registration.user.sex}" style="width:200px" >
+						<f:selectItem itemLabel="kobieta" itemValue="kobieta" />
+						<f:selectItem itemLabel="mężczyzna" itemValue="mężczyzna" />
+												
+						</h:selectOneRadio >
+					</ui:decorate>
+					
+					
 
 					<ui:decorate template="/layout/field.xhtml">
 						<ui:param name="label" value="Email" />
@@ -79,8 +92,62 @@
 						<ui:param name="label" value="Adres" />
 						<ui:param name="id" value="adres" />
 						<ui:param name="required" value="false" />
-						<h:inputTextarea id="adresInput" cols="40" rows="4"
+						<h:inputTextarea id="adresInput" cols="40" rows="2"
 							value="#{registration.user.address}" required="false" />
+					</ui:decorate>
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Kod" />
+						<ui:param name="id" value="kod" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="Kod" size="10" value="#{registration.user.code}"
+							required="false" />
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Miejscowość" />
+						<ui:param name="id" value="miejscowosc" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="miejscowosc" size="40"
+							value="#{registration.user.place}" required="false" />
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Województwo" />
+						<ui:param name="id" value="province" />
+						<ui:param name="required" value="false" />
+						<h:selectOneMenu id="province"
+							value="#{registration.user.province}" style="width:200px" >
+						<f:selectItem itemLabel="---wybór---" itemValue="---wybór---" />
+						<f:selectItem itemLabel="dolnośląskie" itemValue="dolnośląskie" />
+						<f:selectItem itemLabel="kujawsko-pomorskie" itemValue="kujawsko-pomorskie" />
+						<f:selectItem itemLabel="lubelskie" itemValue="lubelskie" />
+						<f:selectItem itemLabel="lubuskie" itemValue="lubuskie" />
+						<f:selectItem itemLabel="łódzkie" itemValue="łódzkie" />
+						<f:selectItem itemLabel="małopolskie" itemValue="małopolskie" />
+						<f:selectItem itemLabel="mazowieckie" itemValue="mazowieckie" />
+						<f:selectItem itemLabel="opolskie" itemValue="opolskie" />
+						<f:selectItem itemLabel="podkarpackie" itemValue="podkarpackie" />
+						<f:selectItem itemLabel="podlaskie" itemValue="podlaskie" />
+						<f:selectItem itemLabel="pomorskie" itemValue="pomorskie" />
+						<f:selectItem itemLabel="śląskie" itemValue="śląskie" />
+						<f:selectItem itemLabel="świętokrzyskie" itemValue="świętokrzyskie" />
+						<f:selectItem itemLabel="warmińsko-mazurskie" itemValue="warmińsko-mazurskie" />
+						<f:selectItem itemLabel="wielkopolskie" itemValue="wielkopolskie" />
+						<f:selectItem itemLabel="zachodniopomorskie" itemValue="zachodniopomorskie" />
+						
+						</h:selectOneMenu>
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Kraj" />
+						<ui:param name="id" value="kraj" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="kraj" size="40"
+							value="#{registration.user.country}" required="false" />
 					</ui:decorate>
 
 					<ui:decorate template="/layout/field.xhtml">
@@ -109,7 +176,7 @@
 							<a4j:ajax event="click" />
 						</h:selectBooleanCheckbox>
 
-						<h:outputText value="Oświadczam, że zapoznałem się z" />
+						<h:outputText value="Oświadczam, że zapoznałem się z " />
 						<h:commandLink value="regulaminem">
 							<rich:componentControl target="popup" operation="show" />
 						</h:commandLink>
@@ -118,8 +185,8 @@
 				</h:panelGrid>
 
 				<div class="buttonPanel">
-				<a4j:commandButton value="Zapisz" action="#{registration.save()}"
-					render="@form" />
+					<a4j:commandButton value="Zapisz" action="#{registration.save()}"
+						render="@form" />
 				</div>
 			</rich:panel>
 
