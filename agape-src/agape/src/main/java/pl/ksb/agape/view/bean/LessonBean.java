@@ -57,16 +57,12 @@ public class LessonBean implements Serializable {
 	@EJB
 	private UserDAOBean userDAOBean;
 
-	public void check() throws IOException {
+	public String check() throws IOException {
 		educationState.setCheckedDate(Calendar.getInstance().getTime());
 		educationStateDAOBean.saveOrUpdate(educationState);
 
-		FacesContext
-				.getCurrentInstance()
-				.getExternalContext()
-				.redirect(
-						"/agape/pages/teacher/postepUcznia.jsf?faces-redirect=true&id="
-								+ Encoder.encode(this.idStudent));
+		return "/pages/teacher/postepUcznia.jsf?faces-redirect=true&id="
+				+ Encoder.encode(this.idStudent);
 	}
 
 	public EducationState getEducationState() {
