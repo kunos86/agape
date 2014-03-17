@@ -34,7 +34,10 @@
 
 
 			</rich:dataGrid>
-			
+			<h:inputTextarea value="#{lessonBean.educationState.comment}" 
+			rendered="#{lessonBean.educationState.sent}"
+			readonly="#{lessonBean.educationState.checked || permissionManagement.studentLogged}"/>
+			 							
 			<h:panelGrid columns="2">
                                 <a4j:commandButton value="Zapisz" action="#{lessonBean.save()}"
                                         disabled="#{lessonBean.educationState.sent}"

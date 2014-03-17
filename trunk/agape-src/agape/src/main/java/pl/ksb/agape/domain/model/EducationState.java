@@ -49,7 +49,7 @@ public class EducationState implements Serializable {
 	private Date sharedDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "sent_Date")
+	@Column(name = "sent_date")
 	private Date sentDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -105,6 +105,10 @@ public class EducationState implements Serializable {
 
 	public boolean isSent() {
 		return sentDate != null;
+	}
+	
+	public boolean isChecked() {
+		return checkedDate != null;
 	}
 
 	public void setSentDate(Date sentDate) {
