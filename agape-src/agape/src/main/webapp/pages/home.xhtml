@@ -8,12 +8,59 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:my="http://java.sun.com/jsf/composite/components">
 	<ui:define name="content">
-	<h:form>
-	<rich:panel header="Witaj #{sessionLoggedUser.user.name} !">
-	<h2> Własnie się zalogowałeś do systemu</h2>
-	</rich:panel>
-	
-	</h:form>
-	
+		<h:form>
+			<rich:panel header="Twój profil">
+
+				<h:panelGrid columns="2">
+					<h:panelGroup>
+						<h:graphicImage library="gfx" name="male_icon.png"
+							rendered="#{sessionLoggedUser.user.sex ne 'K'}" />
+						<h:graphicImage library="gfx" name="female_icon.png"
+							rendered="#{sessionLoggedUser.user.sex eq 'K'}" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="#{sessionLoggedUser.user.fullName}"
+							class="blueHeader" />
+						<h:panelGrid columns="1">
+							<h:panelGroup>
+								<h:outputLabel value="E-mail:" styleClass="label" />
+								<h:outputText value="#{sessionLoggedUser.user.email}" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<h:outputLabel value="Województwo:" styleClass="label" />
+								<h:outputText value="#{sessionLoggedUser.user.province}" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<h:outputLabel value="Miejscowość:" styleClass="label" />
+								<h:outputText value="#{sessionLoggedUser.user.place}" />
+							</h:panelGroup>
+							<h:commandLink value="Zmień moje dane" action="null"  />
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br />
+				<br />
+
+				<h:panelGrid columns="1" columnClasses="pageText">
+					<h:outputText value="#{_text.get('teacher.moj.profil.info')}"
+						rendered="#{permissionManagement.teacherLogged}" />
+
+					<h:outputText value="#{_text.get('student.moj.profil.info')}"
+						rendered="#{permissionManagement.studentLogged}" />
+
+				</h:panelGrid>
+
+
+
+
+
+
+
+
+
+			</rich:panel>
+
+		</h:form>
+
 	</ui:define>
-	</ui:composition>
+</ui:composition>

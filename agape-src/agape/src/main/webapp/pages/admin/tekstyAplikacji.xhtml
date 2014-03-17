@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:form>
+			<rich:panel header="Teksty aplikacji">
+				<h:commandButton value="Zapisz"
+					action="#{applicationTextBrowser.save()}" />
+				<h:commandButton value="Wyczyść cache sesji"
+					action="#{_text.celarCache()}" />
+				<rich:dataTable value="#{applicationTextBrowser.texts}" var="_row">
+					<rich:column>
+						<h:outputText value="#{_row.id}" />
+					</rich:column>
+					<rich:column>
+						<h:inputTextarea value="#{_row.text}" cols="40" rows="2" />
+
+					</rich:column>
+
+				</rich:dataTable>
+				<h:commandButton value="Zapisz"
+					action="#{applicationTextBrowser.save()}" />
+				<h:commandButton value="Wyczyść cache sesji"
+					action="#{_text.celarCache()}" />
+
+			</rich:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
