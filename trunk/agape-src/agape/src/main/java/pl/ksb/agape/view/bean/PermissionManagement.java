@@ -14,43 +14,35 @@ import org.apache.shiro.subject.Subject;
 import pl.ksb.agape.domain.dao.UserDAOBean;
 import pl.ksb.agape.domain.model.User;
 
-//@Model
-//@Named
 @ManagedBean
 @RequestScoped
 public class PermissionManagement {
 
+	private String password;
+
 	@ManagedProperty(value = "#{sessionLoggedUser}")
 	private SessionLoggedUser sessionLoggedUser;
-
-	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
-		this.sessionLoggedUser = sessionLoggedUser;
-	}
 
 	@EJB
 	private UserDAOBean userDAOBean;
 
 	private String username;
-	private String password;
 
-	public String getUsername() {
-		return username;
-	}
+	public PermissionManagement() {
 
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String getUsername() {
+		return username;
 	}
 
-	public PermissionManagement() {
-
+	public boolean isCoordinatorLogged() {
+		Subject subject = SecurityUtils.getSubject();
+		return subject.isAuthenticated() && subject.hasRole("COORDINATOR");
 	}
 
 	public boolean isLogged() {
@@ -65,19 +57,6 @@ public class PermissionManagement {
 	public boolean isTeacherLogged() {
 		Subject subject = SecurityUtils.getSubject();
 		return subject.isAuthenticated() && (subject.hasRole("TEACHER"));
-	}
-
-	public boolean isCoordinatorLogged() {
-		Subject subject = SecurityUtils.getSubject();
-		return subject.isAuthenticated() && subject.hasRole("COORDINATOR");
-	}
-
-	public String logout() {
-		Subject subject = SecurityUtils.getSubject();
-		if (subject != null) {
-			subject.logout();
-		}
-		return "/index.xhtm?faces-redirect=true";
 	}
 
 	public String login() {
@@ -121,6 +100,26 @@ public class PermissionManagement {
 			}
 		}
 		return "/pages/home.xhtml?faces-redirect=true";
+	}
+
+	public String logout() {
+		Subject subject = SecurityUtils.getSubject();
+		if (subject != null) {
+			subject.logout();
+		}
+		return "/index.xhtm?faces-redirect=true";
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
+		this.sessionLoggedUser = sessionLoggedUser;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

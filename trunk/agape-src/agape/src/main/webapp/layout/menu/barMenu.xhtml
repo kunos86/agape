@@ -20,20 +20,19 @@
 			value="Zaloguj się" image="/img/zaloguj.png"
 			rendered="#{!permissionManagement.logged}"
 			styleClass="img_naglowek_zaloguj" />
-			
-		<h:commandButton id="img_naglowek_wyloguj" action="#{permissionManagement.logout()}"
-			value="Wyloguj" 
+
+		<h:commandButton id="img_naglowek_wyloguj"
+			action="#{permissionManagement.logout()}" value="Wyloguj"
 			rendered="#{permissionManagement.logged}"
 			styleClass="img_naglowek_zaloguj buttonBig" />
 
 		<!-- Menu -->
 		<div id="menu_kontener">
 			<ul id="menu_przyciski">
-				<li id="glowna" class="aktualna">
-				<h:commandLink value="Strona Główna" action="home" />
-					</li>
-				<li id="aktualnosci"><a href="aktualnosci.html"
-					title="Aktualności">Aktualności</a></li>
+				<li id="glowna" class="aktualna"><h:commandLink
+						value="Strona Główna" action="home" /></li>
+				<li id="aktualnosci"><h:commandLink value="Aktualności"
+						action="/index.xhtml" /></li>
 				<li id="o_nas"><a href="onas.html" title="O nas">O nas</a></li>
 				<li id="kursy"><a href="kursy.html" title="Kursy">Kursy</a></li>
 				<li id="pomoc"><a href="pomoc.html" title="Pomoc">Pomoc</a></li>

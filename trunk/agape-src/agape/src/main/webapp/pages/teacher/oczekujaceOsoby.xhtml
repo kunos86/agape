@@ -12,7 +12,7 @@
 			<rich:panel header="Oczekujcy uczniowie">
 				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
 	
-	
+				<h:outputText value="#{_text.get('nauczyciel.oczekujace.osoby.info')}" />
 			
 				<h:outputText value="Brak nowych osób."
 					rendered="#{newStudentsBrowser.students.size()==0}" />

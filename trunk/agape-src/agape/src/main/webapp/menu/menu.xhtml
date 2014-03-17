@@ -16,7 +16,7 @@
 			<rich:panelMenuGroup label="Panel ucznia" expanded="true"
 				rendered="#{permissionManagement.studentLogged}">
 				<rich:panelMenuItem label="Mój profil"  mode="server"
-					action="/pages/student/home.xhtml?faces-redirect=true" />
+					action="/pages/home.xhtml?faces-redirect=true" />
 				<rich:panelMenuItem label="Dostępne lekcje" mode="server"
 					action="/pages/student/mojeKursy.seam?faces-redirect=true" />
 
@@ -37,14 +37,15 @@
 
 				<rich:panelMenuItem label="Dodaj news"  mode="server"
 					action="/pages/admin/addNews.xhtml?faces-redirect=true" />
-
+				<rich:panelMenuItem label="Teksty aplikacji"  mode="server"
+					action="/pages/admin/tekstyAplikacji.xhtml?faces-redirect=true" />
 
 			</rich:panelMenuGroup>
 
 			<rich:panelMenuGroup label="Panel nauczyciela" expanded="true"
 				rendered="#{permissionManagement.teacherLogged}">
 				<rich:panelMenuItem label="Mój profil"  mode="server"
-					action="/pages/teacher/home.xhtml" />
+					action="/pages/home.xhtml" />
 				<rich:panelMenuItem label="Moi uczniowie"  mode="server"
 					action="/pages/teacher/uczniowie.xhtml" />
 				<rich:panelMenuItem label="Oczekujące osoby"  mode="server"

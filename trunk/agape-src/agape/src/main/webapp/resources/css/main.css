@@ -183,6 +183,10 @@ div#kolumna_prawa_glowna {
     padding-top: 0.2em;
     text-align: right;
 }
+.label {
+    font-weight: bold;
+    margin-right: 0.5em;
+}
 
 .formMessage {
 	font-weight: bold;
@@ -595,6 +599,13 @@ div#zaloguj_kontener {
 	color: #009ED2 ;
     font-family: "trebuchet ms",sans-serif  !important;
     font-size: 20px;
+}
+
+.pageText{
+    font-family: "trebuchet ms",sans-serif  !important;
+    font-size: 14px;
+    padding-top:10px;
+    padding-bottom:5px;
 }
 
 .messageInfo{

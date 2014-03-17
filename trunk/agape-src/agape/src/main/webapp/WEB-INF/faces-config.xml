@@ -14,14 +14,14 @@
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>home</from-outcome>
-			<if>#{permissionManagement.studentLogged}</if>
-			<to-view-id>/pages/student/home.xhtml</to-view-id>
+			<if>#{permissionManagement.logged}</if>
+			<to-view-id>/pages/home.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>home</from-outcome>
-			<if>#{permissionManagement.coordinatorLogged || permissionManagement.teacherLogged}</if>
-			<to-view-id>/pages/home.xhtml</to-view-id>
+			<if>#{!permissionManagement.logged}</if>
+			<to-view-id>/index.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

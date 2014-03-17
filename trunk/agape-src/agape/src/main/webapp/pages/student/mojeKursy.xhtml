@@ -12,7 +12,13 @@
 			<rich:panel
 				header="Dostępnych kursów:  #{lessonListBrowser.coursesCount}">
 
-
+				<h:outputText value="#{_text.get('student.dostepne.lekcje.info')}" />
+				<h:outputText
+					value="#{_text.get('student.dostepne.lekcje.brak.kursow.info')}"
+					rendered="#{lessonListBrowser.courses.size()==0}" />
+				<h:outputText
+					value="#{_text.get('student.dostepne.lekcje.sa.kursy.info')}"
+					rendered="#{lessonListBrowser.courses.size()>0}" />
 				<rich:dataGrid columns="1" value="#{lessonListBrowser.courses}"
 					var="_course">
 					<rich:collapsiblePanel switchType="client"
