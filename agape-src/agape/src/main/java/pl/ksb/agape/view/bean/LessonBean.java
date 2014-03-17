@@ -1,5 +1,6 @@
 package pl.ksb.agape.view.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,31 +34,51 @@ public class LessonBean implements Serializable {
 
 	private static final long serialVersionUID = -8899982915688655263L;
 
-	private Lesson lesson;
-	private Long idStudent;
 	@EJB
-	private LessonDAOBean lessonDAOBean;
+	private AnswerDAOBean answerDAOBean;
+	private EducationState educationState;
 	@EJB
 	private EducationStateDAOBean educationStateDAOBean;
+	private Long idStudent;
+
+	private Lesson lesson;
+
+	@EJB
+	private LessonDAOBean lessonDAOBean;
+
+	private List<QuestionAnswer> questionAnswerList;
 
 	@EJB
 	private QuestionDAOBean questionDAOBean;
-
-	private List<QuestionAnswer> questionAnswerList;
 
 	@ManagedProperty(value = "#{sessionLoggedUser}")
 	private SessionLoggedUser sessionLoggedUser;
 
 	@EJB
-	private AnswerDAOBean answerDAOBean;
-
-	@EJB
 	private UserDAOBean userDAOBean;
 
-	private EducationState educationState;
+	public void check() throws IOException {
+		educationState.setCheckedDate(Calendar.getInstance().getTime());
+		educationStateDAOBean.saveOrUpdate(educationState);
 
-	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
-		this.sessionLoggedUser = sessionLoggedUser;
+		FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.redirect(
+						"/agape/pages/teacher/postepUcznia.jsf?faces-redirect=true&id="
+								+ Encoder.encode(this.idStudent));
+	}
+
+	public EducationState getEducationState() {
+		return educationState;
+	}
+
+	public Lesson getLesson() {
+		return lesson;
+	}
+
+	public List<QuestionAnswer> getQuestionAnswerList() {
+		return questionAnswerList;
 	}
 
 	@PostConstruct
@@ -111,12 +132,6 @@ public class LessonBean implements Serializable {
 
 	}
 
-	public void save() {
-		for (QuestionAnswer qa : questionAnswerList) {
-			answerDAOBean.save(qa.getAnswer());
-		}
-	}
-
 	public boolean isAnyEmptyAnswer() {
 
 		for (QuestionAnswer qa : questionAnswerList) {
@@ -127,6 +142,12 @@ public class LessonBean implements Serializable {
 		}
 		return false;
 
+	}
+
+	public void save() {
+		for (QuestionAnswer qa : questionAnswerList) {
+			answerDAOBean.save(qa.getAnswer());
+		}
 	}
 
 	public void send() {
@@ -148,23 +169,8 @@ public class LessonBean implements Serializable {
 
 	}
 
-	public String check() {
-		educationState.setCheckedDate(Calendar.getInstance().getTime());
-		educationStateDAOBean.saveOrUpdate(educationState);
-
-		return "/pages/teacher/postep.xhtml";
-	}
-
-	public Lesson getLesson() {
-		return lesson;
-	}
-
-	public List<QuestionAnswer> getQuestionAnswerList() {
-		return questionAnswerList;
-	}
-
-	public EducationState getEducationState() {
-		return educationState;
+	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
+		this.sessionLoggedUser = sessionLoggedUser;
 	}
 
 }

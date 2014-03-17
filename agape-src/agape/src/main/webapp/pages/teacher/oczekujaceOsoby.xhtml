@@ -11,10 +11,15 @@
 		<h:form>
 			<rich:panel header="Oczekujcy uczniowie">
 				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
-
+	
+	
+			
+				<h:outputText value="Brak nowych osób."
+					rendered="#{newStudentsBrowser.students.size()==0}" />
 
 
 				<rich:dataTable id="tabela" value="#{newStudentsBrowser.students}"
+				rendered="#{newStudentsBrowser.students.size()>0}"
 					var="_row">
 					<rich:column id="col1" style="width:200px">
 						<f:facet name="header">Uczeń</f:facet>

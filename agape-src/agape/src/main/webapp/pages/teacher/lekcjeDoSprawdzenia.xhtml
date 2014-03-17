@@ -14,54 +14,31 @@
 			<h:outputStylesheet name="jquery-ui-1.10.3.custom.min.css"
 				library="css" />
 			<rich:panel header="Lekcje do sprawdzenia">
-				<table id="studentsTable" class="borderTable" style="width: 100%">
-					<thead>
-						<tr>
-							<th class="borderTable" style="width: 70%">Uczeń</th>
-							<th style="width: 30%">Operacja</th>
-						</tr>
-					</thead>
-					<tbody>
-						<ui:repeat var="_row"
-							value="#{lessonToCheck.studentEducationState}">
-							<tr>
-								<td >#{_row.student.name} #{_row.student.surname}</td>
-								<td><h:commandButton
-										action="#{lessonToCheck.goToLesson(_row.lesson.id, _row.student.id)}"
-										value="Przejdź do lekcji" styleClass="buttonSmall" /></td>
-							</tr>
-						</ui:repeat>
-					</tbody>
-				</table>
-				<script type="text/javascript">
-				$(document).ready(function(){
-					showDataTableJQ( $('#studentsTable'));
-				});
-			</script>
+				<h:outputText value="Brak lekcji do sprawdzenia."
+					rendered="#{lessonToCheck.studentEducationState.size()==0}" />
 
 
+				<rich:dataTable value="#{lessonToCheck.studentEducationState}"
+					var="_education"
+					rendered="#{lessonToCheck.studentEducationState.size()>0}">
+					<rich:column style="min-width:200px">
+						<f:facet name="header">
+							<h:outputText value="Uczeń" />
+						</f:facet>
+						<h:outputText value="#{_education.student.fullName}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Operacje" />
+						</f:facet>
+						<h:commandButton
+							action="#{lessonToCheck.goToLesson(_row.lesson.id, _row.student.id)}"
+							value="Przejdź do lekcji" styleClass="buttonSmall" />
 
 
+					</rich:column>
 
-				<!-- 				<rich:dataTable value="#{lessonToCheck.studentEducationState}" -->
-				<!-- 					var="_education"> -->
-				<!-- 					<rich:column> -->
-				<!-- 						<f:facet name="header"> -->
-				<!-- 							<h:outputText value="Uczeń" /> -->
-				<!-- 						</f:facet> -->
-				<!-- 						<h:outputText -->
-				<!-- 							value="#{_education.student.name} #{_education.student.surname}" /> -->
-				<!-- 					</rich:column> -->
-				<!-- 					<rich:column> -->
-				<!-- 						<f:facet name="header"> -->
-				<!-- 							<h:outputText value="Operacje" /> -->
-				<!-- 						</f:facet> -->
-				<!-- 						<h:commandButton -->
-				<!-- 							action="#{lessonToCheck.goToLesson(_education.lesson.id, _education.student.id)}" -->
-				<!-- 							value="Przejdź do lekcji" styleClass="buttonSmall" /> -->
-				<!-- 					</rich:column> -->
-
-				<!-- 				</rich:dataTable> -->
+				</rich:dataTable>
 
 			</rich:panel>
 		</h:form>
