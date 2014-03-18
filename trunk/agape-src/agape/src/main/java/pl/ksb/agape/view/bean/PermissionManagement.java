@@ -13,6 +13,7 @@ import org.apache.shiro.subject.Subject;
 
 import pl.ksb.agape.domain.dao.UserDAOBean;
 import pl.ksb.agape.domain.model.User;
+import pl.ksb.agape.util.CryptoTools;
 
 @ManagedBean
 @RequestScoped
@@ -63,14 +64,10 @@ public class PermissionManagement {
 		System.out.println("login user " + username);
 		Subject subject = SecurityUtils.getSubject();
 		if (!subject.isAuthenticated()) {
-			// collect user principals and credentials in a gui specific manner
-			// such as username/password html form, X509 certificate, OpenID,
-			// etc.
-			// We'll use the username/password example here since it is the most
-			// common.
-			// (do you know what movie this is from? ;)
+
+			String pass = CryptoTools.getInstance().passwordHash(password);
 			UsernamePasswordToken token = new UsernamePasswordToken(username,
-					password);
+					pass);
 
 			try {
 				subject.login(token);

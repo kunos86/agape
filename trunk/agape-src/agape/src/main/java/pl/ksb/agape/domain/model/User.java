@@ -37,56 +37,15 @@ public class User implements Serializable {
 	@Column(name = "birth_date")
 	private Date birthDate;
 
+	@Column(name = "code", length = 10)
+	private String code;
+
 	@Column(name = "community", length = 50)
 	@Length(max = 50)
 	private String community;
 
 	@Column(name = "country", length = 100)
 	private String country;
-
-	@Column(name = "province", length = 100)
-	private String province;
-
-	@Column(name = "sex", length = 10)
-	private String sex;
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	@Column(name = "place", length = 100)
-	private String place;
-
-	@Column(name = "code", length = 10)
-	private String code;
 
 	@Column(name = "email", length = 30, unique = true)
 	@Email
@@ -104,9 +63,15 @@ public class User implements Serializable {
 	@Length(min = 2, max = 30)
 	private String name;
 
-	@Column(name = "password", length = 20)
-	@Length(max = 20)
+	@Column(name = "password", length = 100)
+	@Length(min = 5)
 	private String password;
+
+	@Column(name = "place", length = 100)
+	private String place;
+
+	@Column(name = "province", length = 100)
+	private String province;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "registration_date")
@@ -119,6 +84,10 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	// @Transient
 	private List<Role> roles;
+
+	@Column(name = "sex", length = 10)
+	@NotNull
+	private String sex;
 
 	@Column(name = "status", length = 3, nullable = false)
 	@NotNull
@@ -160,6 +129,10 @@ public class User implements Serializable {
 		return birthDate;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
 	public String getCommunity() {
 		return community;
 	}
@@ -192,6 +165,14 @@ public class User implements Serializable {
 		return password;
 	}
 
+	public String getPlace() {
+		return place;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
 	public Date getRegistrationDate() {
 		return registrationDate;
 	}
@@ -202,6 +183,10 @@ public class User implements Serializable {
 
 	public List<Role> getRoles() {
 		return roles;
+	}
+
+	public String getSex() {
+		return sex;
 	}
 
 	public String getStatus() {
@@ -225,6 +210,10 @@ public class User implements Serializable {
 
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public void setCommunity(String community) {
@@ -251,6 +240,14 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
@@ -261,6 +258,10 @@ public class User implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	public void setStatus(String status) {
