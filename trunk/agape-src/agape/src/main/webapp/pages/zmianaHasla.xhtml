@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:form id="password">
+			<rich:panel header="Zmian hasła">
+				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
+				<h:panelGrid columns="3" width="100%">
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Aktualne hasło" />
+						<ui:param name="id" value="current" />
+						<ui:param name="required" value="true" />
+						<h:inputSecret id="current" required="true" size="40"
+							value="#{changePasswordBrowser.currentPassword}">
+						</h:inputSecret>
+					</ui:decorate>
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Nowe hasło" />
+						<ui:param name="id" value="haslo" />
+						<ui:param name="required" value="true" />
+						<h:inputSecret id="haslo" required="true" size="40"
+							value="#{changePasswordBrowser.newPassword}">
+						</h:inputSecret>
+					</ui:decorate>
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Powtórz Hasło" />
+						<ui:param name="id" value="haslo2" />
+						<ui:param name="required" value="true" />
+						<h:inputSecret id="haslo2" required="true" size="40"
+							value="#{changePasswordBrowser.confirmPassword}">
+							<f:attribute name="passId" value="password:haslo" />
+							<f:validator validatorId="passwordValidator" />
+						</h:inputSecret>
+					</ui:decorate>
+				</h:panelGrid>
+
+				<a4j:commandButton value="Zmień hasło"
+					action="#{changePasswordBrowser.changePassword()}" render="@form" type="submit" />
+				<h:commandButton value="Mój profil - wróć" immediate="true"
+					action="home" />
+			</rich:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

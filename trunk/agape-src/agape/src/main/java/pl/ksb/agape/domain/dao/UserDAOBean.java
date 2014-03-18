@@ -13,6 +13,21 @@ import pl.ksb.agape.domain.model.User;
 @Stateless
 public class UserDAOBean extends BaseDAO<User> {
 
+	public boolean authenticat(String login, String haslo) {
+		return ((Long) getHibernateSession().createCriteria(User.class)
+				.add(Restrictions.eq("email", login))
+				.add(Restrictions.eq("password", haslo))
+				.setProjection(Projections.rowCount()).uniqueResult()) > 0;
+
+	}
+
+	public void changePassword(Long userId, String newPassword) {
+		User u = getById(userId);
+		u.setPassword(newPassword);
+		saveOrUpdate(u);
+
+	}
+
 	public List<User> getAll() {
 		return getHibernateSession().createCriteria(User.class).list();
 	}
@@ -31,6 +46,13 @@ public class UserDAOBean extends BaseDAO<User> {
 				.setProjection(Projections.rowCount()).uniqueResult();
 	}
 
+	//
+	// public Long liczbaUczniowByNauczyciel(Osoba osoba) {
+	// return (Long) getUczniowieByNauczyciel(osoba).setProjection(
+	// Projections.rowCount()).uniqueResult();
+	// }
+	//
+
 	@SuppressWarnings("unchecked")
 	public List<User> getStudentsByTeacher(Long teacherId) {
 
@@ -42,13 +64,6 @@ public class UserDAOBean extends BaseDAO<User> {
 				.setParameter("teacherId", teacherId).list();
 
 	}
-
-	//
-	// public Long liczbaUczniowByNauczyciel(Osoba osoba) {
-	// return (Long) getUczniowieByNauczyciel(osoba).setProjection(
-	// Projections.rowCount()).uniqueResult();
-	// }
-	//
 
 	@SuppressWarnings("unchecked")
 	public List<User> getStudentsWithoutTeacher() {
@@ -89,30 +104,6 @@ public class UserDAOBean extends BaseDAO<User> {
 		return c != null && c > 0;
 
 	}
-
-	// public void update(Osoba osoba) {
-	// hibernateSession.update(osoba);
-	// }
-	//
-	// public Osoba authenticat(String login, String haslo) {
-	// return (Osoba) em.createCriteria(Osoba.class)
-	// .add(Restrictions.eq("email", login))
-	// .add(Restrictions.eq("haslo", haslo))
-	// .add(Restrictions.eq("status", Status.AKTUALNY)).uniqueResult();
-	// }
-	//
-	// public Criteria getOsoby(boolean usuniete) {
-	// Criteria ret = hibernateSession.createCriteria(Osoba.class);
-	// if (!usuniete) {
-	// ret.add(Restrictions.ne("status", Status.USUNIETY));
-	// }
-	// return ret;
-	// }
-	//
-	// public Osoba getById(Long id) {
-	// return (Osoba) hibernateSession.createCriteria(Osoba.class)
-	// .add(Restrictions.eq("id", id)).uniqueResult();
-	// }
 
 	@Override
 	public void save(User osoba) {

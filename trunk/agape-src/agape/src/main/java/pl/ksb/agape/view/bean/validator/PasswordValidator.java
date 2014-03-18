@@ -10,16 +10,14 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-
-
 @FacesValidator("passwordValidator")
 public class PasswordValidator implements Validator, Serializable {
 
 	private static final long serialVersionUID = -3153968932785488353L;
 
+	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
-		
 
 		String passwordId = (String) component.getAttributes().get("passId");
 
@@ -34,11 +32,20 @@ public class PasswordValidator implements Validator, Serializable {
 			// Cast the value of the entered password of the second field back
 			// to String.
 			String confirm = (String) value;
+			if (confirm == null || confirm.isEmpty()) {
+				throw new ValidatorException(
+						new FacesMessage("Pole wymagane !"));
+			}
+
+			if (confirm.length() < 5) {
+				throw new ValidatorException(new FacesMessage(
+						"Pole musi mieć co najmniej 5 znaków ! "));
+			}
 
 			// Compare the first password with the second password.
 			if (!password.equals(confirm)) {
-				throw new ValidatorException(
-						new FacesMessage("Hasła są różne !"));
+				throw new ValidatorException(new FacesMessage(
+						"Hasła są różne !"));
 			}
 
 		}
