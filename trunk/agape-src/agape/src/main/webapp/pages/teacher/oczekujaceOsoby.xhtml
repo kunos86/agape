@@ -38,7 +38,7 @@
 						<a4j:commandButton id="button" 
 							action="#{newStudentsBrowser.addStudentToMe()}" immediate="true"
 							value="Pobierz ucznia" styleClass="buttonSmall" render="@form"
-							execute="@this">
+							execute="@form">
 							<a4j:param value="#{_row.id }"
 								assignTo="#{newStudentsBrowser.selectedId}" />
 						</a4j:commandButton>

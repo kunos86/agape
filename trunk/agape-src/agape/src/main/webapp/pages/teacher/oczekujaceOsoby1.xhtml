@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:form>
+			<h:outputScript name="jquery.dataTables.min.js" library="js" />
+			<h:outputScript name="dataTablesExt.js" library="js" />
+			<h:outputStylesheet name="jquery-ui-1.10.3.custom.min.css"
+				library="css" />
+			<rich:panel header="Oczekujcy uczniowie">
+				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
+
+
+<!-- 				<table id="studentsTable" class="borderTable" style="width: 100%"> -->
+				<!-- 					<thead> -->
+				<!-- 						<tr> -->
+				<!-- 							<th class="borderTable" style="width: 70%">Uczeń</th> -->
+				<!-- 							<th style="width: 30%">Operacja</th> -->
+				<!-- 						</tr> -->
+				<!-- 					</thead> -->
+				<!-- 					<tbody> -->
+				<!-- 						<ui:repeat var="_row" value="#{newStudentsBrowser.students}"> -->
+				<!-- 							<tr> -->
+				<!-- 								<td>#{_row.name} #{_row.surname}</td> -->
+				<!-- 								<td> <a4j:commandButton id="button" -->
+				<!-- 										action="#{newStudentsBrowser.addStudentToMe()}" -->
+				<!-- 										immediate="true" value="Pobierz ucznia" -->
+				<!-- 										styleClass="buttonSmall" render="@form" execute="@this"> -->
+				<!-- 										<a4j:param value="#{_row.id }" -->
+				<!-- 											assignTo="#{newStudentsBrowser.selectedId}" /> -->
+				<!-- 									</a4j:commandButton></td> -->
+				<!-- 							</tr> -->
+				<!-- 						</ui:repeat> -->
+				<!-- 					</tbody> -->
+				<!-- 				</table> -->
+				<!-- 				<script type="text/javascript"> -->
+// 				$(document).ready(function(){
+// 					showDataTableJQ( $('#studentsTable'));
+// 				});
+<!-- 			</script> -->
+
+
+
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

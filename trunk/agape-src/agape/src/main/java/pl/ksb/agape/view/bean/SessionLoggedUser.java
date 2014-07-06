@@ -18,6 +18,8 @@ public class SessionLoggedUser implements Serializable {
 	 */
 	private static final long serialVersionUID = 2033110618445819660L;
 
+	private User user;
+
 	public SessionLoggedUser() {
 		super();
 	}
@@ -27,15 +29,11 @@ public class SessionLoggedUser implements Serializable {
 		this.user = user;
 	}
 
-	private User user;
-
 	public User getUser() {
-		System.out.println(this);
 		return user;
 	}
 
 	public void setUser(User user) {
-		System.out.println(this);
 		this.user = user;
 	}
 
