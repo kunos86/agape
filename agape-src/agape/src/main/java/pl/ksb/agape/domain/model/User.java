@@ -58,6 +58,9 @@ public class User implements Serializable {
 	@Column(name = "id", unique = true, precision = 10, scale = 0)
 	private Long id;
 
+	@Column(name = "mail_confirmation")
+	private Boolean mailConfirmation;
+
 	@Column(name = "name", length = 30)
 	@NotNull
 	@Length(min = 2, max = 30)
@@ -157,6 +160,10 @@ public class User implements Serializable {
 		return id;
 	}
 
+	public Boolean getMailConfirmation() {
+		return mailConfirmation;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -230,6 +237,10 @@ public class User implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public void setMailConfirmation(Boolean mailConfirmation) {
+		this.mailConfirmation = mailConfirmation;
 	}
 
 	public void setName(String name) {
