@@ -47,10 +47,11 @@
 				<br />
 
 				<h:panelGrid columns="1" columnClasses="pageText">
-
+					
 					<h:outputText value="#{_text.get('user.moj.profil.non.confirmed')}"
 						rendered="#{!sessionLoggedUser.user.mailConfirmation}"
 						styleClass="formMessage" />
+					<h:commandLink value="Wyślij link ponownie" action="#{homeBean.sendConfirmationMail()}" rendered="#{!sessionLoggedUser.user.mailConfirmation}"/>
 
 
 					<h:outputText value="#{_text.get('teacher.moj.profil.info')}"

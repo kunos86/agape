@@ -8,12 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
-import pl.ksb.agape.domain.dao.ActivationTokenDAOBean;
-import pl.ksb.agape.domain.model.ActivationToken;
 import pl.ksb.agape.domain.model.User;
-import pl.ksb.agape.service.MailSenderService;
+import pl.ksb.agape.service.ConfirmationMailSender;
 import pl.ksb.agape.service.UserManagement;
 import pl.ksb.agape.util.CryptoTools;
 
@@ -24,13 +21,11 @@ public class UserRegistration implements Serializable {
 	private static final long serialVersionUID = 3073828016819449376L;
 
 	@EJB
-	private ActivationTokenDAOBean activationTokenDAOBean;
+	private ConfirmationMailSender confirmationMailSender;
 
 	@Inject
 	private FacesContext facesContext;
 
-	@EJB
-	private MailSenderService mailSenderService;
 	private String password2;
 
 	private boolean regulations;
@@ -40,24 +35,6 @@ public class UserRegistration implements Serializable {
 	//
 	@EJB
 	private UserManagement userManagement;
-
-	private String getActivationUrl(String token) {
-
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
-		String realPath = request.getRequestURL().substring(
-				0,
-				request.getRequestURL().indexOf(request.getContextPath())
-						+ request.getContextPath().length());
-
-		return realPath + "/mailConfirmationServlet?t=" + token;
-	}
-
-	private String getMailMessage(String token) {
-		return "Dziękujemy za zainteresowanie naszym portalem. Aby aktywować konto kliknij na link poniżej. "
-				+ getActivationUrl(token);
-
-	}
 
 	public String getPassword2() {
 		return password2;
@@ -86,13 +63,7 @@ public class UserRegistration implements Serializable {
 			user.setPassword(CryptoTools.getInstance().passwordHash(
 					user.getPassword()));
 			userManagement.register(user);
-
-			ActivationToken token = activationTokenDAOBean.generateToken(user
-					.getId());
-
-			mailSenderService.send(user.getEmail(),
-					"Potwierdzenie rejestracji",
-					getMailMessage(token.getToken()));
+			confirmationMailSender.sendMail(user);
 
 			facesContext
 					.addMessage(
