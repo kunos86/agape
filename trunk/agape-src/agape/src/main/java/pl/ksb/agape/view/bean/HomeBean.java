@@ -9,10 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import pl.ksb.agape.domain.dao.UserDAOBean;
 import pl.ksb.agape.domain.model.User;
+import pl.ksb.agape.service.ConfirmationMailSender;
 
 @ManagedBean
 @RequestScoped
 public class HomeBean {
+	@EJB
+	private ConfirmationMailSender confirmationMailSender;
+
 	@ManagedProperty(value = "#{sessionLoggedUser}")
 	private SessionLoggedUser sessionLoggedUser;
 
@@ -30,6 +34,11 @@ public class HomeBean {
 			sessionLoggedUser.setUser(u);
 
 		}
+
+	}
+
+	public void sendConfirmationMail() {
+		confirmationMailSender.sendMail(sessionLoggedUser.getUser());
 
 	}
 
