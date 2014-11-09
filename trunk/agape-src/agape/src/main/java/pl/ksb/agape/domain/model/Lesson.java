@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,12 +20,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import pl.ksb.agape.domain.dao.IModificationLoggable;
+import pl.ksb.agape.util.ModificationListener;
+
 @Entity
 @Table(name = "lesson", schema = "agape")
 @NamedQueries(value = {
 		@NamedQuery(name = "getCourseLessons", query = "Select l from Lesson l where l.status = 'A' and l.course.id = :coursId order by l.number"),
 		@NamedQuery(name = "getEnabledCourseLessons", query = "Select l from Lesson l where l.status = 'A' and l.course.id = :coursId and l.enabled = true order by l.number") })
-public class Lesson implements Serializable {
+@EntityListeners(ModificationListener.class)
+public class Lesson extends ModificationUserDate implements IModificationLoggable, Serializable {
 
 	private static final long serialVersionUID = -6935488877088993468L;
 
@@ -57,10 +62,6 @@ public class Lesson implements Serializable {
 
 	@Column(name = "introduction", length = 2000)
 	private String introduction;
-
-	@Column(name = "modification_date", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modificationDate;
 
 	@Column(name = "number", length = 10, nullable = false)
 	@NotNull
@@ -97,9 +98,6 @@ public class Lesson implements Serializable {
 		return introduction;
 	}
 
-	public Date getModificationDate() {
-		return modificationDate;
-	}
 
 	public Long getNumber() {
 		return number;
@@ -143,10 +141,6 @@ public class Lesson implements Serializable {
 
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
-	}
-
-	public void setModificationDate(Date modificationDate) {
-		this.modificationDate = modificationDate;
 	}
 
 	public void setNumber(Long number) {

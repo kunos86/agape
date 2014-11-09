@@ -14,7 +14,7 @@ import pl.ksb.agape.domain.model.News;
 
 @Stateless
 @LocalBean
-public class NewsDAOBean {
+public class NewsDAOBean extends BaseDAO<News> {
 	
 	@Inject
 	private EntityManager em;
@@ -23,15 +23,6 @@ public class NewsDAOBean {
 		return em.find(News.class, id );
 	}
 	
-	public void zapisz(News news){
-		
-		news.setModificationDate(Calendar.getInstance().getTime());
-		if (news.getId()==null){
-			em.persist(news);
-		}else{
-			em.merge(news);
-		}
-	}
 	
 	public List<News> getNewsToStartPage(int number)
 	{

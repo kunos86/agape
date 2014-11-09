@@ -8,13 +8,21 @@
    <title>Biblijny Kompas</title>
    <link rel="shortcut icon" href="/agape/img/icon_small.ico" type="image/x-icon"  />
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
    <h:outputStylesheet name="main.css" library="css"/>
    <h:outputStylesheet name="rf.css" library="css"/>
    <h:outputStylesheet name="typography.css" library="css"/>
    <h:outputStylesheet name="reset.css" library="css"/>
+   <h:outputStylesheet name="jquery.cookiebar.css" library="css"/>
+   
          
 </h:head>
 <h:body>
+<script type="text/javascript">
+$( document ).ready(function() {
+	jQuery.cookieBar();
+});
+</script>
 
 
 	<!-- Kontener strony glownej -->
@@ -64,5 +72,6 @@
 <!--          </p> -->
 <!--       </div> -->
 <!--    </div> -->
+   <h:outputScript name="jquery.cookiebar.js" library="js"/>
 </h:body>
 </html>

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +23,11 @@ import org.hibernate.validator.constraints.Length;
 
 
 
+
+
+import pl.ksb.agape.domain.dao.IModificationLoggable;
 import pl.ksb.agape.domain.model.dict.Status;
+import pl.ksb.agape.util.ModificationListener;
 
 @Entity
 @Table(name = "question", schema = "agape")
@@ -30,8 +35,8 @@ import pl.ksb.agape.domain.model.dict.Status;
 		@NamedQuery(name = "getLessonQuestions", query = "Select q from Question q where q.status = 'A' and q.lesson.id = :lessonId order by q.number"),
 		@NamedQuery(name = "getEnabledLessonQuestions", query = "Select q from Question q where q.status = 'A' and q.lesson.id = :lessonId and q.enabled = true order by q.number") })
 
-
-public class Question implements Serializable {
+@EntityListeners(ModificationListener.class)
+public class Question extends ModificationUserDate implements IModificationLoggable, Serializable {
 
 	private static final long serialVersionUID = 9090565015091367287L;
 
@@ -61,11 +66,6 @@ public class Question implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
 	private Date creationDate;
-
-	@Column(name = "modification_date", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull
-	private Date modificationDate;
 
 	@Column(name = "status", length=3, nullable = false)
 	@NotNull
@@ -117,14 +117,6 @@ public class Question implements Serializable {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
-	}
-
-	public Date getModificationDate() {
-		return modificationDate;
-	}
-
-	public void setModificationDate(Date modificationDate) {
-		this.modificationDate = modificationDate;
 	}
 
 	public String getStatus() {

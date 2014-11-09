@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public abstract class BaseDAO<T extends Serializable> {
 
@@ -62,6 +64,7 @@ public abstract class BaseDAO<T extends Serializable> {
 	}
 
 	public void saveOrUpdate(T t) {
+
 		getHibernateSession().saveOrUpdate(t);
 
 	}

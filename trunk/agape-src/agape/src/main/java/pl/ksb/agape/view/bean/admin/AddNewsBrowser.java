@@ -30,7 +30,7 @@ public class AddNewsBrowser implements Serializable {
 
 	public void save() {
 
-		newsDAOBean.zapisz(news);
+		newsDAOBean.saveOrUpdate(news);
 
 		news = new News();
 	}

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,11 +15,15 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import pl.ksb.agape.domain.dao.IModificationLoggable;
+import pl.ksb.agape.util.ModificationListener;
+
 
 
 @Entity
 @Table(name="news", schema="agape" )
-public class News implements Serializable {
+@EntityListeners(ModificationListener.class)
+public class News extends ModificationUserDate  implements IModificationLoggable, Serializable {
 	
 
 	private static final long serialVersionUID = 6290258261191517018L;
@@ -32,25 +37,15 @@ public class News implements Serializable {
 	@Length(max=500)
 	@NotNull
 	private String content;
-	
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="mofification_date", nullable=false)
-	@NotNull
-	private Date modificationDate;
 
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
 
 	public String getContent() {
 		return content;
@@ -62,18 +57,6 @@ public class News implements Serializable {
 	}
 
 
-	public Date getModificationDate() {
-		return modificationDate;
-	}
-
-
-	public void setModificationDate(Date modificationDate) {
-		this.modificationDate = modificationDate;
-	}
-
-
-
-	
 	
 	
 
