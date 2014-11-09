@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,12 +24,16 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 
+import pl.ksb.agape.domain.dao.IModificationLoggable;
+import pl.ksb.agape.util.ModificationListener;
+
 @Entity
 @Table(name = "course", schema = "agape")
 @NamedQueries(value = {
 		@NamedQuery(name = "getCourse", query = "Select c from Course c where c.status = 'A' order by c.number"),
 		@NamedQuery(name = "getEnabledCourse", query = "Select c from Course c where c.status = 'A' and c.enabled = true order by c.number") })
-public class Course implements Serializable {
+@EntityListeners(ModificationListener.class)
+public class Course extends ModificationUserDate implements IModificationLoggable, Serializable {
 
 	private static final long serialVersionUID = 6229300064198947190L;
 
@@ -56,10 +61,6 @@ public class Course implements Serializable {
 	@Fetch(FetchMode.JOIN)
 	@OrderBy("number ASC")
 	private Collection<Lesson> lessons;
-
-	@Column(name = "modification_date", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modificationDate;
 
 	@Column(name = "number", nullable = false)
 	@NotNull
@@ -98,9 +99,7 @@ public class Course implements Serializable {
 		return lessons;
 	}
 
-	public Date getModificationDate() {
-		return modificationDate;
-	}
+
 
 	public Long getNumber() {
 		return number;

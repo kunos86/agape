@@ -74,6 +74,7 @@ public class PermissionManagement {
 				password = null;
 				User user = userDAOBean.getUserByMail(username);
 				sessionLoggedUser.setUser(user);
+				subject.getSession().setAttribute("USER_ID", user.getId());
 
 				// if no exception, that's it, we're done!
 				// } catch ( UnknownAccountException uae ) {
