@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<script type="text/javascript">
+     jQuery(document).ready(function()
+    	        {
+    	                var d = new Date();
+    	                d = d.getTime();
+    	                if (jQuery('#reloadValue').val().length == 0)
+    	                {
+    	                        jQuery('#reloadValue').val(d);
+    	                        jQuery('body').show();
+    	                }
+    	                else
+    	                {
+    	                        jQuery('#reloadValue').val('');
+    	                        location.reload();
+    	                }
+    	        });
+     </script>
+	<input id="reloadValue" type="hidden" name="reloadValue" value="" />
+
+</ui:composition>

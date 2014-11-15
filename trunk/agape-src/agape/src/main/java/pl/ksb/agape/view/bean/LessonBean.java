@@ -42,6 +42,9 @@ public class LessonBean implements Serializable {
 	private Long idStudent;
 
 	private Lesson lesson;
+	
+	private Boolean isStudent = false;
+	private Boolean isTeacher = false;
 
 	@EJB
 	private LessonDAOBean lessonDAOBean;
@@ -79,7 +82,6 @@ public class LessonBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		System.out.println("init");
 		questionAnswerList = new ArrayList<QuestionAnswer>();
 
 		HttpServletRequest request = (HttpServletRequest) FacesContext
@@ -97,12 +99,19 @@ public class LessonBean implements Serializable {
 		} else {
 			idStudent = sessionLoggedUser.getUser().getId();
 		}
+		
+		
+		if (idStudent.equals( sessionLoggedUser.getUser().getId())){
+			isStudent = true;
+		}else{
+			isTeacher=true;
+		}
 		User student = userDAOBean.getById(idStudent);
 
 		educationState = educationStateDAOBean.getByIdLessonIdStudent(idLesson,
 				idStudent);
 		// zoaczenie lekcji jako podczytanej podczas pierwszego wejścia
-		if (!educationState.isRead()) {
+		if (idStudent.equals(sessionLoggedUser.getUser().getId())  && educationState!=null &&  !educationState.isRead()) {
 			educationState.setReadDate(Calendar.getInstance().getTime());
 			educationStateDAOBean.saveOrUpdate(educationState);
 
@@ -168,5 +177,15 @@ public class LessonBean implements Serializable {
 	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
 		this.sessionLoggedUser = sessionLoggedUser;
 	}
+
+	public Boolean getIsStudent() {
+		return isStudent;
+	}
+
+	public Boolean getIsTeacher() {
+		return isTeacher;
+	}
+	
+	
 
 }

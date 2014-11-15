@@ -11,68 +11,63 @@
 		<h:form>
 			<rich:panel header="Witaj w lekcji nr #{lessonBean.lesson.number}">
 				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
-				
+
 				<div class="introductionDiv">
 					<h:outputText value="#{lessonBean.lesson.introduction}" />
 				</div>
 
-				
 				<br />
 
-			<rich:dataGrid value="#{lessonBean.questionAnswerList}" var="_qa"
-				columns="1" id="grid" elements="#{lessonBean.questionAnswerList.size()}">
+				<rich:dataGrid value="#{lessonBean.questionAnswerList}" var="_qa"
+					columns="1" id="grid"
+					elements="#{lessonBean.questionAnswerList.size()}">
+
+					<h:panelGrid columns="1">
+						<h:outputText
+							value="#{_qa.question.number}.  #{_qa.question.content}" />
+
+						<h:inputTextarea cols="80" rows="6" value="#{_qa.answer.content}"
+							readonly="#{lessonBean.educationState.sent}" />
+
+					</h:panelGrid>
+
+				</rich:dataGrid>
 
 
-				<h:panelGrid columns="1">
-					<h:outputText
-						value="#{_qa.question.number}.  #{_qa.question.content}" />
+				<h:outputText styleClass="blueHeader"
+					rendered="#{lessonBean.educationState.sent}"
+					value="Komentarz nauczyciela" />
+				<br />
 
-					<h:inputTextarea cols="80" rows="6" value="#{_qa.answer.content}" 
-						readonly="#{lessonBean.educationState.sent}"/>
+				<h:inputTextarea cols="80" rows="6"
+					value="#{lessonBean.educationState.comment}"
+					rendered="#{lessonBean.educationState.sent}"
+					readonly="#{lessonBean.educationState.checked || !permissionManagement.teacherLogged}" />
 
+
+				<h:panelGrid columns="2">
+					<a4j:commandButton value="Zapisz" action="#{lessonBean.save()}"
+						disabled="#{lessonBean.educationState.sent}" render="@form"
+						rendered="#{permissionManagement.studentLogged and lessonBean.isStudent}">
+						<rich:tooltip value="Zapisz bez wysłania rozwiązania" />
+					</a4j:commandButton>
+					<a4j:commandButton value="Wyślij rozwiązanie"
+						action="#{lessonBean.send()}"
+						disabled="#{lessonBean.educationState.sent}" render="@form"
+						rendered="#{permissionManagement.studentLogged and lessonBean.isStudent}">
+						<rich:tooltip value="Zapisz i wyślij rozwiązanie do sprawdzenia" />
+					</a4j:commandButton>
+
+					<a4j:commandButton value="Zapisz lekcję jako sprawdzoną"
+						action="#{lessonBean.check()}"
+						disabled="#{lessonBean.educationState.checked or not lessonBean.educationState.sent}"
+						render="@form" rendered="#{permissionManagement.teacherLogged and lessonBean.isTeacher}">
+						<rich:tooltip value="Oznacz lekcję jako sprawdzoną." />
+					</a4j:commandButton>
 
 				</h:panelGrid>
 
 
-
-			</rich:dataGrid>
-			
-			
-			<h:outputText styleClass="blueHeader"
-			rendered="#{lessonBean.educationState.sent}"
-						value="Komentarz" /><br/>
-							
-			<h:inputTextarea cols="80" rows="6" value="#{lessonBean.educationState.comment}"
-			rendered="#{lessonBean.educationState.sent}"
-			readonly="#{lessonBean.educationState.checked || permissionManagement.studentLogged}"/>
-			
-			 							
-			<h:panelGrid columns="2">
-                                <a4j:commandButton value="Zapisz" action="#{lessonBean.save()}"
-                                        disabled="#{lessonBean.educationState.sent}"
-                                        render="@form"
-                                        rendered="#{permissionManagement.studentLogged}"
-                                        styleClass="buttonSmall" >
-                                        
-                                        <rich:tooltip value="Zapisz bez wysłania rozwiązania"/>
-                                </a4j:commandButton>
-                                <a4j:commandButton value="Wyślij rozwiązanie" action="#{lessonBean.send()}"
-                                        disabled="#{lessonBean.educationState.sent}"
-                                        render="@form"
-                                        rendered="#{permissionManagement.studentLogged}">
-                                        <rich:tooltip value="Zapisz i wyślij rozwiązanie do sprawdzenia"/>
-                                </a4j:commandButton>
-                               
-                                <a4j:commandButton value="Zapisz lekcję jako sprawdzoną" action="#{lessonBean.check()}"
-                                        disabled="#{lessonBean.educationState.checkedDate != null}"
-                                        render="@form"
-                                        rendered="#{permissionManagement.teacherLogged}">
-                                        <rich:tooltip value="Zapisz i wyślij rozwiązanie do sprawdzenia"/>
-                                </a4j:commandButton>
-                               
-                        </h:panelGrid>
-			
-			
 
 			</rich:panel>
 		</h:form>
