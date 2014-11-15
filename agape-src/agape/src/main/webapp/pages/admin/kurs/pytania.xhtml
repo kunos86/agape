@@ -19,25 +19,22 @@
 					<a4j:commandButton action="#{questionsBrowser.goToLessons()}"
 						value="Wróc do lekcji" immediate="true" styleClass="buttonSmall" />
 					<rich:toolbarGroup>
+							<h:commandButton value="Dodaj pytanie" styleClass="buttonSmall"
+								action="#{questionsBrowser.add()}" render="@form,tresc"
+								disabled="#{questionsBrowser.editMode}"/>
 
-						<a4j:region>
-							<a4j:commandButton value="Dodaj pytanie" styleClass="buttonSmall"
-								action="#{questionsBrowser.add()}" render="@form"
-								disabled="#{questionsBrowser.editMode}">
-
-							</a4j:commandButton>
-						</a4j:region>
 					</rich:toolbarGroup>
 				</rich:toolbar>
+
 				<rich:panel id="edycjaPanel" rendered="#{questionsBrowser.editMode}">
 
-					<a4j:region>
 						<h:panelGrid columns="3">
 
 							<ui:decorate template="/layout/field.xhtml">
 								<ui:param name="label" value="Nr pytania" />
 								<ui:param name="id" value="nrPytania" />
 								<ui:param name="required" value="true" />
+								
 								<h:inputText id="nrPytania"
 									value="#{questionsBrowser.question.number}" required="true" />
 							</ui:decorate>
@@ -50,16 +47,24 @@
 									value="#{questionsBrowser.question.enabled}" />
 							</ui:decorate>
 
-							<ui:decorate template="/layout/field.xhtml">
-								<ui:param name="label" value="Treść" />
-								<ui:param name="id" value="tresc" />
-								<ui:param name="required" value="false" />
-								<h:inputTextarea id="tresc"
-									value="#{questionsBrowser.question.content}" cols="50" />
-							</ui:decorate>
-
 
 						</h:panelGrid>
+						<rich:editor id="tresc"  value="#{questionsBrowser.question.content}" toolbar="custom" >
+							<f:facet name="config">
+	                    toolbar_custom:
+	                        [
+	                            { name: 'document', items : [ 'NewPage','Preview' ] },
+	                            { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+	                            { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+	                            { name: 'insert', items : [ 'Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
+	                                    '/',
+	                            { name: 'styles', items : [ 'Styles','Format' ] },
+	                            { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+	                            { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+	                            { name: 'links', items : [ 'Link','Unlink' ] }
+	                        ]
+	                    </f:facet>
+						</rich:editor>
 						<h:panelGrid columns="5">
 							<a4j:commandButton id="submit"
 								action="#{questionsBrowser.save()}" value="Zapisz"
@@ -70,7 +75,6 @@
 							</a4j:commandButton>
 						</h:panelGrid>
 
-					</a4j:region>
 
 				</rich:panel>
 
@@ -78,13 +82,13 @@
 					style="width:100%" columns="1">
 					<h:outputText value="Pytanie #{_row.number}  "
 						style="font-weight: bold;#{_row.enabled ? '' : 'color:grey;'}" />
-					<a4j:commandLink value="edytuj"
+					<h:commandLink value="edytuj"
 						action="#{questionsBrowser.edit(_row.id)}" render="@form"
 						disabled="#{questionsBrowser.editMode}" />
 					<br />
 
 
-					<h:outputText value="#{_row.content}"
+					<h:outputText value="#{_row.content}" escape="false"
 						style="#{_row.enabled ? '' : 'color:grey;'}" />
 
 
