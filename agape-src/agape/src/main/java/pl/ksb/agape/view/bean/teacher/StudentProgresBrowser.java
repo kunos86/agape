@@ -153,9 +153,6 @@ public class StudentProgresBrowser {
 	}
 	
 	public String goToLesson(){
-		System.out.println("Test");
-		System.out.println(studentId);
-		System.out.println(lessonId);
 		return "/pages/lekcja.xhtml?faces-redirect=true&idLekcja="
 		+ Encoder.encode(lessonId) + "&idStudent="
 		+ Encoder.encode(studentId);
