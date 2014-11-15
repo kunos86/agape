@@ -24,21 +24,21 @@
 					<rich:collapsiblePanel switchType="client"
 						header="#{_course.title}">
 						<rich:dataTable value="#{_course.lessons}" var="_lesson">
-							<rich:column>
+							<rich:column styleClass="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'nowa_lekcja' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'nieodczytany_komentarz':'')}">
 								<f:facet name="header">
 									<h:outputText value="Nr lekcji" />
 								</f:facet>
 								<h:outputText value="#{_lesson.number}"
 									style="#{_lesson.educationStates.toArray()[0].read ? '' : 'font-weight:bold;'   }" />
 							</rich:column>
-							<rich:column>
+							<rich:column styleClass="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'nowa_lekcja' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'nieodczytany_komentarz':'')}">
 								<f:facet name="header">
 									<h:outputText value="Wprowadzenie do lekcji" />
 								</f:facet>
 								<h:outputText value="#{_lesson.introduction}"
 									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }" />
 							</rich:column>
-							<rich:column>
+							<rich:column styleClass="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'nowa_lekcja' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'nieodczytany_komentarz':'')}">
 								<f:facet name="header">
 									<h:outputText value="Data udostępnienia" />
 								</f:facet>
@@ -49,7 +49,7 @@
 								</h:outputText>
 							</rich:column>
 
-							<rich:column>
+							<rich:column styleClass="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'nowa_lekcja' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'nieodczytany_komentarz':'')}">
 								<f:facet name="header">
 									<h:outputText value="Data wysłania rozwiązania" />
 								</f:facet>
@@ -60,7 +60,7 @@
 								</h:outputText>
 							</rich:column>
 
-							<rich:column>
+							<rich:column styleClass="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'nowa_lekcja' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'nieodczytany_komentarz':'')}">
 								<f:facet name="header">
 									<h:outputText value="Data sprawdzenia rozwiązania" />
 								</f:facet>
@@ -71,14 +71,19 @@
 								</h:outputText>
 							</rich:column>
 
-							<rich:column>
+							<rich:column styleClass="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'nowa_lekcja' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'nieodczytany_komentarz':'')}">
 								<f:facet name="header">
 									<h:outputText value="Operacje" />
 								</f:facet>
+								<h:outputText value="Lekcja jeszcze nie została udostępniona." rendered="#{!_lesson.educationStates.toArray()[0].shared}" />
+								
+								
 								<a4j:commandButton value="Przejdź do lekcji"
 									rendered="#{_lesson.educationStates.toArray()[0].shared}"
 									action="#{lessonListBrowser.goToLesson(_lesson.id)}"
-									styleClass="buttonSmall" />
+									styleClass="buttonSmall" >
+									<rich:tooltip value="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'Przejdź do wypełniania lekcji' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'Odczytaj komentarz nauczyciela':'Przejdź do lekcji')}"/>
+									</a4j:commandButton>
 							</rich:column>
 
 						</rich:dataTable>

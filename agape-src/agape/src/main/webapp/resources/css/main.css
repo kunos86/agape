@@ -46,7 +46,7 @@ img#img_logo {
 
 .img_naglowek_zarejestruj {
 	position: absolute;
-	margin-left: 740px;
+	margin-left: 733px;
 	margin-top: 14px;
 	
 }
@@ -302,8 +302,13 @@ img#img_zalozkonto {
 div#stopka_kontener {
 	background: url('../img/stopka_tlo.jpg') repeat-x;
 	background-color: #e7e7e7;
-	height: 250px;
+	bottom: 0px;	
+	height: 100px;
 	width: 100%;
+	position:fixed;
+	z-index: -1;
+	
+	
 }
 
 div#stopka {
@@ -437,6 +442,17 @@ textarea#formularz_wiadomosc {
 	max-width: 340px;
 	overflow: hidden;
 	width: 270px;
+}
+
+/******* WIERSZE W TABELI DOSTEPNYCH LEKCJI ***/
+.nowa_lekcja {
+	background-color: #f5ff9e;
+
+}
+
+.nieodczytany_komentarz {
+	background-color: #cdff98;
+
 }
 
 /***************** ADMIN PANEL ****************/

@@ -44,7 +44,9 @@
 					rendered="#{lessonBean.educationState.sent}"
 					readonly="#{lessonBean.educationState.checked || !permissionManagement.teacherLogged}" />
 
-
+				<br/>
+				
+				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
 				<h:panelGrid columns="2">
 					<a4j:commandButton value="Zapisz" action="#{lessonBean.save()}"
 						disabled="#{lessonBean.educationState.sent}" render="@form"
