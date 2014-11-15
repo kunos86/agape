@@ -11,15 +11,15 @@
 
 		<!-- Przycisk rejestracji -->
 		<h:commandButton id="img_naglowek_zarejestruj" value="Zarejestruj się"
-			action="/rejestracja.xhtml" image="/img/zarejestruj.png"
+			action="/rejestracja.xhtml" 
 			rendered="#{!permissionManagement.logged}"
-			styleClass="img_naglowek_zarejestruj" />
+			styleClass="img_naglowek_zarejestruj buttonBig" />
 
 		<!-- Przycisk logowania -->
 		<h:commandButton id="img_naglowek_zaloguj" action="/login.xhtml"
-			value="Zaloguj się" image="/img/zaloguj.png"
+			value="Zaloguj się" 
 			rendered="#{!permissionManagement.logged}"
-			styleClass="img_naglowek_zaloguj" />
+			styleClass="img_naglowek_zaloguj buttonBig " />
 
 		<h:commandButton id="img_naglowek_wyloguj"
 			action="#{permissionManagement.logout()}" value="Wyloguj"

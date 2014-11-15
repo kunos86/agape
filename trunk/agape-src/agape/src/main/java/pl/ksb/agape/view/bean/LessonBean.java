@@ -110,9 +110,16 @@ public class LessonBean implements Serializable {
 
 		educationState = educationStateDAOBean.getByIdLessonIdStudent(idLesson,
 				idStudent);
-		// zoaczenie lekcji jako podczytanej podczas pierwszego wejścia
+		// oznaczenie lekcji jako podczytanej podczas pierwszego wejścia
 		if (idStudent.equals(sessionLoggedUser.getUser().getId())  && educationState!=null &&  !educationState.isRead()) {
 			educationState.setReadDate(Calendar.getInstance().getTime());
+			educationStateDAOBean.saveOrUpdate(educationState);
+
+		}
+		
+		// oznaczenie odczytania komentarza  
+		if (idStudent.equals(sessionLoggedUser.getUser().getId())  && educationState!=null &&  educationState.isChecked() && educationState.getReadCommentDate()==null) {
+			educationState.setReadCommentDate(Calendar.getInstance().getTime());
 			educationStateDAOBean.saveOrUpdate(educationState);
 
 		}
