@@ -23,7 +23,7 @@
 					elements="#{lessonBean.questionAnswerList.size()}">
 
 					<h:panelGrid columns="1">
-						<h:outputText
+						<h:outputText escape="false"
 							value="#{_qa.question.number}.  #{_qa.question.content}" />
 
 						<h:inputTextarea cols="80" rows="6" value="#{_qa.answer.content}"
