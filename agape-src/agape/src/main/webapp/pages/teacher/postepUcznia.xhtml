@@ -8,10 +8,9 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:my="http://java.sun.com/jsf/composite/components">
 	<ui:define name="content">
+		<ui:include src="/components/antiBrowserHistory.xhtml" />
 		<rich:panel header="Stan postępów ucznia">
 			<h:messages infoClass="messageInfo" warnClass="messageWarn" />
-
-
 
 			<h:outputFormat value="Informacje o uczniu:" styleClass="blueHeader" />
 			<h:panelGrid columns="2">
@@ -45,17 +44,42 @@
 							</rich:column>
 							<rich:column width="100">
 								<f:facet name="header">Operacje</f:facet>
-								<a4j:commandButton id="button"
-									action="#{studentProgresBrowser.shareLesson()}"
-									value="Udostępnij lekcję"
-									disabled="#{studentProgresBrowser.getState(_l.id, studentProgresBrowser.student.id) ne 'Nieudostępniona'}"
-									styleClass="buttonSmall" render="@form" execute="@this">
+								
+								<a4j:commandButton
+									action="#{studentProgresBrowser.goToLesson()}"
+									value="Podgląd" styleClass="buttonSmall" >
 									<a4j:param value="#{_l.id}"
 										assignTo="#{studentProgresBrowser.lessonId}" />
 									<a4j:param value="#{studentProgresBrowser.student.id}"
 										assignTo="#{studentProgresBrowser.studentId}" />
 									<a4j:ajax render="table" event="action"/>
 								</a4j:commandButton>
+								
+								<a4j:commandButton id="button"
+									action="#{studentProgresBrowser.shareLesson()}"
+									value="Udostępnij lekcję"
+									disabled="#{studentProgresBrowser.getState(_l.id, studentProgresBrowser.student.id) ne 'Nieudostępniona'}"
+									styleClass="buttonSmall" render="@page" execute="@this">
+									<a4j:param value="#{_l.id}"
+										assignTo="#{studentProgresBrowser.lessonId}" />
+									<a4j:param value="#{studentProgresBrowser.student.id}"
+										assignTo="#{studentProgresBrowser.studentId}" />
+									<a4j:ajax render="table" event="action"/>
+								</a4j:commandButton>
+							
+								<a4j:commandButton
+									action="#{studentProgresBrowser.goToLesson()}"
+									disabled="#{!studentProgresBrowser.getState(_l.id, studentProgresBrowser.student.id).contains('Wysłana do spr.')}"
+									value="Sprawdź lekcję" styleClass="buttonSmall" >
+									<a4j:param value="#{_l.id}"
+										assignTo="#{studentProgresBrowser.lessonId}" />
+									<a4j:param value="#{studentProgresBrowser.student.id}"
+										assignTo="#{studentProgresBrowser.studentId}" />
+									<a4j:ajax render="table" event="action"/>
+								</a4j:commandButton>
+								
+								
+								
 
 							</rich:column>
 						</rich:dataTable>

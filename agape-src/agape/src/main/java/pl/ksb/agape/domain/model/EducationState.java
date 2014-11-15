@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
@@ -20,7 +21,9 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "education_state", schema = "agape")
+@Table(name = "education_state", schema = "agape", 
+uniqueConstraints=
+@UniqueConstraint(name="student_lesson",columnNames = {"lesson_id", "student_id"}))
 public class EducationState implements Serializable {
 
 	/**
