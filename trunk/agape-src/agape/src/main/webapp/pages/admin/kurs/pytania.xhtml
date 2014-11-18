@@ -18,39 +18,48 @@
 				<rich:toolbar id="menu">
 					<a4j:commandButton action="#{questionsBrowser.goToLessons()}"
 						value="Wróc do lekcji" immediate="true" styleClass="buttonSmall" />
+
+								
+
+
 					<rich:toolbarGroup>
-							<h:commandButton value="Dodaj pytanie" styleClass="buttonSmall"
-								action="#{questionsBrowser.add()}" render="@form,tresc"
-								disabled="#{questionsBrowser.editMode}"/>
+						<h:commandButton value="Dodaj pytanie" styleClass="buttonSmall"
+							action="#{questionsBrowser.add()}" render="@form,tresc"
+							disabled="#{questionsBrowser.editMode}" />
 
 					</rich:toolbarGroup>
+					<h:commandLink action="#{questionsBrowser.goToLesson()}"
+						value="Podgląd" styleClass="buttonSmall" target="blank" />
+
 				</rich:toolbar>
 
 				<rich:panel id="edycjaPanel" rendered="#{questionsBrowser.editMode}">
+					<h:messages infoClass="messageInfo" warnClass="messageWarn" />
 
-						<h:panelGrid columns="3">
+					<h:panelGrid columns="3">
 
-							<ui:decorate template="/layout/field.xhtml">
-								<ui:param name="label" value="Nr pytania" />
-								<ui:param name="id" value="nrPytania" />
-								<ui:param name="required" value="true" />
-								
-								<h:inputText id="nrPytania"
-									value="#{questionsBrowser.question.number}" required="true" />
-							</ui:decorate>
+						<ui:decorate template="/layout/field.xhtml">
+							<ui:param name="label" value="Nr pytania" />
+							<ui:param name="id" value="nrPytania" />
+							<ui:param name="required" value="true" />
 
-							<ui:decorate template="/layout/field.xhtml">
-								<ui:param name="label" value="Wyświetl na stronie" />
-								<ui:param name="id" value="widocznoscPytania" />
-								<ui:param name="required" value="false" />
-								<h:selectBooleanCheckbox id="widocznoscPytania"
-									value="#{questionsBrowser.question.enabled}" />
-							</ui:decorate>
+							<h:inputText id="nrPytania"
+								value="#{questionsBrowser.question.number}" required="true" />
+						</ui:decorate>
+
+						<ui:decorate template="/layout/field.xhtml">
+							<ui:param name="label" value="Wyświetl na stronie" />
+							<ui:param name="id" value="widocznoscPytania" />
+							<ui:param name="required" value="false" />
+							<h:selectBooleanCheckbox id="widocznoscPytania"
+								value="#{questionsBrowser.question.enabled}" />
+						</ui:decorate>
 
 
-						</h:panelGrid>
-						<rich:editor id="tresc"  value="#{questionsBrowser.question.content}" toolbar="custom" >
-							<f:facet name="config">
+					</h:panelGrid>
+					<rich:editor id="tresc"
+						value="#{questionsBrowser.question.content}" toolbar="custom">
+						<f:facet name="config">
 	                    toolbar_custom:
 	                        [
 	                            { name: 'document', items : [ 'NewPage','Preview' ] },
@@ -64,16 +73,121 @@
 	                            { name: 'links', items : [ 'Link','Unlink' ] }
 	                        ]
 	                    </f:facet>
-						</rich:editor>
-						<h:panelGrid columns="5">
-							<a4j:commandButton id="submit"
-								action="#{questionsBrowser.save()}" value="Zapisz"
-								render="@form,tabela" execute="@region" />
-							<a4j:commandButton id="cancel" immediate="true"
-								action="#{questionsBrowser.closeEditMode()}" render="@form"
-								value="Wyjdź">
+					</rich:editor>
+					<br />
+					<a4j:commandButton id="addAddition"
+						action="#{questionsBrowser.addNewAddition()}"
+						value="Dodaj załącznik do lekcji"
+						render="@form" />
+
+
+					<div id="questionAddition">
+
+						<rich:panel rendered="#{questionsBrowser.additionEditMode}">
+
+							<h:panelGrid columns="3">
+
+								<ui:decorate template="/layout/field.xhtml">
+									<ui:param name="label" value="Nr załącznika" />
+									<ui:param name="id" value="nrZalacznika" />
+									<ui:param name="required" value="true" />
+
+									<h:inputText id="nrZalacznika"
+										value="#{questionsBrowser.questionAddition.number}"
+										required="true" />
+
+								</ui:decorate>
+
+								<ui:decorate template="/layout/field.xhtml">
+									<ui:param name="label" value="Wysokość w pikselach" />
+									<ui:param name="id" value="wysokosc" />
+									<ui:param name="required" value="true" />
+									<h:inputText id="wysokosc"
+										value="#{questionsBrowser.questionAddition.height}"
+										required="true" />
+								</ui:decorate>
+								<ui:decorate template="/layout/field.xhtml">
+									<ui:param name="label" value="Wyświetl na stronie" />
+									<ui:param name="id" value="widocznoscZalcznika" />
+									<ui:param name="required" value="false" />
+									<h:selectBooleanCheckbox id="widocznoscZalcznika"
+										value="#{questionsBrowser.questionAddition.enabled}" />
+								</ui:decorate>
+
+								<ui:decorate template="/layout/field.xhtml">
+									<ui:param name="label" value="Typ" />
+									<ui:param name="id" value="typZalcznika" />
+									<ui:param name="required" value="false" />
+									<h:selectOneRadio id="typZalcznika"
+										value="#{questionsBrowser.questionAddition.fileType}">
+										<f:selectItems value="#{questionsBrowser.fileTypeSelectItems}" />
+									</h:selectOneRadio>
+								</ui:decorate>
+								
+								<ui:decorate template="/layout/field.xhtml">
+									<ui:param name="label" value="Opis pod obiektem" />
+									<ui:param name="id" value="zalOpis" />
+									<ui:param name="required" value="false" />
+									<h:inputText id="zalOpis"
+										value="#{questionsBrowser.questionAddition.description}"
+										required="false"  maxlength="200"/>
+								</ui:decorate>
+							</h:panelGrid>
+
+
+							<rich:fileUpload
+								fileUploadListener="#{fileUploaderBean.listener}" id="upload"
+								acceptedTypes="jpg, gif, png, bmp" immediateUpload="true"
+								listHeight="50px"
+								ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');"
+								maxFilesQuantity="1" clearAllLabel="Usuń pliki"
+								deleteLabel="Usuń" clearLabel="Usuń" addLabel="Dodaj plik"
+								doneLabel="Załadowano plik">
+							</rich:fileUpload>
+							<br />
+							<h:panelGrid columns="5">
+								<h:commandButton id="submitFile"
+									action="#{questionsBrowser.saveAddtion()}"
+									value="Dodaj załącznik" />
+								<br />
+
+								<a4j:commandButton id="cancelAddition" immediate="true"
+									action="#{questionsBrowser.closeAdditionEditMode()}"
+									render="@form" value="Wyjdź" >
+								</a4j:commandButton>
+							</h:panelGrid>
+
+
+
+
+						</rich:panel>
+						<rich:dataGrid
+							value="#{questionsBrowser.question.questionAdditions}" var="_row"
+							style="width:100%" columns="1">
+						<h:panelGroup>
+							<h:outputText value="Załącznik #{_row.number}  "  />
+							<h:outputText value="#{_row.fileName}" />
+							<a4j:commandButton immediate="true"
+									action="#{questionsBrowser.deleteAddition(_row.id)}"
+									render="@form" value="Usuń" styleClass="buttonSmall">
 							</a4j:commandButton>
-						</h:panelGrid>
+						
+						</h:panelGroup>
+
+						</rich:dataGrid>
+
+
+					</div>
+
+
+					<h:panelGrid columns="5">
+						<a4j:commandButton id="submit" action="#{questionsBrowser.save()}"
+							value="Zapisz" render="@form,tabela" execute="@region" />
+						<a4j:commandButton id="cancel" immediate="true"
+							action="#{questionsBrowser.closeEditMode()}" render="@form"
+							value="Wyjdź">
+						</a4j:commandButton>
+					</h:panelGrid>
 
 
 				</rich:panel>
@@ -87,11 +201,8 @@
 						disabled="#{questionsBrowser.editMode}" />
 					<br />
 
-
 					<h:outputText value="#{_row.content}" escape="false"
 						style="#{_row.enabled ? '' : 'color:grey;'}" />
-
-
 
 
 				</rich:dataGrid>
