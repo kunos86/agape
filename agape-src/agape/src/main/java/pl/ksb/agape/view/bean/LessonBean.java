@@ -1,6 +1,7 @@
 package pl.ksb.agape.view.bean;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,6 +25,7 @@ import pl.ksb.agape.domain.model.Answer;
 import pl.ksb.agape.domain.model.EducationState;
 import pl.ksb.agape.domain.model.Lesson;
 import pl.ksb.agape.domain.model.Question;
+import pl.ksb.agape.domain.model.QuestionAddition;
 import pl.ksb.agape.domain.model.User;
 import pl.ksb.agape.domain.model.type.QuestionAnswer;
 import pl.ksb.agape.util.Encoder;
@@ -179,6 +181,11 @@ public class LessonBean implements Serializable {
 		educationState.setSentDate(Calendar.getInstance().getTime());
 		educationStateDAOBean.saveOrUpdate(educationState);
 
+	}
+	
+	public void paint(OutputStream os, Object data) throws IOException {
+		QuestionAddition qa = (QuestionAddition) data;
+	    os.write(qa.getContent());
 	}
 
 	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
