@@ -1,0 +1,31 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<ui:define name="content">
+		<h:form id="loginForm">
+
+			<rich:panel>
+				<f:facet name="header">Przypomnij hasło</f:facet>
+				<p>Podaj swój mail, zostanie na niego wysłane nowe hasło.</p>
+				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
+				<div class="dialog">
+					<h:panelGrid columns="2">
+						<h:outputLabel for="username">Mail</h:outputLabel>
+						<h:inputText id="username"
+							value="#{resetPassword.address}" />
+					</h:panelGrid>
+				</div>
+				<div class="actionButtons">
+					<h:commandButton id="submit" value="Resetuj hasło" type="submit"
+						action="#{resetPassword.resetPassword()}" />
+				</div>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

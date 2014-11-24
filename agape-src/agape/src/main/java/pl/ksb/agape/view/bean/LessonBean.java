@@ -183,11 +183,6 @@ public class LessonBean implements Serializable {
 
 	}
 	
-	public void paint(OutputStream os, Object data) throws IOException {
-		QuestionAddition qa = (QuestionAddition) data;
-	    os.write(qa.getContent());
-	}
-
 	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
 		this.sessionLoggedUser = sessionLoggedUser;
 	}

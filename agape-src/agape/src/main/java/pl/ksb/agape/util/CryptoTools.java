@@ -1,7 +1,9 @@
 package pl.ksb.agape.util;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 public class CryptoTools {
 
@@ -33,5 +35,10 @@ public class CryptoTools {
 		return null;
 
 	}
-
+	
+	public String randomPassword() {
+		SecureRandom random = new SecureRandom();
+		return new BigInteger(64, random).toString(32);
+		  
+	}
 }

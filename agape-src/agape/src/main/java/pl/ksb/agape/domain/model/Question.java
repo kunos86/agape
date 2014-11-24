@@ -65,8 +65,8 @@ public class Question extends ModificationUserDate implements IModificationLogga
 	private Lesson lesson;
 	
 	
-	@Column(name = "content", length = 500, nullable = true)
-	@Length(max = 500)
+	@Column(name = "content", length = 1000, nullable = true)
+	@Length(max = 1000)
 	private String content;
 
 	@Column(name = "enabled", nullable = false)

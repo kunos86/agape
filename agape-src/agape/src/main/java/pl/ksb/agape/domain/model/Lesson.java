@@ -50,7 +50,7 @@ public class Lesson extends ModificationUserDate implements IModificationLoggabl
 	private Collection<EducationState> educationStates;
 
 	@Column(name = "enabled", nullable = false)
-	private boolean enabled;
+	private boolean enabled=true;
 
 	@Column(name = "homework", length = 2000)
 	private String homework;
