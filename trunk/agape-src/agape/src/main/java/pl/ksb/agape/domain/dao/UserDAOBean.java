@@ -2,16 +2,28 @@ package pl.ksb.agape.domain.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import pl.ksb.agape.domain.model.User;
+import pl.ksb.agape.service.MailSenderService;
+import pl.ksb.agape.service.ResetPasswordMailSender;
+import pl.ksb.agape.util.CryptoTools;
 
 @Stateless
 public class UserDAOBean extends BaseDAO<User> {
+
+	@Inject
+	private Logger log;
+
+	@EJB
+	private ResetPasswordMailSender resetPasswordMailSender;
 
 	public boolean authenticat(String login, String haslo) {
 		return ((Long) getHibernateSession().createCriteria(User.class)
@@ -23,8 +35,20 @@ public class UserDAOBean extends BaseDAO<User> {
 
 	public void changePassword(Long userId, String newPassword) {
 		User u = getById(userId);
-		u.setPassword(newPassword);
+		u.setPassword(CryptoTools.getInstance().passwordHash(newPassword));
 		saveOrUpdate(u);
+
+	}
+
+	public void resetPassword(Long userId) {
+		User u = getById(userId);
+		if (u != null) {
+			String newPassword = CryptoTools.getInstance().randomPassword();
+			resetPasswordMailSender.sendMail(u, newPassword);
+			u.setPassword(CryptoTools.getInstance().passwordHash(newPassword));
+			saveOrUpdate(u);
+			log.info("Reset password for " + u.getEmail());
+		}
 
 	}
 

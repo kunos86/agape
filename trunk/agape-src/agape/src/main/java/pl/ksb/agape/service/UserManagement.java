@@ -7,11 +7,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import pl.ksb.agape.domain.dao.UserDAOBean;
 import pl.ksb.agape.domain.dao.RoleDAOBean;
-import pl.ksb.agape.domain.model.Member;
 import pl.ksb.agape.domain.model.User;
 import pl.ksb.agape.domain.model.Role;
 import pl.ksb.agape.domain.model.dict.RoleEnum;

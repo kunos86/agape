@@ -28,8 +28,6 @@ public class UserController {
 		facesContext.addMessage(null, new FacesMessage(
 				FacesMessage.SEVERITY_INFO, "Rejestracja zakończona powodzeniem. Zaloguj się, aby przejść do serwisu.",
 				"Rejestracja zakończona"));
-//		pushEvent.fire(String.format("New member added: %s (id: %d)",
-//				newMember.getName(), newMember.getId()));
 		initNewMember();
 	}
 

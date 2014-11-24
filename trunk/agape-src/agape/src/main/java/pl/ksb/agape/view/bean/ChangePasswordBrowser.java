@@ -37,7 +37,7 @@ public class ChangePasswordBrowser {
 			return;
 		}
 		userDAOBean.changePassword(sessionLoggedUser.getUser().getId(),
-				CryptoTools.getInstance().passwordHash(newPassword));
+				newPassword);
 
 		FacesContext.getCurrentInstance().addMessage(
 				null,
