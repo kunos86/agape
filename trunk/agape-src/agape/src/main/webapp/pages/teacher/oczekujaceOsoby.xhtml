@@ -11,47 +11,50 @@
 		<h:form>
 			<rich:panel header="Oczekujcy uczniowie">
 				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
-	
-				<h:outputText value="#{_text.get('nauczyciel.oczekujace.osoby.info')}" />
-			
+
+				<h:outputText
+					value="#{_text.get('nauczyciel.oczekujace.osoby.info')}" />
+
 				<h:outputText value="Brak nowych osób."
 					rendered="#{newStudentsBrowser.students.size()==0}" />
 
 
 				<rich:dataTable id="tabela" value="#{newStudentsBrowser.students}"
-				rendered="#{newStudentsBrowser.students.size()>0}"
-					var="_row">
+					rendered="#{newStudentsBrowser.students.size()>0}" var="_row">
 					<rich:column id="col1" style="width:200px">
 						<f:facet name="header">Uczeń</f:facet>
 						<h:outputText value="#{_row.fullName}" />
 					</rich:column>
-					
+
 					<rich:column id="col3">
 						<f:facet name="header">Wiek</f:facet>
 						<h:outputText value="#{_row.age}" />
 					</rich:column>
-					
-					
+
+
 					<rich:column id="col2">
 						<f:facet name="header">Operacja</f:facet>
-						<a4j:commandButton  value="Pokaż info" styleClass="buttonSmall"/>
-						<a4j:commandButton id="button" 
+						<a4j:commandButton value="Pokaż info" styleClass="buttonSmall"
+							action="#{userInfoPopup.load(_row.id)}" render="userInfoPopup"
+							oncomplete="#{rich:component('userInfoPopup')}.show(); return false;" />
+						<a4j:commandButton id="button"
 							action="#{newStudentsBrowser.addStudentToMe()}" immediate="true"
 							value="Pobierz ucznia" styleClass="buttonSmall" render="@form"
 							execute="@form">
 							<a4j:param value="#{_row.id }"
 								assignTo="#{newStudentsBrowser.selectedId}" />
 						</a4j:commandButton>
-	
+
 
 					</rich:column>
 
 				</rich:dataTable>
-				
+
 
 
 
 			</rich:panel>
 		</h:form>
+		<ui:include src="/components/userInfo.xhtml" />
 	</ui:define>
 </ui:composition>

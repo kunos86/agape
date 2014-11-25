@@ -20,32 +20,37 @@
 						<f:facet name="header">Uczeń</f:facet>
 						<h:outputText value="#{_row.fullName}" />
 					</rich:column>
-					
+
 					<rich:column id="col3">
 						<f:facet name="header">Wiek</f:facet>
 						<h:outputText value="#{_row.age}" />
 					</rich:column>
-					
-					
+
+
 					<rich:column id="col2">
 						<f:facet name="header">Operacja</f:facet>
-						<a4j:commandButton id="button" 
+						<a4j:commandButton value="Pokaż info" styleClass="buttonSmall"
+							action="#{userInfoPopup.load(_row.id)}" render="userInfoPopup"
+							oncomplete="#{rich:component('userInfoPopup')}.show(); return false;" />
+
+						<a4j:commandButton id="button"
 							action="#{myStudentsBrowser.progres()}" immediate="true"
 							value="Postępy" styleClass="buttonSmall" render="@form"
 							execute="@this">
 							<a4j:param value="#{_row.id }"
 								assignTo="#{myStudentsBrowser.selectedId}" />
 						</a4j:commandButton>
-	
+
 
 					</rich:column>
 
 				</rich:dataTable>
-				
+
 
 
 
 			</rich:panel>
 		</h:form>
+		<ui:include src="/components/userInfo.xhtml" />
 	</ui:define>
 </ui:composition>
