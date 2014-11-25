@@ -11,7 +11,11 @@
 
 	<ui:define name="content">
 
-
+		<script type="text/javascript">       
+     	window.onload = function() {
+       		document.getElementById('loginForm:username').focus();
+     	}
+   		</script>
 
 
 		<h:form id="loginForm">
@@ -36,16 +40,17 @@
 							<h:outputLabel for="password">Hasło</h:outputLabel>
 							<h:inputSecret id="password"
 								value="#{permissionManagement.password}" />
-							
+
 						</h:panelGrid>
 					</div>
 					<div class="actionButtons">
 						<a4j:commandButton id="submit" value="Zaloguj" type="submit"
 							render="loginForm" action="#{permissionManagement.login()}" />
 					</div>
-					<br/>
+					<br />
 					<div>
-						<h:commandLink action="/resetHasla.xhtml" value="Nie pamiętam hasła" />
+						<h:commandLink action="/resetHasla.xhtml"
+							value="Nie pamiętam hasła" />
 					</div>
 				</rich:panel>
 
