@@ -43,7 +43,10 @@ public class CourseDAOBean extends BaseDAO<Course> {
 		// TODO: dodac wczytywanie uprawnien
 		List<Course> l = getHibernateSession().createCriteria(Course.class)
 				.setFetchMode("lessons", FetchMode.EAGER)
+				.createAlias("lessons", "l")
 				.add(Restrictions.eq("status", "A"))
+				.add(Restrictions.eq("enabled", true))
+				.add(Restrictions.eq("l.enabled", true))
 				.addOrder(Order.asc("number"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return l;
