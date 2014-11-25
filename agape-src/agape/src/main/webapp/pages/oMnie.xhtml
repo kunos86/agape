@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/portalTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:form id="password">
+			<rich:panel header="Zmiana danych">
+				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
+				<h:panelGrid columns="3" width="100%">
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Imie" />
+						<ui:param name="id" value="imieInput" />
+						<ui:param name="required" value="true" />
+						<h:inputText id="imieInput" size="40"
+							value="#{userDataBrowser.user.name}" required="true" />
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Nazwisko" />
+						<ui:param name="id" value="nazwiskoInput" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="nazwiskoInput" size="40"
+							value="#{userDataBrowser.user.surname}" required="false" />
+					</ui:decorate>
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Płeć" />
+						<ui:param name="id" value="sex" />
+						<ui:param name="required" value="true" />
+						<h:selectOneRadio id="sex" value="#{userDataBrowser.user.sex}"
+							style="width:200px">
+							<f:selectItem itemLabel="kobieta" itemValue="K" />
+							<f:selectItem itemLabel="mężczyzna" itemValue="M" />
+
+						</h:selectOneRadio>
+					</ui:decorate>
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Wyznanie" />
+						<ui:param name="id" value="wyznanieInput" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="wyznanieInput" size="40"
+							value="#{userDataBrowser.user.religion}" required="false" />
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Wspólnota" />
+						<ui:param name="id" value="wspolnota" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="wspolnotaInput" size="40"
+							value="#{userDataBrowser.user.community}" required="false" />
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Data urodzenia" />
+						<ui:param name="id" value="dataUrField" />
+						<ui:param name="required" value="true" />
+						<rich:calendar id="dataUrField" label="Data Urodzenia DD.MM.YYYY"
+							inputSize="40" required="true" datePattern="dd.MM.yyyy"
+							enableManualInput="true" value="#{userDataBrowser.user.birthDate}">
+						</rich:calendar>
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Adres" />
+						<ui:param name="id" value="adres" />
+						<ui:param name="required" value="false" />
+						<h:inputTextarea id="adresInput" cols="40" rows="2"
+							value="#{userDataBrowser.user.address}" required="false" />
+					</ui:decorate>
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Kod" />
+						<ui:param name="id" value="kod" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="Kod" size="10" value="#{userDataBrowser.user.code}"
+							required="false" />
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Miejscowość" />
+						<ui:param name="id" value="miejscowosc" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="miejscowosc" size="40"
+							value="#{userDataBrowser.user.place}" required="false" />
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Województwo" />
+						<ui:param name="id" value="province" />
+						<ui:param name="required" value="false" />
+						<h:selectOneMenu id="province"
+							value="#{userDataBrowser.user.province}" style="width:200px">
+							<f:selectItem itemLabel="---wybór---" itemValue="" />
+							<f:selectItem itemLabel="dolnośląskie" itemValue="dolnośląskie" />
+							<f:selectItem itemLabel="kujawsko-pomorskie"
+								itemValue="kujawsko-pomorskie" />
+							<f:selectItem itemLabel="lubelskie" itemValue="lubelskie" />
+							<f:selectItem itemLabel="lubuskie" itemValue="lubuskie" />
+							<f:selectItem itemLabel="łódzkie" itemValue="łódzkie" />
+							<f:selectItem itemLabel="małopolskie" itemValue="małopolskie" />
+							<f:selectItem itemLabel="mazowieckie" itemValue="mazowieckie" />
+							<f:selectItem itemLabel="opolskie" itemValue="opolskie" />
+							<f:selectItem itemLabel="podkarpackie" itemValue="podkarpackie" />
+							<f:selectItem itemLabel="podlaskie" itemValue="podlaskie" />
+							<f:selectItem itemLabel="pomorskie" itemValue="pomorskie" />
+							<f:selectItem itemLabel="śląskie" itemValue="śląskie" />
+							<f:selectItem itemLabel="świętokrzyskie"
+								itemValue="świętokrzyskie" />
+							<f:selectItem itemLabel="warmińsko-mazurskie"
+								itemValue="warmińsko-mazurskie" />
+							<f:selectItem itemLabel="wielkopolskie" itemValue="wielkopolskie" />
+							<f:selectItem itemLabel="zachodniopomorskie"
+								itemValue="zachodniopomorskie" />
+
+						</h:selectOneMenu>
+					</ui:decorate>
+
+
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Kraj" />
+						<ui:param name="id" value="kraj" />
+						<ui:param name="required" value="false" />
+						<h:inputText id="kraj" size="40"
+							value="#{userDataBrowser.user.country}" required="false" />
+					</ui:decorate>
+
+				</h:panelGrid>
+
+				<a4j:commandButton value="Zapisz" action="#{userDataBrowser.save()}" render="@form"
+					type="submit" />
+				<h:commandButton value="Mój profil - wróć" immediate="true"
+					action="home" />
+			</rich:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
