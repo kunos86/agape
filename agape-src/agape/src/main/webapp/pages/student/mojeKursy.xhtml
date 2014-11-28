@@ -29,14 +29,14 @@
 									<h:outputText value="Nr lekcji" />
 								</f:facet>
 								<h:outputText value="#{_lesson.number}"
-									style="#{_lesson.educationStates.toArray()[0].read ? '' : 'font-weight:bold;'   }" />
+									style="#{not _lesson.educationStates.toArray()[0].shared  or _lesson.educationStates.toArray()[0].read ? '' : 'font-weight:bold;'   }" />
 							</rich:column>
 							<rich:column styleClass="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'nowa_lekcja' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'nieodczytany_komentarz':'')}">
 								<f:facet name="header">
 									<h:outputText value="Wprowadzenie do lekcji" />
 								</f:facet>
-								<h:outputText value="#{_lesson.introduction}"
-									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }" />
+								<h:outputText value="#{_lesson.shortIntroduction}"
+									style="#{not _lesson.educationStates.toArray()[0].shared  or _lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }" />
 							</rich:column>
 							<rich:column styleClass="${_lesson.educationStates.toArray()[0].shared and not _lesson.educationStates.toArray()[0].sent ? 'nowa_lekcja' : (_lesson.educationStates.toArray()[0].checked and _lesson.educationStates.toArray()[0].readCommentDate eq null ? 'nieodczytany_komentarz':'')}">
 								<f:facet name="header">
@@ -44,7 +44,7 @@
 								</f:facet>
 								<h:outputText
 									value="#{_lesson.educationStates.toArray()[0].sharedDate}"
-									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
+									style="#{not _lesson.educationStates.toArray()[0].shared  or _lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
 									<f:convertDateTime pattern="dd.MM.yyyy" />
 								</h:outputText>
 							</rich:column>
@@ -55,7 +55,7 @@
 								</f:facet>
 								<h:outputText
 									value="#{_lesson.educationStates.toArray()[0].sentDate}"
-									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
+									style="#{not _lesson.educationStates.toArray()[0].shared  or _lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
 									<f:convertDateTime pattern="dd.MM.yyyy" />
 								</h:outputText>
 							</rich:column>
@@ -66,7 +66,7 @@
 								</f:facet>
 								<h:outputText
 									value="#{_lesson.educationStates.toArray()[0].checkedDate}"
-									style="#{_lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
+									style="#{not _lesson.educationStates.toArray()[0].shared  or _lesson.educationStates.toArray()[0].read ?  '' : 'font-weight:bold;'   }">
 									<f:convertDateTime pattern="dd.MM.yyyy" />
 								</h:outputText>
 							</rich:column>
