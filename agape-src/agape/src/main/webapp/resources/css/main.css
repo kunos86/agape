@@ -125,12 +125,14 @@ div#tresc_glowna {
 }
 
 div#cytat {
-	margin: 20px;
+	margin: 15px;
 	height: 60px;
 	width: 960px;
-	color: #009ED2 ;
-    font-family: "trebuchet ms",sans-serif  !important;
-    font-size: 20px;
+	font-family: "Times New Roman", Georgia, Serif !important;
+	color:#a2a2a2 !important;
+	text-align:center;
+	font-weight:bold;
+    font-size: 22px;
 }
 
 img#img_cytat {

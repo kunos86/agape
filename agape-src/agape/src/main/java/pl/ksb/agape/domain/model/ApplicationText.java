@@ -4,8 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.Length;
+
+import pl.ksb.agape.domain.model.dict.ApplicationTextType;
 
 @Entity
 @Table(name = "application_text", schema = "agape")
@@ -20,8 +26,13 @@ public class ApplicationText implements Serializable {
 	@Column(name = "id", unique = true, length = 200)
 	private String id;
 
-	@Column(name = "text", length = 1024)
+	@Column(name = "text", length = 6000)
+	@Length(max=6000)
 	private String text;
+	
+	@Column(name = "type",length = 5)
+	@Enumerated(EnumType.STRING)
+	private ApplicationTextType type = ApplicationTextType.TEXT;
 
 	public String getDomain() {
 		return domain;
@@ -47,5 +58,15 @@ public class ApplicationText implements Serializable {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	public ApplicationTextType getType() {
+		return type;
+	}
+
+	public void setType(ApplicationTextType type) {
+		this.type = type;
+	}
+	
+	
 
 }

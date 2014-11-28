@@ -14,16 +14,31 @@
 					action="#{applicationTextBrowser.save()}" />
 				<h:commandButton value="Wyczyść cache sesji"
 					action="#{_text.celarCache()}" />
-				<rich:dataTable value="#{applicationTextBrowser.texts}" var="_row">
-					<rich:column>
-						<h:outputText value="#{_row.id}" />
-					</rich:column>
-					<rich:column>
-						<h:inputTextarea value="#{_row.text}" cols="40" rows="2" />
+				<rich:dataGrid value="#{applicationTextBrowser.texts}" var="_row">
+					<h:panelGrid columns="1">
+						<h:outputText value="#{_row.id}:" />
+						<h:inputTextarea value="#{_row.text}" cols="80" rows="4"
+							rendered="#{_row.type != 'HTML'}" />
+						<rich:editor value="#{_row.text}"
+							rendered="#{_row.type != 'TEXT'}" toolbar="custom">
+							<f:facet name="config">
+	                    toolbar_custom:
+	                        [
+	                            { name: 'document', items : [ 'NewPage','Preview' ] },
+	                            { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+	                            { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+	                            { name: 'insert', items : [ 'Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
+	                                    '/',
+	                            { name: 'styles', items : [ 'Styles','Format' ] },
+	                            { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+	                            { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+	                            { name: 'links', items : [ 'Link','Unlink' ] }
+	                        ]
+	                    </f:facet>
+						</rich:editor>
+					</h:panelGrid>
 
-					</rich:column>
-
-				</rich:dataTable>
+				</rich:dataGrid>
 				<h:commandButton value="Zapisz"
 					action="#{applicationTextBrowser.save()}" />
 				<h:commandButton value="Wyczyść cache sesji"
