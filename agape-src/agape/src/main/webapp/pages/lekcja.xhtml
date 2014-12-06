@@ -18,36 +18,41 @@
 
 				<br />
 
-				<rich:dataGrid value="#{lessonBean.questionAnswerList}" var="_qa"
-					columns="1" id="grid"
+				<rich:dataGrid value="#{lessonBean.questionAnswerList}" var="_qa" rowClasses="test"
+					columns="1" id="grid" style="width:100%;" 
 					elements="#{lessonBean.questionAnswerList.size()}">
 
-					<h:panelGrid columns="1">
+					<h:panelGrid columns="1" width="100%">
 						<h:outputText escape="false"
-							value="#{_qa.question.number}.  #{_qa.question.content}" />
-						
-						<rich:dataGrid value="#{_qa.question.questionAdditions}" var="_a" columns="1" style="width:100%; " >
-						
-							<h:graphicImage value="/imageServlet?id=#{_a.id}" height="#{_a.height}" style="display: block; margin-left: auto; margin-right: auto;float:none;"  />
+							value="#{_qa.question.number}.  #{_qa.question.content}"  style="width:100%;"/>
+
+						<rich:dataGrid value="#{_qa.question.questionAdditions}" var="_a"
+							columns="1" style="width:100%; ">
+
+							<h:graphicImage value="/imageServlet?id=#{_a.id}"
+								height="#{_a.height}"
+								style="display: block; margin-left: auto; margin-right: auto;float:none;" />
 
 							<div align="center">
-							  <h:outputText value="#{_a.description}"   />
+								<h:outputText value="#{_a.description}" />
 							</div>
-							<br/>
-						</rich:dataGrid>	
-						
-						
-
-						<h:inputTextarea cols="80" rows="6" value="#{_qa.answer.content}"
-							readonly="#{lessonBean.educationState.sent}" />
+							<br />
+						</rich:dataGrid>
 
 
-							<a4j:commandButton value="Zapisz odpowiedź" action="#{lessonBean.save()}" 
-								disabled="#{lessonBean.educationState.sent}" render="@form"
-								rendered="#{permissionManagement.studentLogged and lessonBean.isStudent}" 
-								style="float:right;" styleClass="buttonSmall">
-								<rich:tooltip value="Zapisz wprowadzoną odpowiedź. Po zapisie będzie możliwość zmiany odpowiedzi." />
-							</a4j:commandButton>
+
+						<h:inputTextarea rows="6" value="#{_qa.answer.content}"
+							readonly="#{lessonBean.educationState.sent}"  style="width:100%;"/>
+
+
+						<a4j:commandButton value="Zapisz odpowiedź"
+							action="#{lessonBean.save()}"
+							disabled="#{lessonBean.educationState.sent}" render="@form"
+							rendered="#{permissionManagement.studentLogged and lessonBean.isStudent}"
+							style="float:right;" styleClass="buttonSmall">
+							<rich:tooltip
+								value="Zapisz wprowadzoną odpowiedź. Po zapisie będzie możliwość zmiany odpowiedzi." />
+						</a4j:commandButton>
 
 
 					</h:panelGrid>
@@ -65,8 +70,8 @@
 					rendered="#{lessonBean.educationState.sent}"
 					readonly="#{lessonBean.educationState.checked || !permissionManagement.teacherLogged}" />
 
-				<br/>
-				
+				<br />
+
 				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
 				<h:panelGrid columns="2" style="margin-left:auto;">
 					<a4j:commandButton value="Zapisz" action="#{lessonBean.save()}"
@@ -84,7 +89,8 @@
 					<a4j:commandButton value="Zapisz lekcję jako sprawdzoną"
 						action="#{lessonBean.check()}"
 						disabled="#{lessonBean.educationState.checked or not lessonBean.educationState.sent}"
-						render="@form" rendered="#{permissionManagement.teacherLogged and lessonBean.isTeacher}">
+						render="@form"
+						rendered="#{permissionManagement.teacherLogged and lessonBean.isTeacher}">
 						<rich:tooltip value="Oznacz lekcję jako sprawdzoną." />
 					</a4j:commandButton>
 
