@@ -20,11 +20,12 @@
 
 		<h:form id="loginForm">
 			<a4j:region>
-				<rich:panel>
-					<f:facet name="header">Login</f:facet>
+				<rich:panel style="width:450px; margin:auto;">
+					<f:facet name="header">Logowanie</f:facet>
+					<br />
 
-
-					<p>Zaloguj się</p>
+					<p>Zaloguj się!</p>
+					<br/>
 
 					<h:messages />
 					<div class="dialog">
@@ -34,24 +35,30 @@
 						<h:panelGrid columns="2">
 
 
-							<h:outputLabel for="username">Mail</h:outputLabel>
+							<h:outputLabel for="username">Mail:</h:outputLabel>
 							<h:inputText id="username"
 								value="#{permissionManagement.username}" />
-							<h:outputLabel for="password">Hasło</h:outputLabel>
+							<h:outputLabel for="password">Hasło:</h:outputLabel>
 							<h:inputSecret id="password"
 								value="#{permissionManagement.password}" />
 
 						</h:panelGrid>
 					</div>
+					<br/>
 					<div class="actionButtons">
 						<a4j:commandButton id="submit" value="Zaloguj" type="submit"
 							render="loginForm" action="#{permissionManagement.login()}" />
 					</div>
 					<br />
+					<br />
+					<br />
 					<div>
 						<h:commandLink action="/resetHasla.xhtml"
 							value="Nie pamiętam hasła" />
 					</div>
+					
+					<br/>
+					
 				</rich:panel>
 
 

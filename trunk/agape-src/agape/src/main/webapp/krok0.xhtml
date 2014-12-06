@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	template="/WEB-INF/templates/default.xhtml">
+	template="/WEB-INF/templates/portalTemplate.xhtml">
 
 
 	<ui:define name="content">
@@ -14,8 +14,7 @@
 		<rich:panel>
 			<f:facet name="header">Krok 0</f:facet>
 
-			<p>Zanim zapiszesz się na kurs warto żebyś zapoznał się z
-				poniższą prezentacją.</p>
+			<p><h:outputText value="#{_text.get('krok0.info')}" /></p>
 
 			<div>
 				<object type="application/x-shockwave-flash" data="flash/4pl.swf" width="550" height="400">
