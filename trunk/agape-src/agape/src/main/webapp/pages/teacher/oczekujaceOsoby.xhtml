@@ -21,7 +21,7 @@
 
 				<rich:dataTable id="tabela" value="#{newStudentsBrowser.students}"
 					rendered="#{newStudentsBrowser.students.size()>0}" var="_row">
-					<rich:column id="col1" style="width:200px">
+					<rich:column id="col1" style="width:300px">
 						<f:facet name="header">Uczeń</f:facet>
 						<h:outputText value="#{_row.fullName}" />
 					</rich:column>

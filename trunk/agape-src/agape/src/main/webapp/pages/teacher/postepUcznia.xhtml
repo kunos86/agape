@@ -11,16 +11,26 @@
 		<ui:include src="/components/antiBrowserHistory.xhtml" />
 		<rich:panel header="Stan postępów ucznia">
 			<h:messages infoClass="messageInfo" warnClass="messageWarn" />
+			<h:panelGroup>
+				<h:outputText value="#{studentProgresBrowser.student.fullName}"
+					class="blueHeader" />
+				<h:panelGrid columns="1">
+					<h:panelGroup>
+						<h:outputLabel value="E-mail:" styleClass="label" />
+						<h:outputText value="#{studentProgresBrowser.student.email}" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel value="Województwo:" styleClass="label" />
+						<h:outputText value="#{studentProgresBrowser.student.province}" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel value="Miejscowość:" styleClass="label" />
+						<h:outputText value="#{studentProgresBrowser.student.place}" />
+					</h:panelGroup>
 
-			<h:outputFormat value="Informacje o uczniu:" styleClass="blueHeader" />
-			<h:panelGrid columns="2">
-				<h:outputText value="Imię:" />
-				<h:outputText value="#{studentProgresBrowser.student.name}" />
+				</h:panelGrid>
+			</h:panelGroup>
 
-				<h:outputText value="Nazwisko:" />
-				<h:outputText value="#{studentProgresBrowser.student.surname}" />
-
-			</h:panelGrid>
 			<h:form>
 
 				<rich:dataGrid id="coursesList"
@@ -28,58 +38,61 @@
 
 					<rich:collapsiblePanel switchType="client"
 						header="Kurs #{_course.number} : #{_course.title}">
-						<rich:dataTable id="table" value="#{_course.lessons}" var="_l">
-							<rich:column>
+						<rich:dataTable id="table" value="#{_course.lessons}" var="_l"
+							keepSaved="true">
+							<rich:column width="30" style="width:30px;">
 								<f:facet name="header">Nr</f:facet>
 								<h:outputText value="#{_l.number}" />
 							</rich:column>
-							<rich:column width="300">
+							<rich:column width="300" style="width:300px;">
 								<f:facet name="header">Opis</f:facet>
 								<h:outputText value="#{_l.shortIntroduction}" />
 							</rich:column>
-							<rich:column width="200">
+							<rich:column width="100" style="width:100px;">
 								<f:facet name="header">Stan</f:facet>
 								<h:outputText
 									value="#{studentProgresBrowser.getState(_l.id, studentProgresBrowser.student.id)}" />
 							</rich:column>
-							<rich:column width="100">
+							<rich:column width="100" style="width:10px;">
 								<f:facet name="header">Operacje</f:facet>
-								
+
 								<a4j:commandButton
-									action="#{studentProgresBrowser.goToLesson()}"
-									value="Podgląd" styleClass="buttonSmall" >
+									action="#{studentProgresBrowser.goToLesson()}" value="Podgląd"
+									styleClass="buttonSmall" style="width:110px;">
 									<a4j:param value="#{_l.id}"
 										assignTo="#{studentProgresBrowser.lessonId}" />
 									<a4j:param value="#{studentProgresBrowser.student.id}"
 										assignTo="#{studentProgresBrowser.studentId}" />
-									<a4j:ajax render="table" event="action"/>
+									<a4j:ajax render="table" event="action" />
 								</a4j:commandButton>
-								
+
 								<a4j:commandButton id="button"
 									action="#{studentProgresBrowser.shareLesson()}"
 									value="Udostępnij lekcję"
 									disabled="#{studentProgresBrowser.getState(_l.id, studentProgresBrowser.student.id) ne 'Nieudostępniona'}"
-									styleClass="buttonSmall" render="@page" execute="@this">
+									styleClass="buttonSmall" render="@page" execute="@this"
+									style="width:110px;">
 									<a4j:param value="#{_l.id}"
 										assignTo="#{studentProgresBrowser.lessonId}" />
 									<a4j:param value="#{studentProgresBrowser.student.id}"
 										assignTo="#{studentProgresBrowser.studentId}" />
-									<a4j:ajax render="table" event="action"/>
+									<a4j:ajax render="table" event="action" />
 								</a4j:commandButton>
-							
+
 								<a4j:commandButton
 									action="#{studentProgresBrowser.goToLesson()}"
 									disabled="#{!studentProgresBrowser.getState(_l.id, studentProgresBrowser.student.id).contains('Wysłana do spr.')}"
-									value="Sprawdź lekcję" styleClass="buttonSmall" >
+									value="Sprawdź lekcję" styleClass="buttonSmall"
+									style="width:110px;">
 									<a4j:param value="#{_l.id}"
 										assignTo="#{studentProgresBrowser.lessonId}" />
 									<a4j:param value="#{studentProgresBrowser.student.id}"
 										assignTo="#{studentProgresBrowser.studentId}" />
-									<a4j:ajax render="table" event="action"/>
+									<a4j:ajax render="table" event="action" />
 								</a4j:commandButton>
-								
-								
-								
+
+
+
 
 							</rich:column>
 						</rich:dataTable>
