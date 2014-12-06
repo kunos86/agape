@@ -26,8 +26,7 @@ public class ApplicationText implements Serializable {
 	@Column(name = "id", unique = true, length = 200)
 	private String id;
 
-	@Column(name = "text", length = 6000)
-	@Length(max=6000)
+	@Column(name = "text")
 	private String text;
 	
 	@Column(name = "type",length = 5)
