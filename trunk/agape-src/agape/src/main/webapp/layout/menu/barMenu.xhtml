@@ -11,12 +11,12 @@
 
 		<!-- Przycisk rejestracji -->
 		<h:commandButton id="img_naglowek_zarejestruj" value="Zarejestruj się"
-			action="/rejestracja.xhtml" 
+			action="/rejestracja.xhtml?faces-redirect=true" 
 			rendered="#{!permissionManagement.logged}"
 			styleClass="img_naglowek_zarejestruj buttonBig" />
 
 		<!-- Przycisk logowania -->
-		<h:commandButton id="img_naglowek_zaloguj" action="/login.xhtml"
+		<h:commandButton id="img_naglowek_zaloguj" action="/login.xhtml?faces-redirect=true"
 			value="Zaloguj się" 
 			rendered="#{!permissionManagement.logged}"
 			styleClass="img_naglowek_zaloguj buttonBig " />
@@ -32,16 +32,16 @@
 				<li id="glowna" class="aktualna"><h:commandLink
 						value="Strona Główna" action="home" /></li>
 				<li id="aktualnosci"><h:commandLink value="Aktualności"
-						action="/index.xhtml" /></li>
+						action="/index.xhtml?faces-redirect=true" /></li>
 				<li id="o_nas"><h:commandLink value="O nas"
-						action="/oNas.xhtml" /></li>
+						action="/oNas.xhtml?faces-redirect=true" /></li>
 				<li id="kursy"><h:commandLink value="Kursy"
-						action="/kursy.xhtml" /></li>
+						action="/kursy.xhtml?faces-redirect=true" /></li>
 				<li id="pomoc" hidden="true">
 				<h:commandLink value="Pomoc"
-						action="/pomoc.xhtml" /></li>
+						action="/pomoc.xhtml?faces-redirect=true" /></li>
 				<li id="kontakt"><h:commandLink value="Kontakt"
-						action="/kontakt.xhtml" />
+						action="/kontakt.xhtml?faces-redirect=true" />
 				</li>
 			</ul>
 		</div>
