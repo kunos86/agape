@@ -93,7 +93,7 @@ public class PermissionManagement {
 						.addMessage(
 								null,
 								new FacesMessage(
-										"Błąd podczas logowania. Niepoprawny login lub hasło"));
+										"Błąd podczas logowania. Niepoprawny login lub hasło!"));
 				return "";
 			}
 		}

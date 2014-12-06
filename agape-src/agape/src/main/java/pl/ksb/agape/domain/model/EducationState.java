@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,15 +21,16 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 
+import pl.ksb.agape.domain.dao.IModificationLoggable;
+import pl.ksb.agape.util.ModificationListener;
+
 @Entity
 @Table(name = "education_state", schema = "agape", 
 uniqueConstraints=
 @UniqueConstraint(name="student_lesson",columnNames = {"lesson_id", "student_id"}))
-public class EducationState implements Serializable {
-
-	/**
-	 * 
-	 */
+@EntityListeners(ModificationListener.class)
+public class EducationState extends ModificationUserDate  implements IModificationLoggable, Serializable {
+	
 	private static final long serialVersionUID = -5601822674128947199L;
 
 	@Temporal(TemporalType.TIMESTAMP)
