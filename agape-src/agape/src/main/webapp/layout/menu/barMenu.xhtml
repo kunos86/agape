@@ -30,7 +30,7 @@
 		<div id="menu_kontener">
 			<ul id="menu_przyciski">
 				<li id="glowna" class="aktualna"><h:commandLink
-						value="Strona Główna" action="home" /></li>
+						value="Strona Główna" action="home" rendered="#{permissionManagement.logged}" /></li>
 				<li id="aktualnosci"><h:commandLink value="Aktualności"
 						action="/index.xhtml?faces-redirect=true" /></li>
 				<li id="o_nas"><h:commandLink value="O nas"
