@@ -59,6 +59,15 @@
 
 				</rich:dataGrid>
 
+				<h:outputText styleClass="blueHeader"
+						rendered="#{lessonBean.lesson.homework!=null and lessonBean.lesson.homework!='' }"
+						value="Praca domowa" />
+				<br />
+				<h:outputText styleClass="introductionDiv"
+						rendered="#{lessonBean.lesson.homework!=null and lessonBean.lesson.homework!='' }"
+						value="#{lessonBean.lesson.homework}" />
+				<br/>
+				
 
 				<h:outputText styleClass="blueHeader"
 					rendered="#{lessonBean.educationState.sent}"
