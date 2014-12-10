@@ -13,10 +13,16 @@
 	<f:facet name="header">
 		<h:outputText value="Dodaj news" />
 	</f:facet>
+		
+		<h:panelGrid columns="1">
+		<h:outputLabel value="Tytuł:" />
+		<h:inputText value="#{addNewsBrowser.news.title}" />
+		<h:outputLabel value="Treść" />
 		<rich:editor value="#{addNewsBrowser.news.content}" width="100%" toolbar="full">
 				
 		</rich:editor>
 		<a4j:commandButton value="Zapisz" action="#{addNewsBrowser.save}" render="@form"/>
+		</h:panelGrid>
 		
 		
 	</rich:panel>
