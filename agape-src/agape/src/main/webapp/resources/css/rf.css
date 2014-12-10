@@ -105,7 +105,10 @@
 	cursor: pointer;
 	border-width: 0px !important;
 }
-
+.rf-pm-top-gr{
+	background-color: #FFFFFF;
+	
+}
 .rf-pm-itm {
 	border-top: 1px !important;
 }

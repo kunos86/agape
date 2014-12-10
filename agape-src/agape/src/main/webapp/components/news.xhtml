@@ -4,23 +4,76 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
+	<style type="text/css">
+.col1 {
+	width: 70%;
+	vertical-align: top;
+}
 
-	<rich:panel>
-		<f:facet name="header">
-			<h:outputText value="Aktualności" />
-		</f:facet>
+.col2 {
+	float: right;
+	width: 80%;
+	vertical-align: top;
+}
+</style>
 
-		<rich:dataGrid value="#{newsBrowser.news}" var="_row"
-			style="width:100%">
-			<h:outputText value="#{_row.modificationDate}"
-				style="font-weight:bold;">
-				<f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Etc/GMT-1"
-					locale="pl_PL" />
-			</h:outputText>
-			<br />
-			<h:outputText value="#{_row.content}" escape="false" />
+	<h:form>
 
-		</rich:dataGrid>
-	</rich:panel>
+
+
+
+		<h:panelGrid columns="2" columnClasses="col1,col2">
+
+			<rich:panel id="aktualnosci">
+				<f:facet name="header">
+					<h:outputText value="Aktualności" />
+				</f:facet>
+
+
+				<rich:dataGrid value="#{newsBrowser.news}" var="_row"
+					style="width:100%">
+					<h:panelGrid columns="1">
+						<h:panelGroup>
+							<h:outputText value="#{_row.modificationDate}"
+								styleClass="headerGray">
+								<f:convertDateTime pattern="yyyy-MM-dd HH:mm"
+									timeZone="Etc/GMT-1" locale="pl_PL" />
+							</h:outputText>
+							<h:outputText value=" #{_row.modificationUser.fullName}"
+								styleClass="headerGray" />
+						</h:panelGroup>
+						<h:outputText styleClass="blueHeader" value="#{_row.title}" />
+
+						<h:outputText value="#{_row.content}" escape="false" />
+					</h:panelGrid>
+
+
+
+				</rich:dataGrid>
+			</rich:panel>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Archiwum" />
+				</f:facet>
+
+				<rich:list value="#{newsBrowser.years}" id="list" var="_y">
+
+					<a4j:commandLink action="#{newsBrowser.changeYear()}" value="#{_y}"
+						execute="@this" render="@this" styleClass="headerGray"
+						immediate="true">
+						<a4j:param value="#{_y}" assignTo="#{newsBrowser.year}" />
+					</a4j:commandLink>
+
+
+
+				</rich:list>
+
+
+			</rich:panel>
+
+		</h:panelGrid>
+
+	</h:form>
 
 </ui:composition>

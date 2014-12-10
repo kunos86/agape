@@ -164,7 +164,7 @@ public class QuestionsBrowser implements Serializable {
 				.getCurrentInstance()
 				.getExternalContext()
 				.redirect(
-						"/agape/pages/admin/kurs/lekcje.jsf?id="
+						"/agape/pages/admin/kurs/lekcje.jsf?faces-redirect=true&id="
 								+ Encoder.encode(getLesson().getCourse()
 										.getId()));
 

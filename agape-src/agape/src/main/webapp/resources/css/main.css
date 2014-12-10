@@ -695,3 +695,11 @@ img#img_zaloguj {
 	margin-top: 111px;
 	position: absolute;
 }
+.headerGray{
+	color: #b0b0b0;
+	font-family: "trebuchet ms", sans-serif !important;
+	font-size: 18px ;
+	 text-decoration: none;
+}
+
+

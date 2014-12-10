@@ -131,6 +131,20 @@
 						<h:outputText value="#{_row.description}"
 							style="#{_row.enabled ? '' : 'color:grey;'}" />
 					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Praca domowa" />
+						</f:facet>
+						<h:outputText value="#{_row.homework}"
+							style="#{_row.enabled ? '' : 'color:grey;'}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Widoczność" />
+						</f:facet>
+						<h:outputText value="#{_row.enabled?'Tak':'Nie'}"
+							style="#{_row.enabled ? '' : 'color:grey;'}" />
+					</rich:column>
 				</rich:extendedDataTable>
 
 
