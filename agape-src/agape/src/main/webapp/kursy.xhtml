@@ -1,17 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition template="/WEB-INF/templates/default.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:my="http://java.sun.com/jsf/composite/components">
-    <ui:define name="content">
-		
-		<rich:panel header="Kursy">
-			<h:outputText value="#{_text.getHtml('kursy')}" escape="false" />
-		</rich:panel>
-     
-    </ui:define>
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+
+		<style type="text/css">
+.col1 {
+	width: 55%;
+	vertical-align: top;
+}
+
+.col2 {
+	float: right;
+	width: 80%;
+	vertical-align: top;
+}
+</style>
+		<h:panelGrid columns="2" columnClasses="col1,col2">
+			<rich:panel header="Kurs">
+				<h:outputText value="#{_text.getHtml('kursy')}" escape="false" />
+			</rich:panel>
+
+			<h:panelGrid columns="1">
+				<rich:panel header="Kursy" style="width:100%">
+					<rich:list value="#{coursesDataList.list}" id="list" var="_c" style="width:100%">
+						<h:outputText value="#{_c.title}" styleClass="headerGray" />
+					</rich:list>
+				</rich:panel>
+
+				<rich:panel header="Jak zacząć?">
+					<h:outputText value="#{_text.get('kursy:jak:zaczac')}" />
+					<br />
+					<h:form>
+						<h:commandButton id="kurs_zarejestruj"
+							value="Zarejestruj się"
+							action="/rejestracja.xhtml?faces-redirect=true"
+							styleClass="buttonBig" />
+
+					</h:form>
+				</rich:panel>
+			</h:panelGrid>
+
+		</h:panelGrid>
+	</ui:define>
 </ui:composition>

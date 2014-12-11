@@ -13,6 +13,7 @@
 				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
 
 				<div class="introductionDiv">
+					<h:outputText value="Cel: " styleClass="blueHeader"/>
 					<h:outputText value="#{lessonBean.lesson.introduction}" />
 				</div>
 
@@ -23,8 +24,9 @@
 					elements="#{lessonBean.questionAnswerList.size()}">
 
 					<h:panelGrid columns="1" width="100%">
+						<h:outputText value="Pytanie #{_qa.question.number}" styleClass="blueHeader"/>
 						<h:outputText escape="false"
-							value="#{_qa.question.number}.  #{_qa.question.content}"  style="width:100%;"/>
+							value="#{_qa.question.content}"  style="width:100%;"/>
 
 						<rich:dataGrid value="#{_qa.question.questionAdditions}" var="_a"
 							columns="1" style="width:100%; ">
