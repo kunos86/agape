@@ -65,7 +65,7 @@ public class UserDAOBean extends BaseDAO<User> {
 		return (Long) getEntityManager()
 				.createQuery(
 						"select count(u) from User u where u.mailConfirmation  = true and  not exists(Select id from StudentTeacher s where s.student.id = u.id and s.current = 'T') "
-								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT')")
+								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT' and r.enabled=true)")
 				.getSingleResult();
 	}
 
@@ -88,7 +88,7 @@ public class UserDAOBean extends BaseDAO<User> {
 				.createQuery(
 						"from User u where exists(Select id from StudentTeacher s where s.student.id = u.id "
 								+ "and s.current = 'T' and s.teacher.id = :teacherId) "
-								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT')")
+								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT' and r.enabled =true)")
 				.setParameter("teacherId", teacherId).list();
 
 	}
@@ -99,7 +99,7 @@ public class UserDAOBean extends BaseDAO<User> {
 		return getEntityManager()
 				.createQuery(
 						"select u from User u where  u.mailConfirmation = true and  not exists (Select id from StudentTeacher s where s.student.id = u.id and s.current = 'T') "
-								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT')")
+								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='STUDENT' and r.enabled=true)")
 				.getResultList();
 	}
 
@@ -107,7 +107,7 @@ public class UserDAOBean extends BaseDAO<User> {
 	public List<User> getTeachers() {
 		return getEntityManager()
 				.createQuery(
-						"select u from User u where  u.mailConfirmation = true and  exists (select r.id from Role r where r.user.id=u.id and r.roleName='TEACHER') ")
+						"select u from User u where  u.mailConfirmation = true and  exists (select r.id from Role r where r.user.id=u.id and r.roleName='TEACHER' and r.enabled=true) ")
 				.getResultList();
 
 	}
