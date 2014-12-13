@@ -9,7 +9,6 @@ import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
 
 import pl.ksb.agape.domain.dao.UserDAOBean;
-import pl.ksb.agape.domain.dao.RoleDAOBean;
 import pl.ksb.agape.domain.model.User;
 import pl.ksb.agape.domain.model.Role;
 import pl.ksb.agape.domain.model.dict.RoleEnum;
@@ -32,16 +31,21 @@ public class UserManagement {
     @EJB
     private UserDAOBean userDAOBean;
     
-	@Inject
-	private RoleDAOBean roleDAOBean;
 	
 	@TransactionAttribute
     public void register(User user) throws Exception {
         log.info("Registering " + user.getEmail());
-        userDAOBean.save(user);
-		Role rola = new Role();
-		rola.setUser(user);
-		rola.setRoleName(RoleEnum.STUDENT);
-		roleDAOBean.save(rola);
+        for(RoleEnum enu : RoleEnum.values()){
+        	Role rola = new Role();
+        	rola.setUser(user);
+        	rola.setRoleName(enu);
+        	if (enu.equals(RoleEnum.STUDENT)){
+        		rola.setEnabled(Boolean.TRUE);
+        	}
+        	user.addRole(rola);
+        	
+        }
+		userDAOBean.save(user);
+
     }
 }

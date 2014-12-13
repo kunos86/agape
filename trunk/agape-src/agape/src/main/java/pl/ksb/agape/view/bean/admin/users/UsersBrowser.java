@@ -1,12 +1,14 @@
 package pl.ksb.agape.view.bean.admin.users;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import pl.ksb.agape.domain.dao.StudentTeacherDAOBean;
 import pl.ksb.agape.domain.dao.UserDAOBean;
 import pl.ksb.agape.domain.model.User;
 
@@ -19,49 +21,64 @@ public class UsersBrowser implements Serializable {
 	 */
 	private static final long serialVersionUID = -9207372985947002488L;
 
+
+	
 	@EJB
 	private UserDAOBean userDAOBean;
 
-	private List<User> users;
 
-	public List<User> getUsers() {
-		if (users == null) {
-			users = userDAOBean.getAll();
-		}
-		return users;
+	private boolean editMode = false;
+
+	private User user;
+	
+	
+	public void edit(){
+		editMode=true;
+		loadSelection();
+		
+	}
+	
+	
+	public void save(){
+		userDAOBean.saveOrUpdate(user);
+		closeEditMode();
+	}
+	
+	
+	public void closeEditMode() {
+		editMode = false;
 	}
 
-	// private UsersDataModel usersDataModel;
-	//
-	// private String filterName = "";
-	//
-	// public String getFilterName() {
-	// return filterName;
-	// }
+	private void loadSelection() {
+		if (selection != null && !selection.isEmpty()) {
+			long id = (Long) selection.toArray()[0];
+			user = userDAOBean.getById(id);
+		}
+	}
+	
+	
 
-	// public void setFilterName(String filterName) {
-	// boolean changed = !this.filterName.equals(filterName);
-	// this.filterName = filterName;
-	// if (changed){
-	// initModel();
-	// }
-	// }
+	private Collection<Object> selection;
 
-	//
-	// public UsersDataModel getUsersDataModel() {
-	// if (usersDataModel==null ){
-	// initModel();
-	// }
-	// return usersDataModel;
-	// }
-	//
-	//
-	//
-	// public void setUsersDataModel(UsersDataModel usersDataModel) {
-	// this.usersDataModel = usersDataModel;
-	// }
+	public Collection<Object> getSelection() {
+		return selection;
+	}
 
-	// private void initModel() {
-	// usersDataModel = new UsersDataModel();
-	// }
+	public void setSelection(Collection<Object> selection) {
+		this.selection = selection;
+	}
+
+	public boolean isEditMode() {
+		return editMode;
+	}
+
+	public User getUser() {
+		return user;
+	}
+	
+	
+	
+	
+	
+	
 }

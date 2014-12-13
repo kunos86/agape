@@ -15,11 +15,8 @@ import pl.ksb.agape.domain.model.Question;
 
 @Stateless
 @Named@LocalBean
-public class QuestionDAOBean {
+public class QuestionDAOBean extends BaseDAO<Question>{
 	
-	
-	@Inject
-	private EntityManager em;
 	
     /**
      * Default constructor. 
@@ -28,16 +25,16 @@ public class QuestionDAOBean {
     }
     
     public Question getById(Long id){
-    	return em.find(Question.class,id);
+    	return getEntityManager().find(Question.class,id);
     }
     
 	@SuppressWarnings("unchecked")
 	public List<Question> getQuestions(Long lessonId, boolean enabledOnly){
     	Query q=null;
     	if (enabledOnly){
-    		q=em.createNamedQuery("getEnabledLessonQuestions").setParameter("lessonId", lessonId);
+    		q=getEntityManager().createNamedQuery("getEnabledLessonQuestions").setParameter("lessonId", lessonId);
     	}else{
-    		q=em.createNamedQuery("getLessonQuestions").setParameter("lessonId", lessonId);
+    		q=getEntityManager().createNamedQuery("getLessonQuestions").setParameter("lessonId", lessonId);
     	}
     	return q.getResultList();
     }
@@ -48,9 +45,16 @@ public class QuestionDAOBean {
 		question.setStatus("A");
 		if (question.getId()==null){
 			question.setCreationDate(Calendar.getInstance().getTime());
-			em.persist(question);
+			getEntityManager().persist(question);
 		}else{
-			em.merge(question);
+			getEntityManager().merge(question);
+		}
+	}
+	public void delete(Long id) {
+
+		Question q = getById(id);
+		if(q!=null){
+			delete(q);
 		}
 	}
 

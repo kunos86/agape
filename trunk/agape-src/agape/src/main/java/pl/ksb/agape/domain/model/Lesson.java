@@ -99,7 +99,7 @@ public class Lesson extends ModificationUserDate implements IModificationLoggabl
 	}
 	
 	public String getShortIntroduction(){
-		return introduction == null || introduction.length()<100 ? introduction : introduction.substring(0, 100)+"[...]";
+		return introduction == null || introduction.length()<60 ? introduction : introduction.substring(0, 60)+"[...]";
 	}
 
 

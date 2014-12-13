@@ -180,6 +180,12 @@ public class LessonBean implements Serializable {
 		save();
 		educationState.setSentDate(Calendar.getInstance().getTime());
 		educationStateDAOBean.saveOrUpdate(educationState);
+		FacesContext
+		.getCurrentInstance()
+		.addMessage(
+				null,
+				new FacesMessage(
+						"Lekcja została wysłana do sprawdzenia. Dziękujemy za wypełnienie lekcji!"));
 
 	}
 	

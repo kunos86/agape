@@ -1,10 +1,17 @@
 package pl.ksb.agape.domain.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,8 +26,14 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+
+import pl.ksb.agape.domain.model.dict.RoleEnum;
 
 @Entity
 @Table(name = "USER", schema = "AGAPE", uniqueConstraints = @UniqueConstraint(columnNames = "email", name = "uniqueEmail"))
@@ -84,9 +97,9 @@ public class User implements Serializable {
 	@Length(max = 50)
 	private String religion;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	// @Transient
-	private List<Role> roles;
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	private Set<Role> roles;
 
 	@Column(name = "sex", length = 10)
 	@NotNull
@@ -188,7 +201,7 @@ public class User implements Serializable {
 		return religion;
 	}
 
-	public List<Role> getRoles() {
+	public Collection<Role> getRoles() {
 		return roles;
 	}
 
@@ -259,6 +272,13 @@ public class User implements Serializable {
 		this.province = province;
 	}
 
+	public void addRole(Role role) {
+		if (roles == null) {
+			roles = new HashSet<Role>();
+		}
+		roles.add(role);
+	}
+
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
@@ -267,7 +287,7 @@ public class User implements Serializable {
 		this.religion = religion;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
@@ -286,6 +306,35 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "pl.ksb.agape.entity.User[id=" + this.id + "]";
+	}
+
+	public boolean isTeacher(){
+		return hasEnabledRole(RoleEnum.TEACHER);
+	}
+	
+	public boolean isStudent(){
+		return hasEnabledRole(RoleEnum.STUDENT);
+	}
+	
+	public boolean isCoordinator(){
+		return hasEnabledRole(RoleEnum.COORDINATOR);
+	}
+	
+	
+	private boolean hasEnabledRole(RoleEnum role){
+		boolean isActive = false;
+		for(Role r : roles){
+			if (r.getRoleName().equals(role) && Boolean.TRUE.equals(r.getEnabled())){
+				isActive=true;
+			}
+		}
+		return isActive;
+		
+		
+	}
+	
+	public List<Role> getRolesList() {
+	    return new ArrayList<Role>(roles);
 	}
 
 }

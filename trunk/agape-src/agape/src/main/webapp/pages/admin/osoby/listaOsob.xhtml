@@ -17,59 +17,120 @@
 			<rich:panel>
 				<f:facet name="header">
 					<h:outputText value="Lista osób zarejestrowanych w systemie" />
-				</f:facet>	
-				<table id="studentsTable" class="borderTable" style="width: 100%">
-					<thead>
-						<tr>
-							<th style="width: 70%">Nazwisko i Imię</th>
-							<th style="width: 30%">Mail</th>
-						</tr>
-					</thead>
-					<tbody>
-						<ui:repeat var="_row" value="#{usersBrowser.users}">
-							<tr>
-								<td >#{_row.surname} #{_row.name}</td>
-								<td >#{_row.email}</td>
-							</tr>
-						</ui:repeat>
-					</tbody>
-				</table>
-				<script type="text/javascript">
-				$(document).ready(function(){
-					showDataTableJQ( $('#studentsTable'));
-				});
-			</script>
+				</f:facet>
+				<a4j:region>
+				<h:panelGrid columns="2">
+					<h:outputText value="Imię" />
+					<h:inputText value="#{usersDataModel.filter.name}" />
+
+					<h:outputText value="Nazwisko" />
+					<h:inputText value="#{usersDataModel.filter.surname}" />
+					
+					
+					<a4j:commandButton value="Szukaj" action="#{usersDataModel.search()}" type="submit" render="@form"/>
+				</h:panelGrid>
+				</a4j:region>
+				
+				<rich:toolbar id="menu">
+					<a4j:region>
+						<a4j:commandButton value="Edycja osoby"
+							action="#{usersBrowser.edit()}" render="@form"
+							disabled="#{usersBrowser.selection==null or usersBrowser.selection.size() le 0 or  usersBrowser.editMode}">
+						</a4j:commandButton>
+
+					</a4j:region>
+				</rich:toolbar>
+
+				<rich:panel id="edycjaPanel" rendered="#{usersBrowser.editMode}">
+					<a4j:region>
+
+						<h:panelGrid columns="2">
+							<h:outputText value="Imię" />
+							<h:outputText value="#{usersBrowser.user.name}" />
+							<h:outputText value="Nazwisko" />
+							<h:outputText value="#{usersBrowser.user.surname}" />
+
+							<h:outputText value="Data rej." />
+							<h:outputText value="#{usersBrowser.user.registrationDate}">
+								<f:convertDateTime pattern="dd.MM.yyyy" />
+							</h:outputText>
 
 
-				<!-- 				<rich:extendedDataTable id="tabela" sortMode="single" value="#{usersDataModel}"  -->
+							<h:outputText value="Data ur." />
+							<h:outputText value="#{usersBrowser.user.birthDate}">
+								<f:convertDateTime pattern="dd.MM.yyyy" />
+							</h:outputText>
+
+							<h:outputText value="Województow" />
+							<h:outputText value="#{usersBrowser.user.country}" />
+
+							<h:outputText value="Role" />
+							<h:panelGrid columns="5">
+								<a4j:repeat value="#{usersBrowser.user.rolesList}" var="_role">
+									<h:panelGroup>
+										<h:selectBooleanCheckbox value="#{_role.enabled}" />
+										<h:outputText value="#{_role.roleName}" />
+									</h:panelGroup>
+								</a4j:repeat>
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<h:panelGrid columns="5">
+							<a4j:commandButton id="submit" action="#{usersBrowser.save()}"
+								value="Zapisz" execute="@region" render="@form">
+							</a4j:commandButton>
+
+							<a4j:commandButton id="cancel" immediate="true"
+								action="#{usersBrowser.closeEditMode()}" render="@form"
+								value="Wyjdź" />
+						</h:panelGrid>
+					</a4j:region>
+				</rich:panel>
+
+		
 
 
 
-				<!-- 					var="_row" rows="5"  > -->
-				<!-- 					<rich:column id="col1" sortBy="#{_row.surname}" 					  -->
-				<!-- 						filterExpression="_row.surname" > -->
-				<!-- 						<f:facet name="header">Nazwisko</f:facet> -->
-				<!-- 						<h:outputText value="#{_row.surname}" /> -->
-
-				<!-- 					</rich:column> -->
-
-				<!-- 					<rich:column id="col2" sortBy="#{_row.name}"  -->
-				<!-- 						filterExpression="#{_row.name}"> -->
-				<!-- 						<f:facet name="header">Imię</f:facet> -->
-				<!-- 						<h:outputText value="#{_row.name}" /> -->
-				<!-- 					</rich:column> -->
-				<!-- 					<rich:column id="col3" sortBy="#{_row.email}" -->
-				<!-- 						filterExpression="#{_row.email}"> -->
-				<!-- 						<f:facet name="header">Email</f:facet> -->
-				<!-- 						<h:outputText value="#{_row.email}" /> -->
-
-				<!-- 					</rich:column> -->
-				<!-- 					<f:facet name="footer"> -->
-				<!-- 						<rich:dataScroller for="tabela"/> -->
-				<!-- 					</f:facet> -->
+				<rich:extendedDataTable id="tabela"
+					selection="#{usersBrowser.selection}" value="#{usersDataModel}"
+					var="_row" rows="15">
+					<a4j:ajax event="selectionchange" render="menu" immediate="true" />
+					<rich:column id="col">
+						<f:facet name="header">Role</f:facet>
+						<h:outputText value="S " style="color: green;"
+							rendered="#{_row.student}" />
+						<h:outputText value="N " style="color: blue;"
+							rendered="#{_row.teacher}" />
+						<h:outputText value="A" style="color: red;"
+							rendered="#{_row.coordinator}" />
+					</rich:column>
 
 
-				<!-- 				</rich:extendedDataTable> -->
+					<rich:column id="col1">
+						<f:facet name="header">
+							<h:outputText value="Nazwisko" />
+						</f:facet>
+						<h:outputText value="#{_row.surname}" />
+
+					</rich:column>
+
+					<rich:column id="col2" filterValue="#{usersDataModel.filter.name}">
+						<f:facet name="header">
+							<h:outputText value="Imię" />
+						</f:facet>
+						<h:outputText value="#{_row.name}" />
+					</rich:column>
+					<rich:column id="col3" filterValue="#{usersDataModel.filter.email}">
+						<f:facet name="header">Email</f:facet>
+						<h:outputText value="#{_row.email}" />
+
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller for="tabela" />
+					</f:facet>
+
+
+				</rich:extendedDataTable>
 
 
 			</rich:panel>

@@ -8,6 +8,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -15,6 +18,7 @@ import pl.ksb.agape.domain.model.User;
 import pl.ksb.agape.service.MailSenderService;
 import pl.ksb.agape.service.ResetPasswordMailSender;
 import pl.ksb.agape.util.CryptoTools;
+import pl.ksb.agape.view.bean.datamodel.filter.UserFilter;
 
 @Stateless
 public class UserDAOBean extends BaseDAO<User> {
@@ -115,10 +119,22 @@ public class UserDAOBean extends BaseDAO<User> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> getUsers(int firstRow, int numRows) {
-		return getEntityManager().createNamedQuery("getUsers")
-				.setFirstResult(firstRow).setMaxResults(numRows)
-				.getResultList();
+	public List<User> getUsers(int firstRow, int numRows, UserFilter filter) {
+
+		Criteria c = getHibernateSession().createCriteria(User.class);
+
+		if (filter.getName() != null && !filter.getName().isEmpty()) {
+			c.add(Restrictions.like("name", filter.getName() + "%").ignoreCase());
+		}
+		if (filter.getSurname() != null && !filter.getSurname().isEmpty()) {
+			c.add(Restrictions.like("surname", filter.getSurname() + "%").ignoreCase());
+		}
+		if (filter.getEmail() != null && !filter.getEmail().isEmpty()) {
+			c.add(Restrictions.like("email", filter.getEmail() + "%").ignoreCase());
+		}
+		c.setFirstResult(firstRow).setMaxResults(numRows)
+				.addOrder(Order.asc("name")).addOrder(Order.asc("email"));
+		return c.list();
 	}
 
 	public boolean isRegistered(String mail) {
