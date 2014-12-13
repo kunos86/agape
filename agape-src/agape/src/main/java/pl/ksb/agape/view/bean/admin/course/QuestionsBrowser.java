@@ -90,6 +90,22 @@ public class QuestionsBrowser implements Serializable {
 		editMode = true;
 	}
 
+	public void delete(Long id) {
+
+		try {
+			questionDAOBean.delete(id);
+		} catch (Exception e) {
+			FacesContext
+					.getCurrentInstance()
+					.addMessage(
+							null,
+							new FacesMessage(
+									"Nie udało się usunąć pytania. Pytanie może być powiązane z innym obiektem."));
+		}
+		loadQuestions();
+
+	}
+
 	public Lesson getLesson() {
 		if (lesson == null) {
 			lesson = lessonDAOBean.getById(lessonId);
@@ -125,16 +141,13 @@ public class QuestionsBrowser implements Serializable {
 		for (QuestionAddition qa : question.getQuestionAdditions()) {
 			if (qa.getId().equals(id)) {
 				question.getQuestionAdditions().remove(qa);
-//				questionDAOBean.save(question);
-//				loadQuestions();
+				// questionDAOBean.save(question);
+				// loadQuestions();
 				return;
 			}
 		}
 
 	}
-	
-	
-
 
 	public Question getQuestion() {
 		return question;
@@ -213,7 +226,7 @@ public class QuestionsBrowser implements Serializable {
 
 		question.getQuestionAdditions().add(questionAddition);
 
-		//questionDAOBean.save(question);
+		// questionDAOBean.save(question);
 
 		b.clearList();
 		closeAdditionEditMode();

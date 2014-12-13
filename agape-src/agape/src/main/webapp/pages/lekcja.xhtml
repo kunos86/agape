@@ -69,16 +69,17 @@
 						rendered="#{lessonBean.lesson.homework!=null and lessonBean.lesson.homework!='' }"
 						value="#{lessonBean.lesson.homework}" />
 				<br/>
-				
+				<br/>
+				<br/>
 
 				<h:outputText styleClass="blueHeader"
-					rendered="#{lessonBean.educationState.sent}"
+					rendered="#{(lessonBean.educationState.sent and lessonBean.isTeacher) or lessonBean.educationState.checked }"
 					value="Komentarz nauczyciela" />
 				<br />
 
 				<h:inputTextarea cols="80" rows="6"
 					value="#{lessonBean.educationState.comment}"
-					rendered="#{lessonBean.educationState.sent}"
+					rendered="#{(lessonBean.educationState.sent and lessonBean.isTeacher) or lessonBean.educationState.checked }"
 					readonly="#{lessonBean.educationState.checked || !permissionManagement.teacherLogged}" />
 
 				<br />

@@ -1,17 +1,14 @@
 package pl.ksb.agape.view.bean.datamodel;
 
+import java.io.Serializable;
 import java.util.List;
-
 import java.util.ListIterator;
 
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.model.DataVisitor;
-
 import org.ajax4jsf.model.ExtendedDataModel;
-
 import org.ajax4jsf.model.Range;
-
 import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableState;
@@ -22,7 +19,7 @@ import org.richfaces.model.SortField;
 
  
 
-public abstract class PaginatingDataModel<T> extends ExtendedDataModel<T> implements Arrangeable {
+public abstract class PaginatingDataModel<T> extends ExtendedDataModel<T> implements Arrangeable, Serializable {
 
  
 

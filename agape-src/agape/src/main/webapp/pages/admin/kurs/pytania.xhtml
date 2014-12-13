@@ -15,6 +15,7 @@
 				<f:facet name="header">
 					<h:outputText value="Lista Pytań" />
 				</f:facet>
+				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
 				<rich:toolbar id="menu">
 					<h:commandButton action="#{questionsBrowser.goToLessons()}"
 						value="Wróc do lekcji" immediate="true" styleClass="buttonSmall" />
@@ -198,6 +199,9 @@
 						style="font-weight: bold;#{_row.enabled ? '' : 'color:grey;'}" />
 					<h:commandLink value="edytuj"
 						action="#{questionsBrowser.edit(_row.id)}" render="@form"
+						disabled="#{questionsBrowser.editMode}" /> <h:outputText value="  " />
+					<h:commandLink value="usuń" onclick="return confirm('Czy usunąć pytanie?');"
+						action="#{questionsBrowser.delete(_row.id)}" render="@form"
 						disabled="#{questionsBrowser.editMode}" />
 					<br />
 

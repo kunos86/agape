@@ -21,7 +21,7 @@ import pl.ksb.agape.domain.model.dict.RoleEnum;
 
 @Entity
 @Table(name = "role", schema = "agape")
-public class Role implements Serializable {
+public class Role implements Serializable, Comparable<Role>{
 
 	private static final long serialVersionUID = 314667071377078317L;
 
@@ -38,10 +38,14 @@ public class Role implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private RoleEnum roleName;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@Column(name="enabled")
+	private Boolean enabled = Boolean.FALSE;
+	
+	@ManyToOne(fetch = FetchType.EAGER,optional=false)
 	@JoinColumn(name = "user_id")
 	@NotNull
 	private User user;
+	
 
 	public Long getId() {
 		return id;
@@ -75,4 +79,24 @@ public class Role implements Serializable {
 		this.user = user;
 	}
 
+	@Override
+	public int compareTo(Role o) {
+		if (o==null || o.getRoleName()==null){
+			return 1;
+		}
+		return roleName.name().compareTo(o.getRoleName().name());
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+
+
+	
+	
 }

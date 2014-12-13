@@ -73,5 +73,10 @@ public abstract class BaseDAO<T extends Serializable> {
 		getHibernateSession().update(t);
 
 	}
+	
+	public void delete(T t) {
+		getHibernateSession().delete(t);
+
+	}
 
 }
