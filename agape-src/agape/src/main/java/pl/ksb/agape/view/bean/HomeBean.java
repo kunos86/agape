@@ -19,6 +19,8 @@ public class HomeBean {
 
 	@ManagedProperty(value = "#{sessionLoggedUser}")
 	private SessionLoggedUser sessionLoggedUser;
+	
+	private User currentTeacher; 
 
 	@EJB
 	private UserDAOBean userDAOBean;
@@ -45,5 +47,16 @@ public class HomeBean {
 	public void setSessionLoggedUser(SessionLoggedUser sessionLoggedUser) {
 		this.sessionLoggedUser = sessionLoggedUser;
 	}
+
+	public User getCurrentTeacher() {
+		if (currentTeacher==null){
+			currentTeacher = userDAOBean.getCurrentTeacherForStudent(sessionLoggedUser.getUser().getId());
+		}
+		return currentTeacher;
+	}
+
+
+	
+	
 
 }

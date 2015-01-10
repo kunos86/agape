@@ -1,32 +1,31 @@
 package pl.ksb.agape.domain.dao;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaQuery;
+
+import org.hibernate.criterion.Order;
 
 import pl.ksb.agape.domain.model.News;
-
 
 @Stateless
 @LocalBean
 public class NewsDAOBean extends BaseDAO<News> {
-	
-	@Inject
-	private EntityManager em;
-	
-	public News getById(Long id){
-		return em.find(News.class, id );
+
+	@SuppressWarnings("unchecked")
+	public List<News> getNewsFromYear(int year) {
+		return getHibernateSession()
+				.createQuery(
+						"from News where year(modificationDate) = :year order by modificationDate desc ")
+				.setParameter("year", year).list();
 	}
-	
-	
-	public List<News> getNewsToStartPage(int number)
-	{
-		return em.createQuery("Select n from News n order by n.modificationDate desc").setMaxResults(number).getResultList();
+
+	@SuppressWarnings("unchecked")
+	public List<News> getNewsToStartPage(int number) {
+		return getHibernateSession().createCriteria(News.class)
+				.addOrder(Order.desc("modificationDate")).setMaxResults(number)
+				.list();
 	}
 
 }

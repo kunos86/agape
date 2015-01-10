@@ -63,7 +63,7 @@
 							</ui:decorate>
 
 							<ui:decorate template="/layout/field.xhtml">
-								<ui:param name="label" value="Wprowadzenie" />
+								<ui:param name="label" value="Cel" />
 								<ui:param name="id" value="wprowadzenieLekcja" />
 								<ui:param name="required" value="false" />
 								<h:inputTextarea id="wprowadzenieLekcja"
@@ -74,8 +74,27 @@
 								<ui:param name="label" value="Zadanie domowe" />
 								<ui:param name="id" value="pracaLekcja" />
 								<ui:param name="required" value="false" />
-								<h:inputTextarea id="pracaLekcja"
-									value="#{lessonsBrowser.lesson.homework}" cols="50" />
+								
+								<rich:editor id="pracaLekcja"
+									value="#{lessonsBrowser.lesson.homework}" toolbar="custom">
+									<f:facet name="config">
+				                    toolbar_custom:
+				                        [
+				                            { name: 'document', items : [ 'NewPage','Preview' ] },
+				                            { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+				                            { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+				                            { name: 'insert', items : [ 'Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
+				                                    '/',
+				                            { name: 'styles', items : [ 'Styles','Format' ] },
+				                            { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+				                            { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+				                            { name: 'links', items : [ 'Link','Unlink' ] }
+				                        ]
+				                    </f:facet>
+								</rich:editor>
+					
+					
+					
 							</ui:decorate>
 
 							<ui:decorate template="/layout/field.xhtml">
@@ -118,7 +137,7 @@
 
 					<rich:column>
 						<f:facet name="header">
-							<h:outputText value="Wprowadzenie" />
+							<h:outputText value="Cel" />
 						</f:facet>
 						<h:outputText value="#{_row.introduction}"
 							style="#{_row.enabled ? '' : 'color:grey;'}" />

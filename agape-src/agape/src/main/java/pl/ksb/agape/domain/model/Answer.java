@@ -40,10 +40,10 @@ public class Answer implements Serializable {
 	@NotNull
 	private User student;	
 
-	@Column(name = "content", length = 500)
-	@Length(max = 500)
+	@Column(name = "content", length = 2000)
+	@Length(max = 2000, message="Odpowiedź nie może przekraczać 2000 znaków.")
 	private String content;
-
+	
 	@Column(name = "modyfication_date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modyficationDate;

@@ -29,5 +29,9 @@
 		<locale-config>
 			<default-locale>pl</default-locale>
 		</locale-config>
+		<message-bundle>
+			  	messages
+		</message-bundle>
 	</application>
+
 </faces-config>

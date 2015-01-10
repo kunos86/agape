@@ -29,7 +29,7 @@ public class UniqueEmailValidator implements Serializable, Validator {
 			throws ValidatorException {
 		String mail = (String) value;
 		if (mail == null || mail.isEmpty()) {
-			throw new ValidatorException(new FacesMessage("Pole jest wymagane"));
+			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Pole E-mail jest wymagane.","Pole E-mail jest wymagane."));
 		}
 
 		if (!mail
@@ -47,7 +47,7 @@ public class UniqueEmailValidator implements Serializable, Validator {
 		}
 		
 		if (userDAOBean.isRegistered(mail)) {
-			throw new ValidatorException(new FacesMessage(
+			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,"Konto o podanym adresie email już istnieje",
 					"Konto o podanym adresie email już istnieje"));
 
 		}

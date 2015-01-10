@@ -52,7 +52,7 @@ public class Lesson extends ModificationUserDate implements IModificationLoggabl
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled=true;
 
-	@Column(name = "homework", length = 2000)
+	@Column(name = "homework")
 	private String homework;
 
 	@Id
