@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -26,8 +27,6 @@ public class UserRegistration implements Serializable {
 	@Inject
 	private FacesContext facesContext;
 
-	private String password2;
-
 	private boolean regulations;
 
 	private User user = new User();
@@ -35,10 +34,6 @@ public class UserRegistration implements Serializable {
 	//
 	@EJB
 	private UserManagement userManagement;
-
-	public String getPassword2() {
-		return password2;
-	}
 
 	public User getUser() {
 		return user;
@@ -55,7 +50,9 @@ public class UserRegistration implements Serializable {
 					.addMessage(
 							null,
 							new FacesMessage(
-									"Niezaakceptowales regulaminu. Aby sie zarejestrowac musisz zaakceptowac regulamin servisu."));
+									FacesMessage.SEVERITY_ERROR,
+									"Nie zaakceptowałeś/aś regulaminu!",
+									"Nie zaakceptowałeś/aś regulaminu. Aby sie zarejestrować musisz zaakceptować regulamin servisu."));
 			return "";
 		}
 
@@ -70,7 +67,7 @@ public class UserRegistration implements Serializable {
 							null,
 							new FacesMessage(
 									FacesMessage.SEVERITY_INFO,
-									"Rejestracja zakończona powodzeniem. Zaloguj się, aby przejść do servisu.",
+									"Rejestracja zakończona powodzeniem. Zaloguj się, aby przejść do serwisu.",
 									"Rejestracja zakończona"));
 
 			ret = "registered";
@@ -84,9 +81,6 @@ public class UserRegistration implements Serializable {
 		return ret;
 	}
 
-	public void setPassword2(String password2) {
-		this.password2 = password2;
-	}
 
 	public void setRegulations(boolean regulations) {
 		this.regulations = regulations;

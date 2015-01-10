@@ -6,6 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:my="http://java.sun.com/jsf/composite/components">
 	<ui:define name="content">
 
@@ -13,116 +14,68 @@
 
 			<rich:panel styleClass="formPanel">
 				<f:facet name="header"> Rejestracja użytkownika </f:facet>
-				<h:messages styleClass="formMessage" />
-
-				<h:panelGrid columns="3" width="100%">
-
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Imie" />
-						<ui:param name="id" value="imieInput" />
-						<ui:param name="required" value="true" />
-						<h:inputText id="imieInput" size="40"
-							value="#{registration.user.name}" required="true" />
-					</ui:decorate>
+				<p:messages id="messages" showDetail="true" autoUpdate="true" />
 
 
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Nazwisko" />
-						<ui:param name="id" value="nazwiskoInput" />
-						<ui:param name="required" value="false" />
-						<h:inputText id="nazwiskoInput" size="40"
-							value="#{registration.user.surname}" required="false" />
-					</ui:decorate>
-					
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Płeć" />
-						<ui:param name="id" value="sex" />
-						<ui:param name="required" value="true" />
-						<h:selectOneRadio  id="sex"
-							value="#{registration.user.sex}" style="width:200px" >
+
+
+				<h:panelGrid columns="2" cellpadding="5" width="100%"
+					columnClasses="formLabel">
+					<p:outputLabel for="emailInput" value="E-mail" />
+					<p:inputText id="emailInput" value="#{registration.user.email}"
+						required="true" size="40" style="width:300px;">
+						<f:validator validatorId="uniqueEmailValidator" />
+					</p:inputText>
+
+					<p:outputLabel for="imieInput" value="Imię" />
+					<p:inputText id="imieInput" value="#{registration.user.name}"
+						required="true" size="40" style="width:300px;" />
+
+					<p:outputLabel for="nazwiskoInput" value="Nazwisko" />
+					<p:inputText id="nazwiskoInput" style="width:300px;"
+						value="#{registration.user.surname}" required="false" size="40" />
+
+					<p:outputLabel for="plecInput" value="Płeć" />
+					<p:selectOneRadio id="plecInput" value="#{registration.user.sex}"
+						style="width:200px" required="true">
 						<f:selectItem itemLabel="kobieta" itemValue="K" />
 						<f:selectItem itemLabel="mężczyzna" itemValue="M" />
-												
-						</h:selectOneRadio >
-					</ui:decorate>
-					
-					
-
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Email" />
-						<ui:param name="id" value="emailInput" />
-						<ui:param name="required" value="true" />
-						<h:inputText id="emailInput" size="40"
-							value="#{registration.user.email}" required="true">
-							<f:validator validatorId="uniqueEmailValidator" />
-						</h:inputText>
-					</ui:decorate>
+					</p:selectOneRadio>
 
 
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Wyznanie" />
-						<ui:param name="id" value="wyznanieInput" />
-						<ui:param name="required" value="false" />
-						<h:inputText id="wyznanieInput" size="40"
-							value="#{registration.user.religion}" required="false" />
-					</ui:decorate>
+					<p:outputLabel for="wyznanieInput" value="Wyznanie" />
+					<p:inputText id="wyznanieInput" style="width:300px;"
+						value="#{registration.user.religion}" required="false" size="40" />
+
+					<p:outputLabel for="wspolnotaInput" value="Wspólnota" />
+					<p:inputText id="wspolnotaInput" style="width:300px;"
+						value="#{registration.user.community}" required="false" size="40" />
+
+					<p:outputLabel for="dataUrInput" value="Data urodzenia" />
+					<p:calendar id="dataUrInput" value="#{registration.user.birthDate}"
+						pattern="dd-MM-yyyy" mask="true" required="true" style="width:300px;"/>
+
+					<p:outputLabel for="adresInput" value="Adres" />
+					<p:inputTextarea id="adresInput" style="width:300px;"
+						value="#{registration.user.address}" required="false" size="40"
+						rows="2" />
+
+					<p:outputLabel for="kodInput" value="Kod pocztowy" />
+					<p:inputText id="kodInput" value="#{registration.user.code}"
+						required="false" size="10" />
+
+					<p:outputLabel for="miejscowoscInput" value="Miejscowość" />
+					<p:inputText id="miejscowoscInput" style="width:300px;"
+						value="#{registration.user.place}" required="false" size="40" />
 
 
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Wspólnota" />
-						<ui:param name="id" value="wspolnota" />
-						<ui:param name="required" value="false" />
-						<h:inputText id="wspolnotaInput" size="40"
-							value="#{registration.user.community}" required="false" />
-					</ui:decorate>
-
-
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Data urodzenia" />
-						<ui:param name="id" value="dataUrField" />
-						<ui:param name="required" value="true" />
-						<rich:calendar id="dataUrField" label="Data Urodzenia DD.MM.YYYY"
-							inputSize="40" required="true" datePattern="dd.MM.yyyy"
-							enableManualInput="true" value="#{registration.user.birthDate}">
-						</rich:calendar>
-					</ui:decorate>
-
-
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Adres" />
-						<ui:param name="id" value="adres" />
-						<ui:param name="required" value="false" />
-						<h:inputTextarea id="adresInput" cols="40" rows="2"
-							value="#{registration.user.address}" required="false" />
-					</ui:decorate>
-
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Kod" />
-						<ui:param name="id" value="kod" />
-						<ui:param name="required" value="false" />
-						<h:inputText id="Kod" size="10" value="#{registration.user.code}"
-							required="false" />
-					</ui:decorate>
-
-
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Miejscowość" />
-						<ui:param name="id" value="miejscowosc" />
-						<ui:param name="required" value="false" />
-						<h:inputText id="miejscowosc" size="40"
-							value="#{registration.user.place}" required="false" />
-					</ui:decorate>
-
-
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Województwo" />
-						<ui:param name="id" value="province" />
-						<ui:param name="required" value="false" />
-						<h:selectOneMenu id="province"
-							value="#{registration.user.province}" style="width:200px" >
+					<p:outputLabel for="wojecodztwoInput" value="Województwo" />
+					<p:selectOneMenu id="wojecodztwoInput" style="width:300px;"
+						value="#{registration.user.province}">
 						<f:selectItem itemLabel="---wybór---" itemValue="" />
 						<f:selectItem itemLabel="dolnośląskie" itemValue="dolnośląskie" />
-						<f:selectItem itemLabel="kujawsko-pomorskie" itemValue="kujawsko-pomorskie" />
+						<f:selectItem itemLabel="kujawsko-pomorskie"
+							itemValue="kujawsko-pomorskie" />
 						<f:selectItem itemLabel="lubelskie" itemValue="lubelskie" />
 						<f:selectItem itemLabel="lubuskie" itemValue="lubuskie" />
 						<f:selectItem itemLabel="łódzkie" itemValue="łódzkie" />
@@ -133,61 +86,47 @@
 						<f:selectItem itemLabel="podlaskie" itemValue="podlaskie" />
 						<f:selectItem itemLabel="pomorskie" itemValue="pomorskie" />
 						<f:selectItem itemLabel="śląskie" itemValue="śląskie" />
-						<f:selectItem itemLabel="świętokrzyskie" itemValue="świętokrzyskie" />
-						<f:selectItem itemLabel="warmińsko-mazurskie" itemValue="warmińsko-mazurskie" />
+						<f:selectItem itemLabel="świętokrzyskie"
+							itemValue="świętokrzyskie" />
+						<f:selectItem itemLabel="warmińsko-mazurskie"
+							itemValue="warmińsko-mazurskie" />
 						<f:selectItem itemLabel="wielkopolskie" itemValue="wielkopolskie" />
-						<f:selectItem itemLabel="zachodniopomorskie" itemValue="zachodniopomorskie" />
-						
-						</h:selectOneMenu>
-					</ui:decorate>
+						<f:selectItem itemLabel="zachodniopomorskie"
+							itemValue="zachodniopomorskie" />
+					</p:selectOneMenu>
 
+					<p:outputLabel for="krajInput" value="Kraj" />
+					<p:inputText id="krajInput" value="#{registration.user.country}"
+						required="false" size="40" style="width:300px;" />
 
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Kraj" />
-						<ui:param name="id" value="kraj" />
-						<ui:param name="required" value="false" />
-						<h:inputText id="kraj" size="40"
-							value="#{registration.user.country}" required="false" />
-					</ui:decorate>
+					<p:outputLabel for="haslo" value="Hasło" />
+					<p:password id="haslo" value="#{registration.user.password}"
+						style="width:300px;" match="haslo2" feedback="true" size="40"
+						promptLabel="Moc hasła" required="true" weakLabel="Słabe"
+						goodLabel="Średnie" strongLabel="Silne" />
 
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Hasło" />
-						<ui:param name="id" value="haslo" />
-						<ui:param name="required" value="true" />
-						<h:inputSecret id="haslo" required="true" size="40"
-							value="#{registration.user.password}">
-						</h:inputSecret>
-					</ui:decorate>
-
-					<ui:decorate template="/layout/field.xhtml">
-						<ui:param name="label" value="Powtórz Hasło" />
-						<ui:param name="id" value="haslo2" />
-						<ui:param name="required" value="true" />
-						<h:inputSecret id="haslo2" required="true" size="40"
-							value="#{registration.password2}">
-							<f:attribute name="passId" value="osobaForm:haslo" />
-							<f:validator validatorId="passwordValidator" />
-						</h:inputSecret>
-					</ui:decorate>
-
+					<p:outputLabel for="haslo2" value="Powtórz hasło" />
+					<p:password id="haslo2" value="#{registration.user.password}"
+						style="width:300px;" feedback="true" size="40"
+						promptLabel="Moc hasła" required="true" weakLabel="Słabe"
+						goodLabel="Średnie" strongLabel="Silne" />
 					<!--  REGULAMIN  -->
 					<h:panelGroup>
-						<h:selectBooleanCheckbox value="#{registration.regulations}">
-							<a4j:ajax event="click" />
-						</h:selectBooleanCheckbox>
-
-						<h:outputText value="Oświadczam, że zapoznałem się z " />
+						<p:selectBooleanCheckbox value="#{registration.regulations}"
+							required="true" />
+						<h:outputText value=" Oświadczam, że zapoznałem się z " />
 						<h:commandLink value="regulaminem">
 							<rich:componentControl target="popup" operation="show" />
 						</h:commandLink>
 					</h:panelGroup>
 
+					<div class="buttonPanel">
+						<p:commandButton value="Zapisz" action="#{registration.save()}"
+							render="@form" />
+					</div>
 				</h:panelGrid>
+				<br/>
 
-				<div class="buttonPanel">
-					<a4j:commandButton value="Zapisz" action="#{registration.save()}"
-						render="@form" />
-				</div>
 			</rich:panel>
 
 

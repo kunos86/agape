@@ -44,9 +44,7 @@ public class NewsBrowser implements Serializable{
 	
 
 	public List<News> getNews() {
-		if (news==null){
-			wczytajNews();
-		}
+		wczytajNews();
 		return news;
 	}
 	
@@ -55,8 +53,7 @@ public class NewsBrowser implements Serializable{
 		if (year ==null){
 			news = newsDAOBean.getNewsToStartPage(NUMBER_OF_NEWS);
 		}else{
-			news=null;
-			
+			news = newsDAOBean.getNewsFromYear(year);
 		}
 		
 		
@@ -70,7 +67,7 @@ public class NewsBrowser implements Serializable{
 		if (years==null){
 			// zastanowić się czy nie pobierać tego z bazy
 			years=new ArrayList<Integer>();
-			for (int i = 2014; i<= Calendar.getInstance().get(Calendar.YEAR); i++){			
+			for (int i = Calendar.getInstance().get(Calendar.YEAR); i>= 2014; i--){			
 				years.add(i);
 			}
 		}

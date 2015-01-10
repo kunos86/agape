@@ -162,6 +162,12 @@ public class LessonBean implements Serializable {
 		for (QuestionAnswer qa : questionAnswerList) {
 			answerDAOBean.save(qa.getAnswer());
 		}
+		FacesContext
+		.getCurrentInstance()
+		.addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Zapisano.",
+						"Lekcja została zapisana."));
 	}
 
 	public void send() {
@@ -171,7 +177,7 @@ public class LessonBean implements Serializable {
 					.getCurrentInstance()
 					.addMessage(
 							null,
-							new FacesMessage(
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd walidacji",
 									"Na wszystkie pytania musisz udzielić odpowiedzi!"));
 			return;
 
@@ -184,7 +190,7 @@ public class LessonBean implements Serializable {
 		.getCurrentInstance()
 		.addMessage(
 				null,
-				new FacesMessage(
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Zapisano i wysłano.",
 						"Lekcja została wysłana do sprawdzenia. Dziękujemy za wypełnienie lekcji!"));
 
 	}

@@ -154,6 +154,14 @@ public class UserDAOBean extends BaseDAO<User> {
 		saveOrUpdate(osoba);
 
 	}
+	public User getCurrentTeacherForStudent(Long studentId){
+		return (User) getHibernateSession()
+				.createQuery(
+						"from User u where exists(Select id from StudentTeacher s where s.student.id = :studentId "
+								+ "and s.current = 'T' and s.teacher.id = u.id ) "
+								+ "and exists (select r.id from Role r where r.user.id=u.id and r.roleName='TEACHER' and r.enabled =true)")
+				.setParameter("studentId", studentId).uniqueResult();
+	}
 
 	//
 	// @SuppressWarnings("unchecked")

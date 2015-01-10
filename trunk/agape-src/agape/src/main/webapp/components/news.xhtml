@@ -56,11 +56,11 @@
 				<f:facet name="header">
 					<h:outputText value="Archiwum" />
 				</f:facet>
-
+				<a4j:region>
 				<rich:list value="#{newsBrowser.years}" id="list" var="_y">
 
 					<a4j:commandLink action="#{newsBrowser.changeYear()}" value="#{_y}"
-						execute="@this" render="@this" styleClass="headerGray"
+						render="@form" styleClass="headerGray"
 						immediate="true">
 						<a4j:param value="#{_y}" assignTo="#{newsBrowser.year}" />
 					</a4j:commandLink>
@@ -68,6 +68,8 @@
 
 
 				</rich:list>
+				</a4j:region>
+	
 
 
 			</rich:panel>

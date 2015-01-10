@@ -80,7 +80,7 @@ public class User implements Serializable {
 	private String name;
 
 	@Column(name = "password", length = 100)
-	@Length(min = 5)
+	@Length(min = 5, max=100, message="Hasło musi mieć co najmniej 5 znaków")
 	private String password;
 
 	@Column(name = "place", length = 100)

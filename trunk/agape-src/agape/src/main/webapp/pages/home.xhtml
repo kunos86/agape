@@ -9,7 +9,8 @@
 	xmlns:my="http://java.sun.com/jsf/composite/components">
 	<ui:define name="content">
 		<f:metadata>
-			<f:event type="preRenderView" listener="#{homeBean.reloadSessionUser()}" />
+			<f:event type="preRenderView"
+				listener="#{homeBean.reloadSessionUser()}" />
 		</f:metadata>
 		<h:form>
 			<rich:panel header="Twój profil">
@@ -37,7 +38,8 @@
 								<h:outputLabel value="Miejscowość:" styleClass="label" />
 								<h:outputText value="#{sessionLoggedUser.user.place}" />
 							</h:panelGroup>
-							<h:commandLink value="Zmień moje dane" action="/pages/oMnie.xhtml" />
+							<h:commandLink value="Zmień moje dane"
+								action="/pages/oMnie.xhtml" />
 							<h:commandLink value="Zmień hasło"
 								action="/pages/zmianaHasla.xhtml" />
 						</h:panelGrid>
@@ -47,11 +49,25 @@
 				<br />
 
 				<h:panelGrid columns="1" columnClasses="pageText">
-					
+
+					<h:panelGroup rendered="#{permissionManagement.studentLogged}">
+						<h:outputText value="Twoim nauczycielem jest "
+							style="color:#009ed2"
+							rendered="#{homeBean.currentTeacher != null}" />
+						<a4j:commandLink value="#{homeBean.currentTeacher.fullName}."
+							style="color:#009ed2"
+							action="#{userInfoPopup.load(homeBean.currentTeacher.id)}"
+							render="userInfoPopup"
+							oncomplete="#{rich:component('userInfoPopup')}.show(); return false;"
+							rendered="#{homeBean.currentTeacher != null}" />
+					</h:panelGroup>
+
 					<h:outputText value="#{_text.get('user.moj.profil.non.confirmed')}"
 						rendered="#{!sessionLoggedUser.user.mailConfirmation}"
 						styleClass="formMessage" />
-					<h:commandLink value="Wyślij link ponownie" action="#{homeBean.sendConfirmationMail()}" rendered="#{!sessionLoggedUser.user.mailConfirmation}"/>
+					<h:commandLink value="Wyślij link ponownie"
+						action="#{homeBean.sendConfirmationMail()}"
+						rendered="#{!sessionLoggedUser.user.mailConfirmation}" />
 
 
 					<h:outputText value="#{_text.get('teacher.moj.profil.info')}"
@@ -62,17 +78,10 @@
 
 				</h:panelGrid>
 
-
-
-
-
-
-
-
-
 			</rich:panel>
 
 		</h:form>
+		<ui:include src="/components/userInfo.xhtml" />
 
 	</ui:define>
 </ui:composition>

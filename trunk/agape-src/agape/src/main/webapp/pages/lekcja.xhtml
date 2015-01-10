@@ -6,12 +6,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:my="http://java.sun.com/jsf/composite/components">
 	<ui:define name="content">
 		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="false"  />  
 			<rich:panel header="Witaj w lekcji nr #{lessonBean.lesson.number}">
-				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
-
+				<p:messages id="messagesTop" showDetail="true" autoUpdate="true" />
 				<div class="introductionDiv">
 					<h:outputText value="Cel: " styleClass="blueHeader"/>
 					<h:outputText value="#{lessonBean.lesson.introduction}" />
@@ -43,8 +44,9 @@
 
 
 
-						<h:inputTextarea rows="6" value="#{_qa.answer.content}"
+						<h:inputTextarea id="answer" rows="6" value="#{_qa.answer.content}"
 							readonly="#{lessonBean.educationState.sent}"  style="width:100%;"/>
+						<p:message for="answer"/>
 
 
 						<a4j:commandButton value="Zapisz odpowiedź"
@@ -67,7 +69,7 @@
 				<br />
 				<h:outputText styleClass="introductionDiv"
 						rendered="#{lessonBean.lesson.homework!=null and lessonBean.lesson.homework!='' }"
-						value="#{lessonBean.lesson.homework}" />
+						value="#{lessonBean.lesson.homework}" escape="false"/>
 				<br/>
 				<br/>
 				<br/>
@@ -83,8 +85,8 @@
 					readonly="#{lessonBean.educationState.checked || !permissionManagement.teacherLogged}" />
 
 				<br />
+				<p:messages id="messages" showDetail="true" autoUpdate="true" />
 
-				<h:messages infoClass="messageInfo" warnClass="messageWarn" />
 				<h:panelGrid columns="2" style="margin-left:auto;">
 					<a4j:commandButton value="Zapisz" action="#{lessonBean.save()}"
 						disabled="#{lessonBean.educationState.sent}" render="@form"

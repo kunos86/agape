@@ -210,7 +210,20 @@ div#kolumna_prawa_glowna {
 }
 
 
-button, input[type="reset"], input[type="submit"], input[type="button"] {
+.ui-widget{
+	font-family: trebuchet ms",sans-serif !important;
+    font-size: 14px !important;
+    color: #808080;
+	
+} 
+
+.ui-inputfield{
+	box-shadow:none;
+	border: 1px solid #a8a8a8 !important;
+	
+}
+
+.ui-button, button, input[type="reset"], input[type="submit"], input[type="button"] {
     background-color: #008dde;
     background-position: left top;
     border-color: #11808A;
@@ -221,6 +234,7 @@ button, input[type="reset"], input[type="submit"], input[type="button"] {
     padding:4px 10px 4px 10px;
     border-radius: 5px;
     background-image:none !important;
+    text-shadow: none;
 }
 button[disabled]:active, button[disabled],
 input[type="reset"][disabled]:active,
@@ -702,4 +716,8 @@ img#img_zaloguj {
 	 text-decoration: none;
 }
 
+
+textarea, input[type="text"], input[type="password"], select{
+	font-size: 14px ;
+}
 
