@@ -136,6 +136,13 @@
 						<h:inputText id="kraj" size="40"
 							value="#{userDataBrowser.user.country}" required="false" />
 					</ui:decorate>
+					
+					<ui:decorate template="/layout/field.xhtml">
+						<ui:param name="label" value="Otrzymuj maile informacyjne" />
+						<ui:param name="id" value="wyslijMail" />
+						<ui:param name="required" value="false" />
+						<h:selectBooleanCheckbox value="#{userDataBrowser.user.sendMail}" id ="wyslijMail"/>
+					</ui:decorate>
 
 				</h:panelGrid>
 

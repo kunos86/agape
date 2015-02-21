@@ -20,6 +20,7 @@ import pl.ksb.agape.domain.model.Course;
 import pl.ksb.agape.domain.model.EducationState;
 import pl.ksb.agape.domain.model.Lesson;
 import pl.ksb.agape.domain.model.User;
+import pl.ksb.agape.service.ChangeInLessonMailSender;
 import pl.ksb.agape.util.Encoder;
 import pl.ksb.agape.view.bean.SessionLoggedUser;
 
@@ -44,6 +45,9 @@ public class StudentProgresBrowser {
 	private SessionLoggedUser sessionLoggedUser;
 
 	private User student;
+	
+	@EJB
+	private ChangeInLessonMailSender changeInLessonMailSender;
 
 	private Long studentId;
 
@@ -149,6 +153,8 @@ public class StudentProgresBrowser {
 		state.setStudent(student);
 		state.setSharedDate(Calendar.getInstance().getTime());
 		educationStateDAOBean.saveOrUpdate(state);
+		User teacher = userDAOBean.getCurrentTeacherForStudent(studentId) ;
+		changeInLessonMailSender.sendMailToStudentWithShareLessonInfo(student, teacher, l);
 		loadCourses();
 	}
 	
