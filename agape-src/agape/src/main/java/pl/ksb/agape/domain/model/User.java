@@ -112,6 +112,12 @@ public class User implements Serializable {
 	@Column(name = "surname", length = 50)
 	@Length(max = 50)
 	private String surname;
+	
+	
+	@Column(name = "send_mail")
+	private Boolean sendMail;
+	
+	
 
 	@Override
 	public boolean equals(Object object) {
@@ -336,5 +342,15 @@ public class User implements Serializable {
 	public List<Role> getRolesList() {
 	    return new ArrayList<Role>(roles);
 	}
+
+	public Boolean getSendMail() {
+		return sendMail;
+	}
+
+	public void setSendMail(Boolean sendMail) {
+		this.sendMail = sendMail;
+	}
+	
+	
 
 }

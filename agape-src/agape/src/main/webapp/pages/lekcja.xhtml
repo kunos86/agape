@@ -79,7 +79,7 @@
 					value="Komentarz nauczyciela" />
 				<br />
 
-				<h:inputTextarea cols="80" rows="6"
+				<h:inputTextarea rows="6"  style="width:100%;"
 					value="#{lessonBean.educationState.comment}"
 					rendered="#{(lessonBean.educationState.sent and lessonBean.isTeacher) or lessonBean.educationState.checked }"
 					readonly="#{lessonBean.educationState.checked || !permissionManagement.teacherLogged}" />

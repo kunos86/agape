@@ -28,6 +28,7 @@ import pl.ksb.agape.domain.model.Question;
 import pl.ksb.agape.domain.model.QuestionAddition;
 import pl.ksb.agape.domain.model.User;
 import pl.ksb.agape.domain.model.type.QuestionAnswer;
+import pl.ksb.agape.service.ChangeInLessonMailSender;
 import pl.ksb.agape.util.Encoder;
 
 @ManagedBean
@@ -45,6 +46,9 @@ public class LessonBean implements Serializable {
 
 	private Lesson lesson;
 	
+	private User student;
+	private User teacher;
+	
 	private Boolean isStudent = false;
 	private Boolean isTeacher = false;
 
@@ -55,6 +59,10 @@ public class LessonBean implements Serializable {
 
 	@EJB
 	private QuestionDAOBean questionDAOBean;
+	
+	@EJB
+	private ChangeInLessonMailSender changeInLessonMailSender;
+	
 
 	@ManagedProperty(value = "#{sessionLoggedUser}")
 	private SessionLoggedUser sessionLoggedUser;
@@ -65,6 +73,8 @@ public class LessonBean implements Serializable {
 	public String check() throws IOException {
 		educationState.setCheckedDate(Calendar.getInstance().getTime());
 		educationStateDAOBean.saveOrUpdate(educationState);
+		
+		changeInLessonMailSender.sendMailToStudentWithCheckLessonInfo(student, teacher, lesson);
 
 		return "/pages/teacher/postepUcznia.jsf?faces-redirect=true&id="
 				+ Encoder.encode(this.idStudent);
@@ -108,7 +118,8 @@ public class LessonBean implements Serializable {
 		}else{
 			isTeacher=true;
 		}
-		User student = userDAOBean.getById(idStudent);
+		student = userDAOBean.getById(idStudent);
+		teacher = userDAOBean.getCurrentTeacherForStudent(idStudent) ;
 
 		educationState = educationStateDAOBean.getByIdLessonIdStudent(idLesson,
 				idStudent);
@@ -192,6 +203,10 @@ public class LessonBean implements Serializable {
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Zapisano i wysłano.",
 						"Lekcja została wysłana do sprawdzenia. Dziękujemy za wypełnienie lekcji!"));
+		
+		
+		changeInLessonMailSender.sendMailToTeacherWithSendLessonInfo(student, teacher, lesson);
+		
 
 	}
 	

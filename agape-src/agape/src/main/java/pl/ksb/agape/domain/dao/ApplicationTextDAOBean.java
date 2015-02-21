@@ -20,6 +20,14 @@ public class ApplicationTextDAOBean extends BaseDAO<ApplicationText> {
 		return getHibernateSession().createCriteria(ApplicationText.class)
 				.addOrder(Order.desc("type")).addOrder(Order.asc("id")).list();
 	}
+	
+	public ApplicationText getText(String id) {
+		return getText(id, ApplicationTextType.TEXT);
+	}
+	
+	public ApplicationText getHtml(String id) {
+		return getText(id, ApplicationTextType.HTML);
+	}
 
 	public ApplicationText getText(String id,ApplicationTextType type) {
 		ApplicationText text = (ApplicationText) getHibernateSession()

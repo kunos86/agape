@@ -41,7 +41,7 @@ public class MailSenderService {
 				InternetAddress.parse(recipientEmail, false));
 
 		msg.setSubject(title);
-		msg.setText(message, "utf-8");
+		msg.setText(message, "utf-8", "html");
 		msg.setSentDate(new Date());
 
 		SMTPTransport t = (SMTPTransport) session.getTransport("smtp");
