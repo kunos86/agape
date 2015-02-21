@@ -45,6 +45,7 @@ public class UserManagement {
         	user.addRole(rola);
         	
         }
+        user.setSendMail(Boolean.TRUE);
 		userDAOBean.save(user);
 
     }
