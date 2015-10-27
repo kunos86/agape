@@ -1,0 +1,1 @@
+Portal edukacyjny Korespondencyjnej Szkoły Biblijnej.
