@@ -23,6 +23,7 @@
 		<open.saml.version>2.6.1</open.saml.version>
 		<org.richfaces.version>4.5.1.Final</org.richfaces.version>
 		<primefaces.version>5.0</primefaces.version>
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<dependencies>
@@ -52,6 +53,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+		</dependency>
+
 
 		<dependency>
 		    <groupId>org.richfaces</groupId>
